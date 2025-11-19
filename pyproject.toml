@@ -1,0 +1,85 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uni-assistant"
+version = "1.0.0"
+description = "AI-powered university assistant chatbot with RAG, multi-model support, and HIPAA compliance"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "Apache-2.0"}
+authors = [
+    {name = "University Assistant Team", email = "admin@university.edu"},
+]
+keywords = ["ai", "chatbot", "university", "rag", "hipaa", "assistant"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Education",
+]
+
+dependencies = [
+    "fastapi>=0.104.1",
+    "uvicorn[standard]>=0.24.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.5.0",
+    "sqlalchemy>=2.0.23",
+    "transformers>=4.36.2",
+    "torch>=2.1.1",
+    "sentence-transformers>=2.2.2",
+    "langchain>=0.0.350",
+    "requests>=2.31.0",
+    "beautifulsoup4>=4.12.2",
+    "cryptography>=41.0.8",
+    "click>=8.1.7",
+    "rich>=13.7.0",
+    "pandas>=2.1.4",
+    "numpy>=1.25.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.3",
+    "pytest-asyncio>=0.21.1",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+]
+
+[project.scripts]
+uni-assistant = "src.main:cli"
+
+[project.urls]
+Homepage = "https://github.com/university/uni-assistant"
+Documentation = "https://github.com/university/uni-assistant#readme"
+Repository = "https://github.com/university/uni-assistant.git"
+"Bug Tracker" = "https://github.com/university/uni-assistant/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true

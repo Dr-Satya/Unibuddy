@@ -1,0 +1,68 @@
+{
+  "university_info": {
+    "name": "GD Goenka University",
+    "established": "2013",
+    "location": "Gurugram, Haryana, India",
+    "type": "Private University",
+    "website": "https://www.gdgoenkauniversity.com"
+  },
+  "academic_programs": [
+    {
+      "level": "Undergraduate",
+      "programs": [
+        "B.Tech",
+        "BBA",
+        "B.Com",
+        "BA",
+        "B.Sc",
+        "BCA"
+      ]
+    },
+    {
+      "level": "Postgraduate",
+      "programs": [
+        "M.Tech",
+        "MBA",
+        "M.Com",
+        "MA",
+        "M.Sc",
+        "MCA"
+      ]
+    },
+    {
+      "level": "Doctoral",
+      "programs": [
+        "Ph.D in various disciplines"
+      ]
+    }
+  ],
+  "fee_structure_sample": {
+    "b_tech": {
+      "tuition_fee": "₹1,50,000 per year",
+      "hostel_fee": "₹80,000 per year",
+      "other_fees": "₹20,000 per year",
+      "total_approximate": "₹2,50,000 per year"
+    },
+    "mba": {
+      "tuition_fee": "₹2,00,000 per year",
+      "hostel_fee": "₹80,000 per year",
+      "other_fees": "₹25,000 per year",
+      "total_approximate": "₹3,05,000 per year"
+    }
+  },
+  "admission_requirements": [
+    "For UG: 10+2 with minimum 50% marks",
+    "For PG: Bachelor's degree with minimum 50% marks",
+    "Entrance exam scores (JEE/GMAT/CAT as applicable)",
+    "Personal interview"
+  ],
+  "facilities": [
+    "Modern classrooms with smart boards",
+    "Well-equipped laboratories",
+    "Digital library with e-resources",
+    "Sports complex and gymnasium",
+    "Hostel accommodation",
+    "Medical facilities",
+    "Wi-Fi enabled campus"
+  ]
+}

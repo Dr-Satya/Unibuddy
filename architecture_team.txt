@@ -1,0 +1,377 @@
+# University Assistant AI - CLI Architecture & Team Structure
+
+## 🏗️ TOP-LEVEL CLI ARCHITECTURE
+
+### Core CLI Framework
+```
+uni-assistant/
+├── cli/
+│   ├── __init__.py
+│   ├── main.py              # Master CLI controller
+│   ├── admin/               # Administrative commands
+│   │   ├── __init__.py
+│   │   ├── user_mgmt.py     # User management commands
+│   │   ├── data_mgmt.py     # Data management commands
+│   │   ├── system_mgmt.py   # System administration
+│   │   └── team_mgmt.py     # Team coordination commands
+│   ├── operations/          # Operational commands
+│   │   ├── __init__.py
+│   │   ├── scraper.py       # Data collection commands
+│   │   ├── processor.py     # Data processing commands
+│   │   ├── indexer.py       # Vector indexing commands
+│   │   └── monitor.py       # System monitoring
+│   ├── workflows/           # Team workflow commands
+│   │   ├── __init__.py
+│   │   ├── data_pipeline.py # Data pipeline orchestration
+│   │   ├── qa_testing.py    # Quality assurance workflows
+│   │   ├── deployment.py    # Deployment workflows
+│   │   └── reporting.py     # Progress reporting
+│   └── utils/               # CLI utilities
+│       ├── __init__.py
+│       ├── logger.py        # Enhanced logging
+│       ├── progress.py      # Progress tracking
+│       └── notifications.py # Team notifications
+```
+
+### CLI Command Structure
+```
+uni-assistant
+├── admin
+│   ├── users (list|create|update|delete|roles)
+│   ├── data (backup|restore|migrate|cleanup)
+│   ├── system (status|config|logs|health)
+│   └── teams (assign|progress|reports)
+├── ops
+│   ├── scrape (start|schedule|monitor|results)
+│   ├── process (clean|chunk|embed|validate)
+│   ├── index (build|update|optimize|stats)
+│   └── monitor (metrics|alerts|performance)
+├── workflows
+│   ├── pipeline (run|schedule|status|history)
+│   ├── qa (test|validate|approve|reject)
+│   ├── deploy (staging|production|rollback)
+│   └── report (daily|weekly|monthly|custom)
+└── dev
+    ├── debug (logs|trace|profiler|memory)
+    ├── test (unit|integration|load|security)
+    ├── build (package|docker|docs)
+    └── tools (migrate|seed|benchmark)
+```
+
+## 👥 TEAM STRUCTURE & ROLES
+
+### 1. DATA COLLECTION TEAM
+**Team Lead:** Senior Data Engineer
+**Members:** 2-3 Data Collection Specialists
+
+**Responsibilities:**
+- University website scraping and monitoring
+- External data source integration
+- Data quality validation and cleansing
+- Real-time data pipeline maintenance
+- API integration and rate limiting management
+
+**CLI Commands:**
+```bash
+# Data collection workflows
+uni-assistant ops scrape start --source=university --type=all
+uni-assistant ops scrape schedule --daily --time=02:00
+uni-assistant ops scrape monitor --alerts=true
+
+# Data validation
+uni-assistant workflows qa test --type=data-quality
+uni-assistant admin data backup --auto-schedule
+```
+
+**KPIs:**
+- Data freshness (< 24 hours)
+- Scraping success rate (> 95%)
+- Data quality score (> 90%)
+- Coverage completeness (100% target pages)
+
+### 2. DATA PROCESSING TEAM
+**Team Lead:** ML Engineer
+**Members:** 2-3 Data Processing Specialists
+
+**Responsibilities:**
+- Text preprocessing and cleaning
+- Document chunking and segmentation
+- Embedding generation and optimization
+- Vector database management
+- RAG system optimization
+
+**CLI Commands:**
+```bash
+# Processing workflows
+uni-assistant ops process clean --input=raw_data --output=cleaned
+uni-assistant ops process chunk --size=512 --overlap=50
+uni-assistant ops process embed --model=all-MiniLM-L6-v2
+
+# Vector operations
+uni-assistant ops index build --rebuild=true
+uni-assistant ops index optimize --compression=true
+uni-assistant ops index stats --detailed
+```
+
+**KPIs:**
+- Processing latency (< 5 minutes per document)
+- Embedding quality score (> 0.8)
+- Vector index performance (< 100ms query)
+- Data pipeline uptime (> 99%)
+
+### 3. AI MODEL TEAM
+**Team Lead:** AI/ML Engineer
+**Members:** 2-3 Model Specialists
+
+**Responsibilities:**
+- Model selection and evaluation
+- Prompt engineering and optimization
+- Model fine-tuning and customization
+- Response quality monitoring
+- A/B testing for model performance
+
+**CLI Commands:**
+```bash
+# Model management
+uni-assistant admin system config --models=update
+uni-assistant workflows qa test --type=model-accuracy
+uni-assistant ops monitor metrics --component=models
+
+# Model evaluation
+uni-assistant dev test load --model=groq-llama --concurrent=10
+uni-assistant workflows report custom --metric=response-quality
+```
+
+**KPIs:**
+- Response accuracy (> 85%)
+- Response time (< 3 seconds)
+- Model availability (> 99.9%)
+- User satisfaction rating (> 4.0/5.0)
+
+### 4. QUALITY ASSURANCE TEAM
+**Team Lead:** QA Engineer
+**Members:** 2-3 QA Specialists
+
+**Responsibilities:**
+- End-to-end testing automation
+- Performance testing and optimization
+- Security testing and compliance
+- User acceptance testing coordination
+- Bug tracking and resolution
+
+**CLI Commands:**
+```bash
+# Testing workflows
+uni-assistant workflows qa test --suite=full
+uni-assistant dev test integration --coverage=80
+uni-assistant dev test security --scan=deep
+
+# Quality monitoring
+uni-assistant workflows qa validate --threshold=95
+uni-assistant admin system health --full-report
+```
+
+**KPIs:**
+- Test coverage (> 90%)
+- Bug escape rate (< 5%)
+- Performance benchmarks (meet SLA)
+- Security vulnerability count (0 critical)
+
+### 5. DEVOPS & INFRASTRUCTURE TEAM
+**Team Lead:** DevOps Engineer
+**Members:** 1-2 Infrastructure Specialists
+
+**Responsibilities:**
+- System monitoring and alerting
+- Deployment automation
+- Infrastructure scaling
+- Backup and disaster recovery
+- Performance optimization
+
+**CLI Commands:**
+```bash
+# Infrastructure management
+uni-assistant admin system status --detailed
+uni-assistant ops monitor alerts --critical-only
+uni-assistant workflows deploy production --rollback-plan
+
+# System maintenance
+uni-assistant admin data migrate --version=2.0
+uni-assistant dev build docker --optimize
+uni-assistant ops monitor performance --auto-scale
+```
+
+**KPIs:**
+- System uptime (> 99.9%)
+- Deployment success rate (> 95%)
+- Mean time to recovery (< 30 minutes)
+- Resource utilization efficiency (< 80%)
+
+### 6. PRODUCT & PROJECT MANAGEMENT
+**Team Lead:** Product Manager
+**Members:** 1-2 Project Coordinators
+
+**Responsibilities:**
+- Sprint planning and coordination
+- Stakeholder communication
+- Feature prioritization
+- Progress tracking and reporting
+- Risk management and mitigation
+
+**CLI Commands:**
+```bash
+# Project management
+uni-assistant admin teams assign --task=data-collection --user=john
+uni-assistant workflows report weekly --team=all
+uni-assistant admin teams progress --sprint=current
+
+# Strategic planning
+uni-assistant workflows report custom --kpi=all --period=month
+uni-assistant admin system config --feature-flags=update
+```
+
+**KPIs:**
+- Sprint velocity (story points/sprint)
+- Feature delivery timeline (on-time %)
+- Stakeholder satisfaction (> 4.0/5.0)
+- Team productivity metrics
+
+## 🔄 WORKFLOW ORCHESTRATION
+
+### Daily Operations Workflow
+```bash
+# Morning standup automation
+uni-assistant workflows report daily --team=all --format=standup
+
+# Automated data pipeline
+uni-assistant workflows pipeline run --stage=collection
+uni-assistant workflows pipeline run --stage=processing
+uni-assistant workflows pipeline run --stage=indexing
+
+# Quality checks
+uni-assistant workflows qa test --priority=high
+uni-assistant ops monitor metrics --alert=anomalies
+```
+
+### Weekly Team Coordination
+```bash
+# Weekly reports
+uni-assistant workflows report weekly --kpi=true --charts=true
+
+# Team performance review
+uni-assistant admin teams progress --detailed --recommendations
+
+# System maintenance
+uni-assistant admin system health --deep-scan
+uni-assistant admin data cleanup --old-logs --optimize
+```
+
+### Monthly Planning & Review
+```bash
+# Monthly analytics
+uni-assistant workflows report monthly --comprehensive
+
+# Capacity planning
+uni-assistant ops monitor performance --forecast=next-month
+
+# Security audit
+uni-assistant dev test security --comprehensive --compliance
+```
+
+## 🛠️ DEVELOPMENT WORKFLOW
+
+### Feature Development Process
+1. **Planning Phase**
+   ```bash
+   uni-assistant admin teams assign --feature=new-feature --team=ai-model
+   uni-assistant workflows qa test --baseline=current
+   ```
+
+2. **Development Phase**
+   ```bash
+   uni-assistant dev debug trace --component=new-feature
+   uni-assistant dev test unit --coverage=90 --watch
+   ```
+
+3. **Testing Phase**
+   ```bash
+   uni-assistant workflows qa test --feature=new-feature --full-suite
+   uni-assistant dev test integration --new-feature
+   ```
+
+4. **Deployment Phase**
+   ```bash
+   uni-assistant workflows deploy staging --feature=new-feature
+   uni-assistant workflows qa validate --staging
+   uni-assistant workflows deploy production --approved
+   ```
+
+## 📊 MONITORING & ALERTING
+
+### System Health Monitoring
+```bash
+# Real-time monitoring
+uni-assistant ops monitor metrics --live-dashboard
+
+# Automated alerts
+uni-assistant ops monitor alerts --setup-rules
+uni-assistant admin system config --notification-channels
+
+# Performance tracking
+uni-assistant ops monitor performance --trending --predictions
+```
+
+### Team Performance Tracking
+```bash
+# Individual productivity
+uni-assistant admin teams progress --individual --metrics
+
+# Team collaboration metrics
+uni-assistant workflows report custom --team-efficiency
+
+# Skill development tracking
+uni-assistant admin teams progress --skills --recommendations
+```
+
+## 🚀 SCALING STRATEGY
+
+### Horizontal Scaling
+- **Data Collection:** Multi-region scraping nodes
+- **Processing:** Distributed processing clusters  
+- **Models:** Load-balanced model inference
+- **Storage:** Sharded vector databases
+
+### Vertical Scaling
+- **Performance Optimization:** Query optimization, caching
+- **Resource Management:** Dynamic resource allocation
+- **Automation:** Self-healing systems, auto-scaling
+
+### Team Scaling
+- **Onboarding Automation:** CLI-based team member setup
+- **Knowledge Transfer:** Automated documentation generation
+- **Skill Development:** CLI-based training workflows
+
+## 🔒 SECURITY & COMPLIANCE
+
+### Security Workflow
+```bash
+# Security scanning
+uni-assistant dev test security --daily-scan
+uni-assistant admin system config --security-policies
+
+# Compliance checking
+uni-assistant workflows qa validate --hipaa-compliance
+uni-assistant admin data backup --encrypted --compliant
+```
+
+### Access Control
+```bash
+# Role-based access
+uni-assistant admin users roles --assign --team-based
+uni-assistant admin system config --permissions --audit
+
+# Activity monitoring
+uni-assistant ops monitor metrics --user-activity --security
+```
+
+This architecture provides a comprehensive CLI-based framework for managing the entire University Assistant AI project with clear team responsibilities, automated workflows, and scalable operations.

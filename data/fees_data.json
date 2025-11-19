@@ -1,0 +1,326 @@
+{
+  "university": "GD Goenka University",
+  "academic_year": "2024-25",
+  "programs": {
+    "engineering": {
+      "btech": {
+        "computer_science": {
+          "annual_fee": 185000,
+          "semester_fee": 92500,
+          "admission_fee": 25000,
+          "lab_fee": 15000,
+          "library_fee": 5000,
+          "total_program_fee": 740000,
+          "duration": "4 years",
+          "specializations": [
+            "Artificial Intelligence",
+            "Data Science",
+            "Cyber Security",
+            "Software Engineering"
+          ]
+        },
+        "mechanical": {
+          "annual_fee": 175000,
+          "semester_fee": 87500,
+          "admission_fee": 25000,
+          "lab_fee": 20000,
+          "library_fee": 5000,
+          "total_program_fee": 700000,
+          "duration": "4 years",
+          "specializations": [
+            "Automotive Engineering",
+            "Manufacturing",
+            "Thermal Engineering"
+          ]
+        },
+        "electrical": {
+          "annual_fee": 180000,
+          "semester_fee": 90000,
+          "admission_fee": 25000,
+          "lab_fee": 18000,
+          "library_fee": 5000,
+          "total_program_fee": 720000,
+          "duration": "4 years"
+        },
+        "civil": {
+          "annual_fee": 165000,
+          "semester_fee": 82500,
+          "admission_fee": 25000,
+          "lab_fee": 12000,
+          "library_fee": 5000,
+          "total_program_fee": 660000,
+          "duration": "4 years"
+        }
+      }
+    },
+    "management": {
+      "mba": {
+        "general": {
+          "annual_fee": 195000,
+          "semester_fee": 97500,
+          "admission_fee": 30000,
+          "library_fee": 7000,
+          "total_program_fee": 390000,
+          "duration": "2 years",
+          "specializations": [
+            "Finance",
+            "Marketing",
+            "Human Resources",
+            "Operations",
+            "International Business"
+          ]
+        },
+        "executive": {
+          "annual_fee": 225000,
+          "semester_fee": 112500,
+          "admission_fee": 35000,
+          "library_fee": 8000,
+          "total_program_fee": 450000,
+          "duration": "2 years"
+        }
+      },
+      "bba": {
+        "annual_fee": 125000,
+        "semester_fee": 62500,
+        "admission_fee": 20000,
+        "library_fee": 5000,
+        "total_program_fee": 375000,
+        "duration": "3 years"
+      }
+    },
+    "science": {
+      "bsc": {
+        "computer_science": {
+          "annual_fee": 95000,
+          "semester_fee": 47500,
+          "admission_fee": 15000,
+          "lab_fee": 10000,
+          "library_fee": 3000,
+          "total_program_fee": 285000,
+          "duration": "3 years"
+        },
+        "physics": {
+          "annual_fee": 85000,
+          "semester_fee": 42500,
+          "admission_fee": 15000,
+          "lab_fee": 12000,
+          "library_fee": 3000,
+          "total_program_fee": 255000,
+          "duration": "3 years"
+        },
+        "chemistry": {
+          "annual_fee": 90000,
+          "semester_fee": 45000,
+          "admission_fee": 15000,
+          "lab_fee": 15000,
+          "library_fee": 3000,
+          "total_program_fee": 270000,
+          "duration": "3 years"
+        },
+        "mathematics": {
+          "annual_fee": 80000,
+          "semester_fee": 40000,
+          "admission_fee": 15000,
+          "lab_fee": 5000,
+          "library_fee": 3000,
+          "total_program_fee": 240000,
+          "duration": "3 years"
+        }
+      },
+      "msc": {
+        "computer_science": {
+          "annual_fee": 115000,
+          "semester_fee": 57500,
+          "admission_fee": 20000,
+          "lab_fee": 12000,
+          "library_fee": 5000,
+          "total_program_fee": 230000,
+          "duration": "2 years"
+        },
+        "data_science": {
+          "annual_fee": 125000,
+          "semester_fee": 62500,
+          "admission_fee": 20000,
+          "lab_fee": 10000,
+          "library_fee": 5000,
+          "total_program_fee": 250000,
+          "duration": "2 years"
+        }
+      }
+    },
+    "arts": {
+      "ba": {
+        "english": {
+          "annual_fee": 65000,
+          "semester_fee": 32500,
+          "admission_fee": 12000,
+          "library_fee": 3000,
+          "total_program_fee": 195000,
+          "duration": "3 years"
+        },
+        "psychology": {
+          "annual_fee": 75000,
+          "semester_fee": 37500,
+          "admission_fee": 12000,
+          "library_fee": 3000,
+          "total_program_fee": 225000,
+          "duration": "3 years"
+        },
+        "journalism": {
+          "annual_fee": 85000,
+          "semester_fee": 42500,
+          "admission_fee": 15000,
+          "library_fee": 4000,
+          "total_program_fee": 255000,
+          "duration": "3 years"
+        }
+      },
+      "ma": {
+        "english": {
+          "annual_fee": 85000,
+          "semester_fee": 42500,
+          "admission_fee": 15000,
+          "library_fee": 4000,
+          "total_program_fee": 170000,
+          "duration": "2 years"
+        },
+        "psychology": {
+          "annual_fee": 95000,
+          "semester_fee": 47500,
+          "admission_fee": 18000,
+          "library_fee": 5000,
+          "total_program_fee": 190000,
+          "duration": "2 years"
+        }
+      }
+    },
+    "law": {
+      "llb": {
+        "annual_fee": 145000,
+        "semester_fee": 72500,
+        "admission_fee": 25000,
+        "library_fee": 8000,
+        "total_program_fee": 435000,
+        "duration": "3 years"
+      },
+      "ballb": {
+        "annual_fee": 155000,
+        "semester_fee": 77500,
+        "admission_fee": 30000,
+        "library_fee": 10000,
+        "total_program_fee": 775000,
+        "duration": "5 years"
+      },
+      "llm": {
+        "annual_fee": 165000,
+        "semester_fee": 82500,
+        "admission_fee": 25000,
+        "library_fee": 8000,
+        "total_program_fee": 330000,
+        "duration": "2 years"
+      }
+    },
+    "pharmacy": {
+      "bpharm": {
+        "annual_fee": 195000,
+        "semester_fee": 97500,
+        "admission_fee": 30000,
+        "lab_fee": 25000,
+        "library_fee": 7000,
+        "total_program_fee": 780000,
+        "duration": "4 years"
+      },
+      "dpharm": {
+        "annual_fee": 135000,
+        "semester_fee": 67500,
+        "admission_fee": 20000,
+        "lab_fee": 15000,
+        "library_fee": 5000,
+        "total_program_fee": 270000,
+        "duration": "2 years"
+      }
+    }
+  },
+  "additional_fees": {
+    "hostel": {
+      "ac_room": {
+        "annual_fee": 145000,
+        "security_deposit": 25000
+      },
+      "non_ac_room": {
+        "annual_fee": 115000,
+        "security_deposit": 20000
+      }
+    },
+    "transport": {
+      "annual_fee": 45000,
+      "semester_fee": 22500
+    },
+    "examination_fee": 8000,
+    "sports_fee": 5000,
+    "cultural_fee": 3000,
+    "medical_insurance": 7500
+  },
+  "scholarships": {
+    "merit_based": {
+      "topper": {
+        "percentage": 50,
+        "criteria": "Above 95% in 12th grade"
+      },
+      "academic_excellence": {
+        "percentage": 25,
+        "criteria": "Above 90% in 12th grade"
+      },
+      "good_performance": {
+        "percentage": 10,
+        "criteria": "Above 85% in 12th grade"
+      }
+    },
+    "need_based": {
+      "economically_weaker": {
+        "percentage": 30,
+        "criteria": "Family income below 3 lakhs per annum"
+      }
+    },
+    "sports": {
+      "national_level": {
+        "percentage": 40,
+        "criteria": "National level sports achievements"
+      },
+      "state_level": {
+        "percentage": 20,
+        "criteria": "State level sports achievements"
+      }
+    }
+  },
+  "payment_options": {
+    "modes": ["Online", "Bank Transfer", "Demand Draft", "Credit Card", "Debit Card"],
+    "installments": {
+      "available": true,
+      "options": ["Semester-wise", "Quarterly", "Monthly (with processing fee)"]
+    },
+    "education_loan": {
+      "partner_banks": ["SBI", "HDFC", "ICICI", "Axis Bank"],
+      "assistance_provided": true
+    }
+  },
+  "admission_fees": {
+    "application_fee": 2000,
+    "counselling_fee": 5000,
+    "seat_confirmation": 15000,
+    "late_payment_penalty": 2500
+  },
+  "contact_info": {
+    "fees_department": {
+      "phone": "+91-11-12345678",
+      "email": "fees@gdgoenkauniversity.com",
+      "timings": "9:00 AM - 5:00 PM (Monday to Saturday)"
+    },
+    "admission_office": {
+      "phone": "+91-11-87654321",
+      "email": "admissions@gdgoenkauniversity.com",
+      "timings": "9:00 AM - 6:00 PM (Monday to Saturday)"
+    }
+  },
+  "last_updated": "2024-09-03"
+}

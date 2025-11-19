@@ -1,0 +1,153 @@
+{
+  "university_fee_structure": {
+    "undergraduate_programs": {
+      "engineering": {
+        "program_name": "Bachelor of Technology (B.Tech)",
+        "description": "4-year undergraduate engineering programs in various specializations",
+        "specializations": [
+          {
+            "branch": "Computer Science Engineering",
+            "annual_fee": "₹2,50,000",
+            "total_fee_4_years": "₹10,00,000",
+            "additional_fees": {
+              "admission_fee": "₹25,000",
+              "security_deposit": "₹10,000",
+              "lab_fee": "₹15,000"
+            }
+          },
+          {
+            "branch": "Mechanical Engineering", 
+            "annual_fee": "₹2,25,000",
+            "total_fee_4_years": "₹9,00,000",
+            "additional_fees": {
+              "admission_fee": "₹25,000",
+              "security_deposit": "₹10,000",
+              "lab_fee": "₹12,000"
+            }
+          },
+          {
+            "branch": "Electronics & Communication",
+            "annual_fee": "₹2,40,000",
+            "total_fee_4_years": "₹9,60,000",
+            "additional_fees": {
+              "admission_fee": "₹25,000",
+              "security_deposit": "₹10,000",
+              "lab_fee": "₹14,000"
+            }
+          }
+        ]
+      },
+      "business_management": {
+        "program_name": "Bachelor of Business Administration (BBA)",
+        "annual_fee": "₹1,80,000",
+        "total_fee_3_years": "₹5,40,000",
+        "additional_fees": {
+          "admission_fee": "₹20,000",
+          "security_deposit": "₹8,000"
+        }
+      }
+    },
+    "postgraduate_programs": {
+      "mba": {
+        "program_name": "Master of Business Administration (MBA)",
+        "annual_fee": "₹3,50,000",
+        "total_fee_2_years": "₹7,00,000",
+        "specializations": ["Finance", "Marketing", "HR", "Operations", "IT"],
+        "additional_fees": {
+          "admission_fee": "₹30,000",
+          "security_deposit": "₹15,000"
+        }
+      },
+      "mtech": {
+        "program_name": "Master of Technology (M.Tech)",
+        "annual_fee": "₹2,75,000",
+        "total_fee_2_years": "₹5,50,000",
+        "specializations": ["CSE", "ECE", "Mechanical"],
+        "additional_fees": {
+          "admission_fee": "₹25,000",
+          "security_deposit": "₹12,000"
+        }
+      }
+    },
+    "payment_options": {
+      "installment_plans": [
+        {
+          "plan_type": "Semester-wise Payment",
+          "description": "Pay fees at the beginning of each semester",
+          "installments": 2,
+          "per_installment": "50% of annual fee"
+        },
+        {
+          "plan_type": "Quarterly Payment",
+          "description": "Pay fees in four quarterly installments",
+          "installments": 4,
+          "per_installment": "25% of annual fee"
+        }
+      ],
+      "payment_methods": [
+        "Online payment through university portal",
+        "Bank transfer",
+        "Demand draft",
+        "Cheque payment"
+      ]
+    },
+    "scholarships": [
+      {
+        "scholarship_name": "Merit Scholarship",
+        "eligibility": "Students with 90%+ in qualifying exam",
+        "benefit": "25% fee waiver",
+        "application_deadline": "Before admission"
+      },
+      {
+        "scholarship_name": "Need-based Scholarship",
+        "eligibility": "Students from economically weaker sections",
+        "benefit": "Up to 50% fee waiver",
+        "application_deadline": "Within 30 days of admission"
+      }
+    ]
+  },
+  "hostel_fees": {
+    "accommodation_types": [
+      {
+        "room_type": "Single Occupancy",
+        "annual_fee": "₹1,20,000",
+        "facilities": ["AC room", "Attached bathroom", "WiFi", "Laundry"]
+      },
+      {
+        "room_type": "Double Occupancy", 
+        "annual_fee": "₹80,000",
+        "facilities": ["AC room", "Shared bathroom", "WiFi", "Laundry"]
+      }
+    ],
+    "mess_fee": {
+      "annual_fee": "₹60,000",
+      "meal_types": ["Vegetarian", "Non-vegetarian"],
+      "timing": "Breakfast, Lunch, Snacks, Dinner"
+    }
+  },
+  "additional_charges": {
+    "library_fee": "₹5,000",
+    "sports_fee": "₹8,000", 
+    "cultural_activities_fee": "₹3,000",
+    "examination_fee": "₹2,000",
+    "degree_certificate_fee": "₹1,000"
+  },
+  "sample_faqs": [
+    {
+      "question": "What is the total fee for B.Tech Computer Science including all charges?",
+      "answer": "The total fee for B.Tech Computer Science is ₹10,00,000 for 4 years plus ₹50,000 admission and additional fees, totaling approximately ₹10,50,000."
+    },
+    {
+      "question": "Are there any scholarship opportunities available?",
+      "answer": "Yes, GD Goenka University offers merit scholarships (25% fee waiver for 90%+ scorers) and need-based scholarships (up to 50% fee waiver for economically weaker sections)."
+    },
+    {
+      "question": "Can I pay fees in installments?",
+      "answer": "Yes, the university offers semester-wise payment (2 installments) and quarterly payment (4 installments) options for your convenience."
+    },
+    {
+      "question": "What are the hostel charges?",
+      "answer": "Hostel fees range from ₹80,000 (double occupancy) to ₹1,20,000 (single occupancy) annually, plus ₹60,000 for mess charges."
+    }
+  ]
+}

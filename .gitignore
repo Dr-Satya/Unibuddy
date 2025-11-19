@@ -1,0 +1,23 @@
+# Python venv
+venv/
+
+# Logs and runtime data
+logs/
+*.log
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Compiled Python and caches
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
