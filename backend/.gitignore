@@ -1,0 +1,87 @@
+# ====================
+# Node.js / Frontend
+# ====================
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+*.local
+
+# Editor / OS files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# ====================
+# Python / Backend
+# ====================
+
+# Virtual environments
+venv/
+.env/
+env/
+ENV/
+
+# Environment variables and secrets
+.env
+.env.*
+.env.local
+.env.development
+.env.production
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Jupyter/IPython
+.ipynb_checkpoints/
+
+# Testing / coverage
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+.coverage.*
+
+# Database (if using SQLite, etc.)
+*.db
+*.sqlite3
+
+# Migrations (if using Alembic or similar)
+migrations/versions/*.pyc
+
+# Other common Python ignores
+*.manifest
+*.spec
+pip-wheel-metadata/
+
+# ====================
+# General
+# ====================
+
+# IDE / Editor specific
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Temporary files
+*.tmp
+*.temp
