@@ -1,130 +1,251 @@
-# UniBuddy
+# 🎓 UniBuddy - AI-Powered University Assistant
 
-UniBuddy is a full‑stack web application that helps students connect, share information, and stay organized. It includes a React + Vite frontend and a Python backend, all wired together with a one‑command launcher.
+> Intelligent chatbot with authentication and role-based access control
 
----
+## 🌟 Features
 
-## Features
+- 🤖 **AI Chatbot** - RAG-powered university information assistant
+- 🔐 **Authentication** - Secure JWT-based authentication
+- 👥 **RBAC** - Role-Based Access Control (Student/Admin)
+- ✉️ **Email Verification** - Secure account verification
+- 📊 **Admin Panel** - Complete student management system
+- 🎨 **Modern UI** - Dark theme with smooth animations
 
-- Modern frontend (React + Vite + TypeScript)
-- Python backend API (runs on port 9000)
-- One‑command start script that runs frontend and backend together
-- Environment‑based configuration via `.env` files
-- Hot‑reload dev experience for quick iteration
-
----
-
-## Project Structure
-
-```text
-UniBuddy/
-  backend/        # Python backend (APIs, DB, business logic)
-  public/         # Static assets served by frontend
-  src/            # Frontend source (React components, hooks, etc.)
-  start_all.py    # Helper script to run frontend + backend together
-  package.json    # Frontend dependencies & scripts
-  tsconfig*.json  # TypeScript configuration
-  vite.config.ts  # Vite config
-```
-
----
-
-## Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
+- Node.js (v16+)
+- Python (v3.8+)
+- MongoDB (local or Atlas)
 
-- **Node.js** (LTS recommended)
-- **Python 3.10+** (or compatible with your backend)
-- **Git**
+### Start the Application
 
-### 1. Install Frontend Dependencies
-
-From the project root:
-
-```bash
-cd UniBuddy
-npm install
+**Option 1: Batch File (Windows)**
+```cmd
+start-all.bat
 ```
 
-### 2. Configure Environment Variables
-
-Create a `.env` file in the project root (if it doesn’t already exist):
-
-```bash
-# example .env
-VITE_API_BASE_URL=http://localhost:9000
-BACKEND_PORT=9000
-NODE_ENV=development
-```
-
-> Never commit real secrets (API keys, DB passwords, etc.). They are already ignored via `.gitignore`.
-
----
-
-## One‑Command Launch (Recommended)
-
-From the project root, run:
-
+**Option 2: Python Script**
 ```bash
 python start_all.py
 ```
 
-This will:
-
-- Automatically install frontend dependencies if needed
-- Start both backend (port 9000) and frontend dev server
-- Show interleaved logs with clear prefixes
-- Shut down both cleanly with `Ctrl+C`
-
-Once everything is running:
-
-- Frontend: `http://localhost:5173` (default Vite port)
-- Backend API: `http://localhost:9000`
-
----
-
-## Running Frontend / Backend Separately
-
-### Frontend only
-
+**Option 3: Manual Start**
 ```bash
+# Terminal 1 - Auth Backend
+cd backend/Unibuddy-Auth/Unibuddy-MERN-Authentication/backend
+npm start
+
+# Terminal 2 - Chatbot Backend
+cd backend
+python api.py
+
+# Terminal 3 - Frontend
 npm run dev
 ```
 
-### Backend only
+### Access the App
+Open http://localhost:5173
 
-From the `backend` folder (example, adjust to your entry file):
+## 📖 Documentation
 
-```bash
-cd backend
-python main.py
+| Document | Description |
+|----------|-------------|
+| **START_HERE.md** | 👈 Start here! Quick overview |
+| **MANUAL_START.md** | Step-by-step manual start guide |
+| **QUICK_START.md** | Quick start with all options |
+| **README_INTEGRATION.md** | Complete integration guide |
+| **INTEGRATION_COMPLETE.md** | What was implemented |
+| **INTEGRATION_GUIDE.md** | Technical documentation |
+| **ARCHITECTURE.md** | System architecture |
+
+## 🎯 User Flow
+
+```
+Landing Page → Login/Signup → Email Verification
+                                      ↓
+                              Check User Role
+                                      ↓
+                    ┌─────────────────┴─────────────────┐
+                    ↓                                   ↓
+              STUDENT Role                        ADMIN Role
+                    ↓                                   ↓
+            Chatbot Access                      Admin Panel
 ```
 
----
+## 🧪 Test Accounts
 
-## Available NPM Scripts
+### Student Account
+- Email: `student@gdgu.org`
+- Password: `Test@1234`
+- Access: Chatbot only
 
-Common scripts (see `package.json` for the full list):
+### Admin Account
+- Email: `saafin@gdgu.org` (or any admin from whitelist)
+- Password: `Test@1234`
+- Access: Admin panel + Chatbot
 
-```bash
-npm run dev       # Start Vite dev server
-npm run build     # Production build
-npm run preview   # Preview production build locally
-npm run lint      # Run linting
+## 🔐 Admin Whitelist
+
+Admin emails are configured in:
+```
+backend/Unibuddy-Auth/Unibuddy-MERN-Authentication/backend/config/adminWhitelist.js
 ```
 
+Current admins:
+- saafin@gdgu.org
+- 230160223057.saafin@gdgu.org
+- samkit@gdgu.org
+- kiyosha@gdgu.org
+
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────────────────┐
+│                  UniBuddy System                    │
+│                                                     │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐        │
+│  │ Frontend │  │   Auth   │  │ Chatbot  │        │
+│  │  React   │  │  Node.js │  │  Python  │        │
+│  │  :5173   │  │  :5000   │  │  :9000   │        │
+│  └────┬─────┘  └────┬─────┘  └────┬─────┘        │
+│       └─────────────┴──────────────┘               │
+│                     │                              │
+│              ┌──────▼──────┐                       │
+│              │   MongoDB   │                       │
+│              └─────────────┘                       │
+└─────────────────────────────────────────────────────┘
+```
+
+## 🛠️ Tech Stack
+
+### Frontend
+- React 19.2.0
+- TypeScript 5.9.3
+- Vite 7.2.4
+- React Router DOM
+- Zustand (State Management)
+- Tailwind CSS
+
+### Backend (Auth)
+- Node.js + Express
+- MongoDB + Mongoose
+- JWT Authentication
+- Mailtrap (Email)
+
+### Backend (Chatbot)
+- Python + FastAPI
+- RAG (Retrieval-Augmented Generation)
+- FAISS Vector Database
+- Groq API
+
+## 📦 Project Structure
+
+```
+UniBuddy/
+├── src/                    # Frontend source
+│   ├── components/         # React components
+│   ├── pages/             # Page components
+│   └── store/             # State management
+├── backend/
+│   ├── src/               # Chatbot backend
+│   └── Unibuddy-Auth/    # Auth backend
+├── start-all.bat          # Windows startup
+├── start_all.py           # Python startup
+└── start-all.ps1          # PowerShell startup
+```
+
+## 🔧 Environment Setup
+
+Create `.env` in `backend/Unibuddy-Auth/Unibuddy-MERN-Authentication/backend/`:
+
+```env
+MONGO_URI=mongodb://localhost:27017/unibuddy
+JWT_SECRET=your_secret_key_here
+CLIENT_URL=http://localhost:5173
+MAILTRAP_TOKEN=your_mailtrap_token
+PORT=5000
+```
+
+## 🐛 Troubleshooting
+
+### Services won't start?
+1. Check MongoDB is running
+2. Check ports 5000, 9000, 5173 are available
+3. Install dependencies: `npm install` and `pip install -r requirements.txt`
+
+### Email verification not working?
+1. Check Mailtrap configuration
+2. Verify MAILTRAP_TOKEN in .env
+
+### Admin role not assigned?
+1. Check email is in adminWhitelist.js
+2. Restart auth backend
+
+See `MANUAL_START.md` for detailed troubleshooting.
+
+## ✅ Features Implemented
+
+- ✅ JWT-based authentication
+- ✅ Email verification with OTP
+- ✅ Role-based access control
+- ✅ Protected routes
+- ✅ Student chatbot access
+- ✅ Admin panel access
+- ✅ Session management
+- ✅ Password hashing
+- ✅ CORS configuration
+- ✅ Error handling
+- ✅ Loading states
+- ✅ Toast notifications
+
+## 🎓 Usage
+
+### For Students
+1. Sign up with @gdgu.org email
+2. Verify email
+3. Access chatbot
+4. Ask questions about university
+
+### For Admins
+1. Sign up with admin email
+2. Verify email
+3. Access admin panel
+4. Manage students
+5. Use chatbot
+
+## 📝 API Endpoints
+
+### Auth API (Port 5000)
+- `POST /api/auth/signup` - Register
+- `POST /api/auth/login` - Login
+- `POST /api/auth/logout` - Logout
+- `POST /api/auth/verify-email` - Verify email
+- `GET /api/auth/check-auth` - Check auth status
+
+### Chatbot API (Port 9000)
+- `POST /chat` - Send message
+
+## 🚀 Deployment
+
+Ready for production deployment:
+- Frontend: Vercel, Netlify
+- Auth Backend: Heroku, Railway
+- Chatbot Backend: Railway, Render
+- Database: MongoDB Atlas
+
+## 📄 License
+
+This project is part of GD Goenka University.
+
+## 🤝 Contributing
+
+This is an internal university project.
+
+## 📞 Support
+
+For issues or questions, check the documentation files or contact the development team.
+
 ---
 
-## Contributing
-
-1. Fork the repository
-2. Create a new branch: `git checkout -b feature/my-feature`
-3. Commit your changes: `git commit -m "Add my feature"`
-4. Push to the branch: `git push origin feature/my-feature`
-5. Open a Pull Request
-
----
-
-## License
-
-This project is currently unlicensed. If you plan to use it in production or as open source, consider adding a license (e.g., MIT, Apache 2.0) in `LICENSE`.
+**Made with ❤️ for GD Goenka University**

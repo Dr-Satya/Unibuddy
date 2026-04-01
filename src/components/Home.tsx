@@ -1,4 +1,26 @@
+import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../store/authStore';
+import { useAuthModal } from '../context/AuthModalContext';
+
 const Home = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated, user } = useAuthStore();
+  const { openModal } = useAuthModal();
+
+  const handleStartConversation = () => {
+    if (isAuthenticated) {
+      // Redirect based on role
+      if (user?.role === 'ADMIN') {
+        navigate('/admin');
+      } else {
+        // Student stays on home page, just scroll to top or show message
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    } else {
+      openModal('login');
+    }
+  };
+
   return (
     <main className="relative z-10 pt-40">
       <section className="max-w-7xl mx-auto px-10 text-center">
@@ -21,11 +43,11 @@ const Home = () => {
         </p>
 
         <button
-          onClick={() => window.dispatchEvent(new Event("open-chatbot"))}
+          onClick={handleStartConversation}
           className="px-12 py-5 bg-[#d4af37] text-[#0f172a] rounded-2xl font-black text-xl
                      shadow-[0_20px_50px_-10px_rgba(212,175,55,0.4)]
                      hover:scale-105 transition uppercase tracking-widest">
-          Start Conversation
+          {isAuthenticated ? (user?.role === 'ADMIN' ? 'Open Admin Panel' : 'Start Chatting') : 'Get Started'}
         </button>
 
       </section>
