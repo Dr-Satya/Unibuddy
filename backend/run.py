@@ -10,11 +10,9 @@ from pathlib import Path
 
 # Ensure stdout uses UTF-8 to allow emoji/status characters on Windows
 try:
-    # Python 3.7+ supports reconfigure
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
     sys.stderr.reconfigure(encoding='utf-8', errors='replace')
 except Exception:
-    # Fallback: set PYTHONIOENCODING environment variable for child processes
     import os
     os.environ.setdefault('PYTHONIOENCODING', 'utf-8')
 
@@ -23,6 +21,10 @@ current_dir = Path(__file__).parent
 src_dir = current_dir / "src"
 if str(src_dir) not in sys.path:
     sys.path.insert(0, str(src_dir))
+
+# Load .env BEFORE importing any src modules
+from dotenv import load_dotenv
+load_dotenv(dotenv_path=current_dir / ".env")
 
 import uvicorn
 

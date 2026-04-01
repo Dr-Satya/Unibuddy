@@ -1,0 +1,15 @@
+{
+  "name": "Client Error",
+  "role": null,
+  "department": null,
+  "location": null,
+  "education": [],
+  "research": [],
+  "experience": [],
+  "links": [
+    "https://api-inference.huggingface.co/models/gpt2."
+  ],
+  "sources": [
+    "https://api-inference.huggingface.co/models/gpt2."
+  ]
+}

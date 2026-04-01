@@ -79,7 +79,7 @@ def main():
     print_colored("Starting Chatbot Backend on Port 9000...", 'cyan')
     start_service(
         "Chatbot Backend",
-        "python api.py",
+        "python run.py",
         "backend"
     )
     time.sleep(3)

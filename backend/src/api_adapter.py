@@ -170,7 +170,7 @@ def get_reply(user_message: str, session_id: str = None) -> Dict[str,Any]:
 
     history = _compose_history(session_id)
     prompt = PROMPT_TEMPLATE.format(RAG_CONTEXT=full_context or 'No relevant context found', HISTORY=history, USER_QUESTION=user_message)
-    model = next(iter(models.models.values()))
+    model = models.models.get('groq-llama') or next(iter(models.models.values()))
     try:
         resp = model.generate(prompt, max_tokens=800, temperature=0.1)
         text = getattr(resp, 'content', None) or getattr(resp, 'text', '') or ''
