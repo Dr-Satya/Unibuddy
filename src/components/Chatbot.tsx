@@ -1,9 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
+import { useAuthStore } from '../store/authStore';
+import { useAuthModal } from '../context/AuthModalContext';
 import iconImg from '../assets/5500_1_04.jpg';
 
 const API_URL = 'http://127.0.0.1:9000/chat';
 
-const stripDebug = (html) => {
+interface Message {
+  role: 'user' | 'assistant';
+  text?: string;
+  html?: string;
+  structured?: any;
+}
+
+const stripDebug = (html: string): string => {
   if (!html) return html;
   
   let cleaned = html;
@@ -44,11 +53,14 @@ const stripDebug = (html) => {
 
 const Chatbot = () => {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const sessionRef = useRef(null);
-  const messagesContainerRef = useRef(null);
+  const sessionRef = useRef<string | null>(null);
+  const messagesContainerRef = useRef<HTMLDivElement | null>(null);
+  
+  const { isAuthenticated } = useAuthStore();
+  const { openModal } = useAuthModal();
 
   useEffect(() => {
     if (!sessionRef.current) {
@@ -62,9 +74,20 @@ const Chatbot = () => {
     }
   };
 
+  const handleChatbotClick = () => {
+    // Check if user is authenticated
+    if (!isAuthenticated) {
+      // Open login modal instead of redirecting
+      openModal('login');
+      return;
+    }
+    // If authenticated, open the chatbot
+    setOpen(o => !o);
+  };
+
   const send = async () => {
     if (!input.trim()) return;
-    const userMsg = {role:'user', text: input};
+    const userMsg: Message = {role:'user', text: input};
     setMessages(prev => [...prev, userMsg]);
     
     // Scroll to bottom after adding user message
@@ -81,13 +104,13 @@ const Chatbot = () => {
       console.log('API response:', j);
       const rawHtml = j.reply || '<div>Not available</div>';
       const cleaned = stripDebug(rawHtml);
-      const assistantMsg = { role: 'assistant', html: cleaned, structured: j.data || null };
+      const assistantMsg: Message = { role: 'assistant', html: cleaned, structured: j.data || null };
       setMessages(prev => [...prev, assistantMsg]);
       
       // Scroll to bottom after adding bot response
       setTimeout(scrollToBottom, 100);
     } catch (err) {
-      const errMsg = { role: 'assistant', html: '<div>Error: failed to get a reply</div>' };
+      const errMsg: Message = { role: 'assistant', html: '<div>Error: failed to get a reply</div>' };
       setMessages(prev => [...prev, errMsg]);
       
       // Scroll to bottom after error message
@@ -101,11 +124,35 @@ const Chatbot = () => {
   return (
     <div style={{ position: 'fixed', right: 20, bottom: 20, width: 420, zIndex: 999 }}>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <button onClick={() => setOpen(o => !o)} style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }} aria-label="Open chat">
+        <button 
+          onClick={handleChatbotClick} 
+          style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', position: 'relative' }} 
+          aria-label="Open chat"
+        >
           <img src={iconImg} alt="Chat" style={{ width: 100, height: 100, borderRadius: 8 }} />
+          {!isAuthenticated && (
+            <div style={{
+              position: 'absolute',
+              top: -8,
+              right: -8,
+              background: '#ef4444',
+              color: 'white',
+              borderRadius: '50%',
+              width: 24,
+              height: 24,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 12,
+              fontWeight: 'bold',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
+            }}>
+              🔒
+            </div>
+          )}
         </button>
       </div>
-      {open && (
+      {open && isAuthenticated && (
         <div style={{ marginTop: 8, border: '1px solid #ddd', borderRadius: 8, background: '#fff', boxShadow: '0 4px 12px rgba(0,0,0,0.12)' }}>
           <div ref={messagesContainerRef} style={{ maxHeight: 400, overflowY: 'auto', padding: 12, background: '#fff' }}>
             {messages.map((m, i) => (

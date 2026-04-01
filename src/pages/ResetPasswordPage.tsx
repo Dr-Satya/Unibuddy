@@ -1,0 +1,98 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { useAuthStore } from "../store/authStore";
+import { useNavigate, useParams } from "react-router-dom";
+import Input from "../components/Input";
+import { Lock } from "lucide-react";
+import toast from "react-hot-toast";
+
+const ResetPasswordPage = () => {
+	const [password, setPassword] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
+	const { resetPassword, error, isLoading, message } = useAuthStore();
+
+	const { token } = useParams();
+	const navigate = useNavigate();
+
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+
+		if (password !== confirmPassword) {
+			toast.error("Passwords do not match");
+			return;
+		} 
+		if(password.length < 4){
+			toast.error("The password length must be more than 4 characters");
+			return;
+		}
+		try {
+			await resetPassword(token!, password);
+
+			toast.success("Password reset successfully, redirecting to login page...");
+			setTimeout(() => {
+				navigate("/login");
+			}, 2000);
+		} catch (error: any) {
+			console.error(error);
+			toast.error(error.message || "Error resetting password");
+		}
+	};
+
+	return (
+		<div className="min-h-screen bg-[#080c14] text-slate-100 flex items-center justify-center">
+			{/* Background Accents */}
+			<div className="fixed inset-0 pointer-events-none z-0">
+				<div className="absolute -top-32 -right-32 w-[700px] h-[700px] bg-indigo-950/30 blur-[160px] rounded-full"></div>
+				<div className="absolute -bottom-40 -left-40 w-[700px] h-[700px] bg-yellow-900/10 blur-[160px] rounded-full"></div>
+			</div>
+
+			<motion.div
+				initial={{ opacity: 0, y: 20 }}
+				animate={{ opacity: 1, y: 0 }}
+				transition={{ duration: 0.5 }}
+				className='max-w-md w-full bg-slate-900/95 backdrop-filter backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-800 overflow-hidden relative z-10 mx-4'
+			>
+				<div className='p-8'>
+					<h2 className='text-3xl font-bold mb-2 text-center bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400 text-transparent bg-clip-text'>
+						Reset Password
+					</h2>
+					<p className="text-slate-400 text-center text-sm mb-8">Enter your new password</p>
+
+					{error && <p className='text-red-400 text-sm font-medium mb-4 bg-red-500/10 border border-red-500/20 rounded-lg p-3'>{error}</p>}
+					{message && <p className='text-green-400 text-sm font-medium mb-4 bg-green-500/10 border border-green-500/20 rounded-lg p-3'>{message}</p>}
+
+					<form onSubmit={handleSubmit}>
+						<Input
+							icon={Lock}
+							type='password'
+							placeholder='New Password'
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							required
+						/>
+
+						<Input
+							icon={Lock}
+							type='password'
+							placeholder='Confirm New Password'
+							value={confirmPassword}
+							onChange={(e) => setConfirmPassword(e.target.value)}
+							required
+						/>
+
+						<motion.button
+							whileHover={{ scale: 1.02 }}
+							whileTap={{ scale: 0.98 }}
+							className='w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg shadow-lg hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition duration-200'
+							type='submit'
+							disabled={isLoading}
+						>
+							{isLoading ? "Resetting..." : "Set New Password"}
+						</motion.button>
+					</form>
+				</div>
+			</motion.div>
+		</div>
+	);
+};
+export default ResetPasswordPage;
