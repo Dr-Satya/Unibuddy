@@ -3,9 +3,16 @@
   "role": null,
   "department": null,
   "location": null,
-  "education": [],
-  "research": [],
-  "experience": [],
+  "education": [
+    "Not available in sources * **Research Interests:** Space tourism, remote sensing for disaster mitigation, and advanced propulsion techniques * **Experience:** Not available in sources * **Links:** No"
+  ],
+  "research": [
+    "Space tourism, remote sensing for disaster mitigation, and advanced propulsion techniques * **Experience:** Not available in sources * **Links:** Not available in sources * **Sources:** Faculty Profi"
+  ],
+  "experience": [
+    "Not available in sources * **Links:** Not available in sources * **Sources:** Faculty Profile",
+    "Ugur Guven Who Is An International Professor"
+  ],
   "links": [],
   "sources": []
 }
