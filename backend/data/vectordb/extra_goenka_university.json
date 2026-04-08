@@ -3,9 +3,25 @@
   "role": null,
   "department": null,
   "location": null,
-  "education": [],
-  "research": [],
-  "experience": [],
+  "education": [
+    "Ph.D (pursuing)",
+    "M.Tech (Biomedical)",
+    "B.Tech (Biomedical and Instrumentation)"
+  ],
+  "research": [
+    "Computer Vision and Image Processing",
+    "**Experience:** Not available in sources",
+    "**Links:** Not available in sources",
+    "**Sources:** Faculty Profile",
+    "Qualification (multiple sources) **Mainak Basu**"
+  ],
+  "experience": [
+    "Not available in sources",
+    "**Links:** Not available in sources",
+    "**Sources:** Faculty Profile",
+    "Qualification (multiple sources) **Mainak Basu**",
+    "**Role:** Associate Professor"
+  ],
   "links": [],
   "sources": []
 }
