@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
 import Input from "../components/Input";
-import { Loader, Lock, Mail, User, Phone, Upload, X } from "lucide-react";
-import { useState } from "react";
+import { Loader, Lock, Mail, User, Phone, Upload, X, BookOpen } from "lucide-react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
 import { useAuthStore } from "../store/authStore";
 import { useAuthModal } from "../context/AuthModalContext";
+
+const CHATBOT_API = "http://127.0.0.1:9000";
 
 const SignUpPage = ({ isModal = false }) => {
   const [formData, setFormData] = useState({
@@ -14,25 +16,34 @@ const SignUpPage = ({ isModal = false }) => {
     fatherName: "",
     motherName: "",
     contactNumber: "",
+    degree: "",
+    branch: "",
+    year: "",
+    section: "",
   });
   const [photo, setPhoto] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
   const [collegeIdCard, setCollegeIdCard] = useState(null);
   const [idCardPreview, setIdCardPreview] = useState(null);
-  
+  const [sectionOptions, setSectionOptions] = useState([]);
+
   const navigate = useNavigate();
   const { signup, error, isLoading } = useAuthStore();
   
-  // Always call the hook, but only use it when isModal is true
   const modalContext = useAuthModal();
   const closeModal = isModal ? modalContext.closeModal : () => {};
   const switchModal = isModal ? modalContext.switchModal : () => {};
 
+  // Load section options from chatbot backend
+  useEffect(() => {
+    fetch(`${CHATBOT_API}/sections`)
+      .then(r => r.json())
+      .then(d => setSectionOptions(d.sections || []))
+      .catch(() => setSectionOptions([]));
+  }, []);
+
   const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handlePhotoChange = (e) => {
@@ -88,8 +99,12 @@ const SignUpPage = ({ isModal = false }) => {
         formData.fatherName,
         formData.motherName,
         formData.contactNumber,
-        photoPreview, // Base64 encoded
-        idCardPreview  // Base64 encoded
+        photoPreview,
+        idCardPreview,
+        formData.degree,
+        formData.branch,
+        formData.year,
+        formData.section,
       );
       if (isModal) {
         closeModal(); // Close modal and navigate from parent
@@ -178,6 +193,54 @@ const SignUpPage = ({ isModal = false }) => {
             onChange={handleInputChange}
             maxLength={10}
           />
+
+          {/* Timetable / Academic Info */}
+          <div className='grid grid-cols-3 gap-3'>
+            <div>
+              <label className='text-slate-400 text-xs mb-1 block'>Degree</label>
+              <select name='degree' value={formData.degree} onChange={handleInputChange}
+                className='w-full px-3 py-2 bg-slate-800 text-white rounded-lg border border-slate-700 focus:border-blue-500 focus:outline-none text-sm'>
+                <option value=''>Select</option>
+                <option value='BTECH'>B.Tech</option>
+                <option value='BCA'>BCA</option>
+                <option value='MCA'>MCA</option>
+                <option value='MBA'>MBA</option>
+                <option value='BSC'>B.Sc</option>
+                <option value='MSC'>M.Sc</option>
+              </select>
+            </div>
+            <div>
+              <label className='text-slate-400 text-xs mb-1 block'>Branch</label>
+              <input name='branch' value={formData.branch} onChange={handleInputChange}
+                placeholder='e.g. CSE, ECE'
+                className='w-full px-3 py-2 bg-slate-800 text-white rounded-lg border border-slate-700 focus:border-blue-500 focus:outline-none text-sm' />
+            </div>
+            <div>
+              <label className='text-slate-400 text-xs mb-1 block'>Year</label>
+              <select name='year' value={formData.year} onChange={handleInputChange}
+                className='w-full px-3 py-2 bg-slate-800 text-white rounded-lg border border-slate-700 focus:border-blue-500 focus:outline-none text-sm'>
+                <option value=''>Select</option>
+                <option value='1'>Year 1</option>
+                <option value='2'>Year 2</option>
+                <option value='3'>Year 3</option>
+                <option value='4'>Year 4</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Section dropdown from chatbot backend */}
+          <div>
+            <label className='flex items-center gap-2 text-slate-300 text-sm font-medium mb-1'>
+              <BookOpen className='w-4 h-4' /> Section
+            </label>
+            <select name='section' value={formData.section} onChange={handleInputChange}
+              className='w-full px-3 py-2 bg-slate-800 text-white rounded-lg border border-slate-700 focus:border-blue-500 focus:outline-none text-sm'>
+              <option value=''>Select your section</option>
+              {sectionOptions.map(opt => (
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+              ))}
+            </select>
+          </div>
 
           {/* Photo Upload */}
           <div className='space-y-2'>
