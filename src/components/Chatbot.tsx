@@ -98,7 +98,19 @@ const Chatbot = () => {
       const res = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: input, session_id: sessionRef.current })
+        body: JSON.stringify({
+          message: input,
+          session_id: sessionRef.current,
+          user_email: user?.email || 'anonymous',
+          user_profile: user ? {
+            name:    (user as any).fatherName || user.email?.split('@')[0] || '',
+            email:   user.email || '',
+            degree:  (user as any).degree  || '',
+            branch:  (user as any).branch  || '',
+            year:    (user as any).year    || '',
+            section: (user as any).section || '',
+          } : null,
+        })
       });
       const j = await res.json();
       console.log('API response:', j);
