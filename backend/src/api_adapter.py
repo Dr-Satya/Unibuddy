@@ -4,6 +4,7 @@ from typing import Dict, Any
 from src.threaded_rag import ThreadedRAGSystem
 from src.threaded_models import ThreadedModelManager
 from src.config import DEBUG_RAG, TOP_K_RESULTS
+from src.timetable_store import answer_timetable_query, is_timetable_intent
 
 rag = ThreadedRAGSystem()
 models = ThreadedModelManager()
@@ -143,6 +144,15 @@ def get_reply(user_message: str, session_id: str = None) -> Dict[str,Any]:
     if not user_message:
         user_message = ''
     user_message = re.sub(r"(?i)(?:<current_tab_state>[\s\S]*?</current_tab_state>|\\u003ccurrent_tab_state\\u003e[\s\S]*?\\u003c\\/current_tab_state\\u003e)", "", user_message).strip()
+
+    # --- Timetable fast-path: answer directly without LLM ---
+    history = list(session_histories.get(session_id, []))
+    timetable_answer = answer_timetable_query(user_message, session_id=session_id, history=history)
+    if timetable_answer:
+        if session_id:
+            _store_session(session_id, user_message, timetable_answer)
+        return {'reply': timetable_answer, 'data': {}, 'sources': []}
+    # --------------------------------------------------------
 
     rewritten = _rewrite_followup_if_needed(session_id, user_message)
     queries = []
