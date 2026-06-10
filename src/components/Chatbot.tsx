@@ -65,9 +65,10 @@ const TABLE_STYLE = `
 // Post-process HTML from backend: wrap tables with scoped styles
 const enhanceHtml = (html: string): string => {
   if (!html) return html;
-  // If it already contains a <table>, inject our scoped CSS and wrap
+  // Skip if already has mentor-mentee styles (mm-table) or timetable styles (tt-wrap)
+  if (html.includes('mm-table') || html.includes('tt-wrap')) return html;
+  // If it contains a plain <table>, inject timetable scoped CSS and wrap
   if (html.includes('<table')) {
-    // Replace plain table with wrapped version
     let enhanced = html
       .replace(/<table/g, '<div class="tt-wrap"><table')
       .replace(/<\/table>/g, '</table></div>');
@@ -97,7 +98,8 @@ const Chatbot = () => {
   // Greeting when chatbot opens
   useEffect(() => {
     if (open && isAuthenticated && !greeted) {
-      const firstName = user?.name?.split(' ')[0] || user?.email?.split('@')[0] || 'there';
+      const rawName = user?.name || user?.email?.split('@')[0] || 'there';
+      const firstName = rawName.replace(/^\d+\./, '').split(' ')[0] || 'there';
       const hour = new Date().getHours();
       const timeGreet = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
       setMessages([{
@@ -127,6 +129,30 @@ const Chatbot = () => {
     const text = input.trim();
     setMessages(prev => [...prev, { role: 'user', text }]);
     setInput('');
+
+    // Handle greetings client-side — no backend round-trip needed
+    const greetPattern = /^(hi|hello|hey|howdy|hii+|hola|yo|sup|whats up|what's up)[\s!.?]*$/i;
+    if (greetPattern.test(text.trim())) {
+      // Extract readable first name: strip enrollment prefix like "230160223057."
+      const rawName = user?.name || user?.email?.split('@')[0] || 'there';
+      const firstName = rawName.replace(/^\d+\./, '').split(' ')[0] || 'there';
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        html: `<div style="line-height:1.6">
+          Hey <strong style="color:#a78bfa">${firstName}</strong>! 👋<br/>
+          I'm here to help. You can ask me about:<br/>
+          <ul style="margin:6px 0 0 16px;color:#9ca3af;font-size:12px">
+            <li>📅 Your timetable — <em>"show my timetable"</em></li>
+            <li>👩‍🏫 Faculty info — <em>"who is Dr. Bhagat Singh"</em></li>
+            <li>🧑‍🏫 Mentor details — <em>"who is my mentor"</em></li>
+            <li>💰 Fees — <em>"BCA fee structure"</em></li>
+            <li>🏛️ University info — <em>"about GD Goenka"</em></li>
+          </ul>
+        </div>`
+      }]);
+      return;
+    }
+
     setLoading(true);
     try {
       const res = await fetch(API_URL, {

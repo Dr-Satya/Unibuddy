@@ -11,6 +11,7 @@ load_dotenv(dotenv_path=Path(__file__).parent / ".env")
 
 from src.api_adapter import get_reply
 from src.timetable_store import save_timetable
+from src.mentor_store import save_mentor_data
 
 app = FastAPI(title="UniBuddy API")
 app.add_middleware(
@@ -228,6 +229,150 @@ async def chat(req: ChatRequest):
         raise HTTPException(status_code=400, detail='Empty message')
     result = get_reply(req.message, session_id=req.session_id)
     return result
+
+
+# ── Mentor-Mentee column aliases ──────────────────────────────────────────────
+_MENTOR_COL_MAP = {
+    # ── registration / enrollment ──────────────────────────────────────────
+    'student registration id': 'registration_id',
+    'student registration no': 'registration_id',
+    'student registration number': 'registration_id',
+    'registration id': 'registration_id',
+    'registration_id': 'registration_id',
+    'registration no': 'registration_id',
+    'registration number': 'registration_id',
+    'enrollment no': 'registration_id',
+    'enrolment no': 'registration_id',
+    'enrollment number': 'registration_id',
+    'enrolment number': 'registration_id',
+    'roll no': 'registration_id',
+    'roll number': 'registration_id',
+    # ── application / admission ────────────────────────────────────────────
+    'student application number': 'application_number',
+    'student application no': 'application_number',
+    'application number': 'application_number',
+    'application_number': 'application_number',
+    'application no': 'application_number',
+    'admission no': 'application_number',
+    'admission number': 'application_number',
+    # ── student basic info ─────────────────────────────────────────────────
+    'student name': 'name',
+    'name': 'name',
+    'student email': 'email',
+    'student email id': 'email',
+    'email': 'email',
+    'email id': 'email',
+    'student phone number': 'phone',
+    'student phone': 'phone',
+    'student mobile': 'phone',
+    'student contact': 'phone',
+    'phone': 'phone',
+    'mobile': 'phone',
+    'contact': 'phone',
+    'phone number': 'phone',
+    'mobile number': 'phone',
+    'contact number': 'phone',
+    # ── academic ───────────────────────────────────────────────────────────
+    'student programme': 'programme',
+    'programme': 'programme',
+    'program': 'programme',
+    'course': 'programme',
+    'student department': 'department',
+    'department': 'department',
+    'dept': 'department',
+    'batch year': 'batch_year',
+    'batch': 'batch_year',
+    'student batch': 'batch_year',
+    'gender': 'gender',
+    'student gender': 'gender',
+    'quota': 'quota',
+    'student quota': 'quota',
+    'academic status': 'academic_status',
+    'student status': 'academic_status',
+    'status': 'academic_status',
+    'current year': 'current_year',
+    'student current year': 'current_year',
+    'year': 'current_year',
+    # ── mentor ─────────────────────────────────────────────────────────────
+    'mentor name': 'mentor_name',
+    'mentor': 'mentor_name',
+    'faculty name': 'mentor_name',
+    'assigned mentor': 'mentor_name',
+    'mentor contact number': 'mentor_phone',
+    'mentor contact': 'mentor_phone',
+    'mentor phone': 'mentor_phone',
+    'mentor phone number': 'mentor_phone',
+    'mentor mobile': 'mentor_phone',
+    'mentor email': 'mentor_email',
+    'mentor email id': 'mentor_email',
+}
+
+
+def _normalize_col(col: str) -> str:
+    """Map raw Excel header to standard field name."""
+    key = col.strip().lower()
+    return _MENTOR_COL_MAP.get(key, key.replace(' ', '_'))
+
+
+@app.post('/mentor-mentee')
+async def upload_mentor_mentee(file: UploadFile = File(...)):
+    """
+    Accept an Excel (.xlsx / .xls) or CSV file with mentor-mentee data.
+    Parses it and saves to backend/data/mentor_mentee.json.
+    """
+    fname = file.filename.lower()
+    if not (fname.endswith('.xlsx') or fname.endswith('.xls') or fname.endswith('.csv')):
+        raise HTTPException(status_code=400, detail='Only .xlsx, .xls, or .csv files are allowed.')
+
+    contents = await file.read()
+
+    try:
+        if fname.endswith('.csv'):
+            import csv, codecs
+            reader = csv.DictReader(codecs.iterdecode(io.BytesIO(contents), 'utf-8-sig'))
+            raw_rows = list(reader)
+        else:
+            try:
+                import openpyxl
+                wb = openpyxl.load_workbook(io.BytesIO(contents), read_only=True, data_only=True)
+                ws = wb.active
+                rows = list(ws.iter_rows(values_only=True))
+                if not rows:
+                    raise HTTPException(status_code=400, detail='Excel file is empty.')
+                headers = [str(c).strip() if c is not None else '' for c in rows[0]]
+                raw_rows = []
+                for row in rows[1:]:
+                    if all(c is None for c in row):
+                        continue
+                    raw_rows.append({headers[i]: (str(row[i]).strip() if row[i] is not None else '') for i in range(len(headers))})
+            except ImportError:
+                raise HTTPException(status_code=500, detail='openpyxl not installed. Run: pip install openpyxl')
+    except HTTPException:
+        raise
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail=f'Failed to parse file: {exc}')
+
+    # Normalise column names
+    students = []
+    for raw in raw_rows:
+        record = {}
+        for col, val in raw.items():
+            std = _normalize_col(col)
+            record[std] = val
+        # Skip completely empty rows
+        if not any(record.values()):
+            continue
+        students.append(record)
+
+    if not students:
+        raise HTTPException(status_code=400, detail='No student records found in the file.')
+
+    count = save_mentor_data(students)
+    return {
+        'message': f'Successfully saved {count} mentor-mentee records.',
+        'total_records': count,
+        'sample_fields': list(students[0].keys()) if students else [],
+    }
 
 
 if __name__ == "__main__":
