@@ -158,7 +158,7 @@ const Chatbot = () => {
       const res = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, session_id: sessionRef.current }),
+        body: JSON.stringify({ message: input, session_id: sessionRef.current })
       });
       const j = await res.json();
       const raw = stripDebug(j.reply || '<div>No response</div>');

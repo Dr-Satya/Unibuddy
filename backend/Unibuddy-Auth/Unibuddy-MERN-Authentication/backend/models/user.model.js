@@ -50,6 +50,23 @@ const userSchema = new mongoose.Schema(
       enum: ['STUDENT', 'ADMIN'],
       default: 'STUDENT'
     },
+    // Timetable fields
+    degree: {
+      type: String,
+      default: '',   // e.g. BTECH, BCA, MCA
+    },
+    branch: {
+      type: String,
+      default: '',   // e.g. CSE, ECE, ME
+    },
+    year: {
+      type: String,
+      default: '',   // 1 / 2 / 3 / 4
+    },
+    section: {
+      type: String,
+      default: '',   // e.g. BTECH|2|CSE_B2
+    },
     lastLogin: {
       type: Date,
       default: Date.now,

@@ -1,0 +1,1876 @@
+{
+  "BTECH|3|CSE_A_(AIML_A)": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 1
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 1
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 1
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 1
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 1
+    }
+  ],
+  "BTECH|3|CSE_AIML_B": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 2
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 2
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 2
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 2
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 2
+    }
+  ],
+  "BTECH|3|CS": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 3
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 3
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 3
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 3
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 3
+    }
+  ],
+  "BTECH|3|CSE_CORE": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 4
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 4
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 4
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 4
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 4
+    }
+  ],
+  "BTECH|3|DATA_SCIENCE": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 5
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 5
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 5
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 5
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 5
+    }
+  ],
+  "BTECH|2|ECE": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 6
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 6
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 6
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 6
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 6
+    }
+  ],
+  "BTECH|2|BME": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 7
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 7
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 7
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 7
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 7
+    }
+  ],
+  "BTECH|2|CE_(SI)": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 8
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 8
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 8
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 8
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 8
+    }
+  ],
+  "BTECH|2|FIRE_AND_SAFETY": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 9
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 9
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 9
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 9
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 9
+    }
+  ],
+  "BCA|2|SEC_DA": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 10
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 10
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 10
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 10
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 10
+    }
+  ],
+  "BCA|2|SEC_ML": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 11
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 11
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 11
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 11
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 11
+    }
+  ],
+  "MCA|2": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 12
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 12
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 12
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 12
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 12
+    }
+  ],
+  "BTECH|3|ECE": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 13
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 13
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 13
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 13
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 13
+    }
+  ],
+  "BTECH|3|BME": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 14
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 14
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 14
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 14
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 14
+    }
+  ],
+  "BTECH|3|ME": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 15
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 15
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 15
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 15
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 15
+    }
+  ],
+  "BTECH|3|CE_(SI)": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 16
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 16
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 16
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 16
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 16
+    }
+  ],
+  "BCA|3|DA": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 17
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 17
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 17
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 17
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 17
+    }
+  ],
+  "BCA|3|ML": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 18
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 18
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 18
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 18
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 18
+    }
+  ],
+  "DIPLOMA|3|CSE": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 19
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 19
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 19
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 19
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 19
+    }
+  ],
+  "BSC_H|1|FSC": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 20
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 20
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 20
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 20
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 20
+    }
+  ],
+  "BSC|1|BIOTECHNOLOGY": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 21
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 21
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 21
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 21
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 21
+    }
+  ],
+  "BSC|1|MICROBIOLOGY": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 22
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 22
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 22
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 22
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 22
+    }
+  ],
+  "BSC_H|2|FSC": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 23
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 23
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 23
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 23
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 26
+    }
+  ],
+  "BSC|2|BIOTECHNOLOGY": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 24
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 24
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 24
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 24
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 27
+    }
+  ],
+  "BSC|2|MICROBIOLOGY": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 25
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 25
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 25
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 25
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 28
+    }
+  ],
+  "BSC|3|FSC": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 26
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 26
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 26
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 26
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 29
+    }
+  ],
+  "BSC|3|BIOTECHNOLOGY": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 27
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 27
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 27
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 27
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 30
+    }
+  ],
+  "BSC|3|MICROBIOLOGY": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 28
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 28
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 28
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 28
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 31
+    }
+  ],
+  "MSC|2|FSC": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 30
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 30
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 30
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 30
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 32
+    }
+  ],
+  "MSC|1|MICROBIOLOGY": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 31
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 31
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 31
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 31
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 24
+    }
+  ],
+  "MSC|2|MICROBIOLOGY": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 32
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 32
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 32
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 32
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 33
+    }
+  ],
+  "MSC|1|BIOTECHNOLOGY": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 33
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 33
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 33
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 33
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 25
+    }
+  ],
+  "MSC|2|BIOTECHNOLOGY": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 34
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 34
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 34
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 34
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 34
+    }
+  ],
+  "BSC|4|BED": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 35
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 35
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 35
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 35
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 35
+    }
+  ],
+  "BTECH|1|CSE_A1": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 36
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 36
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 36
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 36
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 36
+    }
+  ],
+  "BTECH|1|CSE_A2": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 37
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 37
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 37
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 37
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 37
+    }
+  ],
+  "BTECH|1|CSE_B1": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 38
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 39
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 39
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 39
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 39
+    }
+  ],
+  "BTECH|1|CSE_B2": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 39
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 40
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 40
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 40
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 40
+    }
+  ],
+  "BTECH|1|CSE_B3": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 40
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 41
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 41
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 41
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 41
+    }
+  ],
+  "BTECH|1|CSE_B4": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 41
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 42
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 42
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 42
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 42
+    }
+  ],
+  "BTECH|1|CSE_B5": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 42
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 43
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 43
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 43
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 43
+    }
+  ],
+  "BTECH|1|CSE_B6": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 43
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 44
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 44
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 44
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 44
+    }
+  ],
+  "BTECH|1|CSE_B7": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 44
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 45
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 45
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 45
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 45
+    }
+  ],
+  "BTECH|1|CSE_B8": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 45
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 46
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 46
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 46
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 46
+    }
+  ],
+  "BTECH|1|CSE_B9": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 46
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 47
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 47
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 47
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 47
+    }
+  ],
+  "BTECH|1|CSE_C": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 47
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 48
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 48
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 48
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 48
+    }
+  ],
+  "BTECH|1|CE": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 48
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 49
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 49
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 49
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 49
+    }
+  ],
+  "BTECH|1|ECE_(IOTBMEVLSI)": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 49
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 50
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 50
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 50
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 50
+    }
+  ],
+  "BCA|1|DA": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 50
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 51
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 51
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 51
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 51
+    }
+  ],
+  "BCA|1|ML": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 51
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 52
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 52
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 52
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 52
+    }
+  ],
+  "BTECH|1|AEROSPACE": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 52
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 53
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 53
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 54
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 53
+    }
+  ],
+  "BTECH|1|FSE": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 53
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 54
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 54
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 55
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 54
+    }
+  ],
+  "MCA|1": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 54
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 55
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 55
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 53
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 55
+    }
+  ],
+  "MTECH|1|AEROSPACE": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 55
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 56
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 56
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 56
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 56
+    }
+  ],
+  "BTECH|2|AEROSPACE": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 56
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 57
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 57
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 57
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 57
+    }
+  ],
+  "BTECH|1|ME": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 57
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 58
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 58
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 58
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 58
+    }
+  ],
+  "AEROSPACE|3": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 58
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 59
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 59
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 59
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 59
+    }
+  ],
+  "BTECH|4|DS": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 59
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 60
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 60
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 60
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 60
+    }
+  ],
+  "BTECH|2|CSE_A1": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 60
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 61
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 61
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 61
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 61
+    }
+  ],
+  "BTECH|2|CSE_A2": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 61
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 62
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 62
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 62
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 62
+    }
+  ],
+  "BTECH|2|CSE_B1": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 62
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 63
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 63
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 63
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 63
+    }
+  ],
+  "BTECH|2|CSE_B2": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 63
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 64
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 64
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 64
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 64
+    }
+  ],
+  "BTECH|2|CSE_B3": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 64
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 65
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 65
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 65
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 65
+    }
+  ],
+  "BTECH|2|CSE_B4": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 65
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 66
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 66
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 66
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 66
+    }
+  ],
+  "BTECH|2|CSE_C": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 66
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 67
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 67
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 67
+    }
+  ],
+  "BTECH|2|CSE_D": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 67
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 68
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 68
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 68
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 68
+    }
+  ],
+  "BTECH|4|EVE": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 68
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 69
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 69
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 69
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 69
+    }
+  ],
+  "BTECH|4|BME": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 69
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 70
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 70
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 70
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 70
+    }
+  ],
+  "BTECH|4|ECE": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 70
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 71
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 71
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 71
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 71
+    }
+  ],
+  "BTECH|4|CSE_CORE_A": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 71
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 72
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 72
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 72
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 72
+    }
+  ],
+  "BTECH|4|CSE_CORE_B": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 72
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 73
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 73
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 73
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 73
+    }
+  ],
+  "BTECH|4|CSE_AIML_SEC_T4": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 73
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 74
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 74
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 74
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 74
+    }
+  ],
+  "BTECH|4|CSE_CS_SEC_T4": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 74
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 75
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 75
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 75
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 75
+    }
+  ],
+  "BTECH|4|MEMEX": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 75
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 76
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 76
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 76
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 76
+    }
+  ],
+  "BTECH|4|CE": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 76
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 77
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 77
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 77
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 77
+    }
+  ],
+  "INT_BTECH|4|CSE_MBA": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 77
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 78
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 78
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 78
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 78
+    }
+  ],
+  "INT_BTECH|5|CSE_MBA": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 78
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 79
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 79
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 79
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 79
+    }
+  ],
+  "MTECH|1|ENVIRONMENTAL": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 79
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 80
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 80
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 80
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 80
+    }
+  ],
+  "BPT|1": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 80
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 81
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 81
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 81
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 81
+    }
+  ],
+  "BOPTOMETRY|1": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 81
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 82
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 82
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 82
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 82
+    }
+  ],
+  "CVT|3|3RD_YEAR_NUTRITION_AND_HEALTH": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 82
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 83
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 83
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 83
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 83
+    }
+  ],
+  "INT_BTECH_MTECH|5": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 83
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 84
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 84
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 84
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 84
+    }
+  ],
+  "MBAHM|1": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 87
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 88
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 88
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 88
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 88
+    }
+  ],
+  "BBAHM|3": [
+    {
+      "file": "Classwise 1st Yr_24 March.pdf",
+      "page": 88
+    },
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 89
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 89
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 89
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 89
+    }
+  ],
+  "BTECH|1|CSE_A3": [
+    {
+      "file": "Classwise CE_ME_AE_FSE_ECE_20 feb.pdf",
+      "page": 38
+    },
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 38
+    },
+    {
+      "file": "Classwise CS_13 Feb.pdf",
+      "page": 38
+    },
+    {
+      "file": "Classwise Science_27 March.pdf",
+      "page": 38
+    }
+  ],
+  "BTECH|2|CSE_CS": [
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 67
+    }
+  ],
+  "BTECH|2|CSE_DS": [
+    {
+      "file": "Classwise CSE_14 march.pdf",
+      "page": 90
+    }
+  ]
+}

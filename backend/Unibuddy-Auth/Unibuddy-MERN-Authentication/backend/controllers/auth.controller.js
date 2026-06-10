@@ -13,10 +13,9 @@ import { Student } from "../models/student.model.js";
 import { isAdminEmail } from "../config/adminWhitelist.js";
 
 export const signup = async (req, res) => {
-  const { email, password, fatherName, motherName, contactNumber, photo, collegeIdCard } = req.body;
+  const { email, password, fatherName, motherName, contactNumber, photo, collegeIdCard, degree, branch, year, section } = req.body;
 
   try {
-    // Validate all required fields
     if (!email || !password || !fatherName || !motherName || !contactNumber || !photo || !collegeIdCard) {
       throw new Error("All fields are required");
     }
@@ -62,9 +61,13 @@ export const signup = async (req, res) => {
       contactNumber,
       photo,
       collegeIdCard,
+      degree:  degree  || '',
+      branch:  branch  || '',
+      year:    year    || '',
+      section: section || '',
       role,
       verificationToken,
-      verificationTokenExpiresAt: Date.now() + 15 * 60 * 1000, // 15 minutes
+      verificationTokenExpiresAt: Date.now() + 15 * 60 * 1000,
     });
 
     await user.save();
