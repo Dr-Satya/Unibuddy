@@ -1,9 +1,10 @@
 import re, json, os
 from collections import deque, defaultdict
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 from src.threaded_rag import ThreadedRAGSystem
 from src.threaded_models import ThreadedModelManager
 from src.config import DEBUG_RAG, TOP_K_RESULTS
+from src.timetable_lookup import get_timetable_context
 from src.timetable_store import answer_timetable_query, is_timetable_intent, has_active_timetable_session, is_timetable_escape
 from src.mentor_store import answer_mentor_query, is_mentor_intent
 
@@ -11,7 +12,7 @@ rag = ThreadedRAGSystem()
 models = ThreadedModelManager()
 session_histories: Dict[str, deque] = defaultdict(lambda: deque(maxlen=10))
 
-PROMPT_TEMPLATE = '''System: You are UniBuddy, the official intelligent assistant for GD Goenka University. Use ONLY the retrieved context and conversation history. Answer concisely (2–6 sentences). If a field is missing, say "Not available in sources". Do NOT list or repeat source names in your answer.
+PROMPT_TEMPLATE = '''System: You are UniBuddy, the official intelligent assistant for GD Goenka University. Use ONLY the retrieved context and conversation history. Answer concisely (2–6 sentences) and include sources. If a field is missing, say "Not available in sources".
 
 Retrieved Context:
 {RAG_CONTEXT}
@@ -143,7 +144,7 @@ def _sanitize_visible_text(text: str) -> str:
     return text.strip()
 
 
-def get_reply(user_message: str, session_id: str = None) -> Dict[str,Any]:
+def get_reply(user_message: str, session_id: str = None, user_profile: Dict = None) -> Dict[str,Any]:
     # sanitize incoming user message (remove embedded debug fragments)
     if not user_message:
         user_message = ''
@@ -181,6 +182,28 @@ def get_reply(user_message: str, session_id: str = None) -> Dict[str,Any]:
         return {'reply': timetable_answer, 'data': {}, 'sources': []}
     # -------------------------------------------------------------------------
 
+    # Build student context block if profile provided
+    student_context = ""
+    timetable_context = ""
+    if user_profile:
+        name     = user_profile.get("name", "")
+        degree   = user_profile.get("degree", "")
+        branch   = user_profile.get("branch", "")
+        year     = user_profile.get("year", "")
+        section  = user_profile.get("section", "")
+        email    = user_profile.get("email", "")
+
+        student_context = f"""Student Info:
+- Name: {name}
+- Email: {email}
+- Degree: {degree} {branch} Year {year}
+- Section: {section}"""
+
+        # Inject timetable if query is about schedule
+        timetable_context = get_timetable_context(section, user_message)
+        if timetable_context:
+            student_context += f"\n\n{timetable_context}"
+
     rewritten = _rewrite_followup_if_needed(session_id, user_message)
     queries = []
     for q in (rewritten, f"{rewritten} profile", f"{rewritten} research"):
@@ -206,7 +229,12 @@ def get_reply(user_message: str, session_id: str = None) -> Dict[str,Any]:
     full_context = re.sub(r"(\[Source:[^\]]+\])(?:\s*\1)+","\1", full_context)
 
     history = _compose_history(session_id)
-    prompt = PROMPT_TEMPLATE.format(RAG_CONTEXT=full_context or 'No relevant context found', HISTORY=history, USER_QUESTION=user_message)
+    prompt = PROMPT_TEMPLATE.format(
+        STUDENT_CONTEXT=student_context,
+        RAG_CONTEXT=full_context or 'No relevant context found',
+        HISTORY=history,
+        USER_QUESTION=user_message
+    )
     model = models.models.get('groq-llama') or next(iter(models.models.values()))
     try:
         resp = model.generate(prompt, max_tokens=800, temperature=0.1)

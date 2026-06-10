@@ -3,9 +3,18 @@
   "role": null,
   "department": null,
   "location": null,
-  "education": [],
-  "research": [],
-  "experience": [],
+  "education": [
+    "Not available in sources",
+    "**Research Interests:** Rainfall forecasting using backpropagation neural network",
+    "**Experience:** Reviewer, International Journal of Environment and Sustainable Developme"
+  ],
+  "research": [
+    "Rainfall forecasting using backpropagation neural network",
+    "**Experience:** Reviewer, International Journal of Environment and Sustainable Development; Reviewer, Pertanika Journal of Science and Tech"
+  ],
+  "experience": [
+    "Reviewer, International Journal of Environment and Sustainable Development; Reviewer, Pertanika Journal of Science and Technology; Coordinator, Technical Committee of International Conference on Sust"
+  ],
   "links": [],
   "sources": []
 }

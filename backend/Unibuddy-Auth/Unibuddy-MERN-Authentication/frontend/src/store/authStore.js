@@ -13,20 +13,12 @@ export const useAuthStore = create((set) => ({
   isCheckingAuth: true,
   message: null,
 
-  signup: async (email, password, fatherName, motherName, contactNumber, photo, collegeIdCard) => {
+  signup: async (email, password, fatherName, motherName, contactNumber, photo, collegeIdCard, degree, branch, year, section) => {
     set({ isLoading: true, error: null });
     try {
       const response = await axios.post(
         `${API_URL}/signup`,
-        { 
-          email, 
-          password, 
-          fatherName, 
-          motherName, 
-          contactNumber, 
-          photo, 
-          collegeIdCard 
-        },
+        { email, password, fatherName, motherName, contactNumber, photo, collegeIdCard, degree, branch, year, section },
         { withCredentials: true }
       );
       set({
