@@ -24,11 +24,19 @@ DAY_FULL = {"Mo": "Monday", "Tu": "Tuesday", "We": "Wednesday", "Th": "Thursday"
 
 TIMETABLE_INTENTS = [
     'class', 'classroom', 'room', 'lecture', 'timetable', 'schedule',
-    'subject', 'slot', 'period', 'today', 'tomorrow', 'faculty', 'teacher',
+    'subject', 'slot', 'period', 'today', 'tomorrow',
     'monday', 'tuesday', 'wednesday', 'thursday', 'friday',
     'free', 'gap', 'break', 'next class', 'when is', 'where is',
     'what do i have', 'my schedule', 'my class', 'which subject',
-    'who teaches', 'how many', 'period', 'first class', 'last class',
+    'who teaches', 'how many class', 'how many period', 'how many lab',
+    'first class', 'last class',
+]
+
+# Queries that should NEVER be handled by timetable, even inside an active session
+TIMETABLE_ESCAPE = [
+    'faculty info', 'about faculty', 'tell me about', 'who is', 'details of',
+    'profile of', 'mentor', 'mentee', 'fee', 'fees', 'admission',
+    'professor', 'dr.', 'sir teach', 'sir profile',
 ]
 
 # ── persistence ────────────────────────────────────────────────────────────────
@@ -323,7 +331,22 @@ def _extract_inline_filters(msg: str) -> dict:
 # ── intent detection ───────────────────────────────────────────────────────────
 
 def is_timetable_intent(msg: str) -> bool:
-    return any(k in msg.lower() for k in TIMETABLE_INTENTS)
+    m = msg.lower()
+    return any(k in m for k in TIMETABLE_INTENTS)
+
+
+def is_timetable_escape(msg: str) -> bool:
+    """Returns True if this message should bypass timetable even in an active session."""
+    m = msg.lower()
+    return any(k in m for k in TIMETABLE_ESCAPE)
+
+
+def has_active_timetable_session(session_id: str) -> bool:
+    """Returns True if this session is mid-flow in the timetable guided conversation."""
+    if not session_id:
+        return False
+    state = _get_session(session_id)
+    return bool(state)
 
 
 # ── main entry point ───────────────────────────────────────────────────────────
@@ -373,13 +396,17 @@ def answer_timetable_query(user_message: str, session_id: str = None, history: l
                 "<em>e.g. 1st, 2nd, 3rd, 4th</em></div>"
             )
 
-        # Route to timetable for any message that's 2+ words OR is a timetable keyword
-        # Also catch common single-word follow-ups like "name", "list", "when", "where"
-        FOLLOWUP_WORDS = {'name', 'list', 'when', 'where', 'who', 'what', 'which',
+        # Route to timetable only for actual timetable questions or short follow-up words
+        # NOT for faculty info, mentor queries, general "tell me about X" questions
+        FOLLOWUP_WORDS = {'name', 'list', 'when', 'where', 'what', 'which',
                           'count', 'total', 'all', 'today', 'tomorrow', 'monday',
                           'tuesday', 'wednesday', 'thursday', 'friday', 'labs', 'free'}
-        if is_timetable_intent(msg) or len(msg.split()) >= 2 or msg.lower().strip() in FOLLOWUP_WORDS:
+        if not is_timetable_escape(msg) and (
+            is_timetable_intent(msg) or msg.lower().strip() in FOLLOWUP_WORDS
+        ):
             return _answer_with_llm(remembered, user_message, session_id, history=history)
+        # Otherwise fall through to RAG (faculty, mentor, fees, etc.)
+        return None
 
     # ── Active session: continue guided flow ──────────────────────────────────
     if step == 'ask_year':

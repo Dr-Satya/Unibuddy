@@ -5,7 +5,7 @@ import {
   Users, Plus, Edit2, Trash2, Search, X, 
   Filter, Download, RefreshCw,
   ChevronLeft, ChevronRight, AlertCircle,
-  CheckCircle, XCircle, Loader, CalendarDays
+  CheckCircle, XCircle, Loader, CalendarDays, UserCheck
 } from "lucide-react";
 import { useAuthStore } from "../store/authStore";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import Chatbot from "../components/Chatbot";
 import Navbar from "../components/Navbar";
 import TimetableUpload from "../components/TimetableUpload";
+import MentorUpload from "../components/MentorUpload";
 
 interface StudentForm {
   name: string;
@@ -327,7 +328,7 @@ export default function AdminPanel() {
     toast.success("Exported successfully!");
   };
 
-  const [activeTab, setActiveTab] = useState<"students" | "timetable">("students");
+  const [activeTab, setActiveTab] = useState<"students" | "timetable" | "mentor">("students");
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
@@ -363,6 +364,12 @@ export default function AdminPanel() {
               >
                 <CalendarDays size={15} /> Timetable
               </button>
+              <button
+                onClick={() => setActiveTab("mentor")}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${activeTab === "mentor" ? "bg-indigo-600 text-white" : "text-slate-400 hover:text-white"}`}
+              >
+                <UserCheck size={15} /> Mentor-Mentee
+              </button>
             </div>
           </div>
         </motion.div>
@@ -374,6 +381,18 @@ export default function AdminPanel() {
             <h2 className="text-xl font-semibold text-white mb-4">Upload Timetable PDF</h2>
             <p className="text-slate-400 text-sm mb-6">Upload a GD Goenka University timetable PDF to extract structured JSON data.</p>
             <TimetableUpload />
+          </motion.div>
+        )}
+
+        {/* Mentor-Mentee Tab */}
+        {activeTab === "mentor" && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+            className="bg-slate-900/95 backdrop-blur-xl rounded-2xl border border-slate-800 p-6 shadow-2xl">
+            <h2 className="text-xl font-semibold text-white mb-2">Upload Mentor-Mentee Data</h2>
+            <p className="text-slate-400 text-sm mb-6">
+              Upload the mentor-mentee allocation Excel sheet. Students can then query their mentor details via the chatbot.
+            </p>
+            <MentorUpload />
           </motion.div>
         )}
 
