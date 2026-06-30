@@ -256,7 +256,10 @@ const Chatbot = () => {
                 }}>
                   {m.role === 'user'
                     ? <span style={{ whiteSpace: 'pre-wrap' }}>{m.text}</span>
-                    : <div dangerouslySetInnerHTML={{ __html: m.html || '' }} />
+                    : <div
+                        className="chat-html-content"
+                        dangerouslySetInnerHTML={{ __html: m.html || '' }}
+                      />
                   }
                 </div>
               </div>
