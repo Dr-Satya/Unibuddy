@@ -4,6 +4,8 @@ from typing import List, Dict, Any, Optional
 from sentence_transformers import SentenceTransformer
 import faiss
 from src.config import CHUNK_SIZE, CHUNK_OVERLAP, TOP_K_RESULTS, DEBUG_RAG
+from src.rag_debug import warn
+from src.config import CHUNK_SIZE, CHUNK_OVERLAP, TOP_K_RESULTS, DEBUG_RAG
 
 # L2 distance threshold.
 # all-MiniLM-L6-v2 produces unit-norm vectors.  On unit-norm vectors:
@@ -285,9 +287,17 @@ class ThreadedRAGSystem:
                 break
 
         if DEBUG_RAG:
-            print(f"[RAG] get_candidates '{query[:60]}' category={category}"
-                  f" → fetched {len(D[0])} | passed threshold {len(raw)}"
-                  f" | after dedup {len(deduped)}")
+            _sep  = "=" * 65
+            _line = "-" * 65
+            rejected = fetch_k - len(raw)
+            print(f"\n{_sep}\n  [RAG] Dense Candidate Fetch Detail\n{_sep}")
+            print(f"  Query       : {query[:80]}")
+            print(f"  Category    : {category}")
+            print(f"  Fetched     : {len(D[0])}")
+            print(f"  L2 Threshold: {_L2_THRESHOLD}")
+            print(f"  Passed      : {len(raw)} (rejected: {rejected})")
+            print(f"  After Dedup : {len(deduped)}")
+            print(_sep)
 
         return deduped
 

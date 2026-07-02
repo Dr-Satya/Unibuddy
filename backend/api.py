@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, UploadFile, File
+from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
@@ -6,6 +7,7 @@ from pathlib import Path
 from typing import Optional
 import io
 import re
+import json
 import pdfplumber
 
 load_dotenv(dotenv_path=Path(__file__).parent / ".env")
@@ -261,6 +263,32 @@ async def chat(req: ChatRequest):
     if req.user_email:
         result['user_email'] = req.user_email
     return result
+
+
+# FEATURE 2: streaming chat endpoint. Purely additive -- /chat above is
+# completely unchanged, so existing clients/integrations keep working
+# exactly as before. This route streams the same get_reply() pipeline's
+# output token-by-token via Server-Sent Events instead of waiting for the
+# full response. Uses get_reply(..., _stream=True), which runs identical
+# retrieval/grounding/safety logic to the non-streaming path (see
+# api_adapter.py's _finish_reply docstring) and only differs in how the
+# LLM generation step is consumed.
+@app.post('/chat/stream')
+async def chat_stream(req: ChatRequest):
+    if not req.message or not req.message.strip():
+        raise HTTPException(status_code=400, detail='Empty message')
+
+    async def event_generator():
+        # get_reply(_stream=True) returns a synchronous generator yielding
+        # {'type': 'delta', 'text': ...} chunks followed by one final
+        # {'type': 'done', 'reply': ..., 'data': ..., 'sources': ...}.
+        # FastAPI's StreamingResponse can iterate a sync generator directly;
+        # each yielded SSE 'data:' line is one JSON-encoded event.
+        for event in get_reply(req.message, session_id=req.session_id,
+                                user_profile=req.user_profile, _stream=True):
+            yield f"data: {json.dumps(event)}\n\n"
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")
 
 
 # ── Mentor-Mentee column aliases ──────────────────────────────────────────────

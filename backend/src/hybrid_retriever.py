@@ -58,6 +58,7 @@ from rank_bm25 import BM25Okapi
 
 from src.config import DEBUG_RAG, TOP_K_RESULTS
 from src.threaded_rag import classify_query, _matches_category, ThreadedRAGSystem
+from src.rag_debug import warn
 
 # Cross-encoder is optional at import time: if sentence-transformers / the
 # specific model can't be loaded (e.g. no network access to the model hub
@@ -70,7 +71,7 @@ except Exception as e:  # pragma: no cover
     CrossEncoder = None
     _CROSS_ENCODER_IMPORT_OK = False
     if DEBUG_RAG:
-        print(f"[HYBRID] CrossEncoder import failed, will skip reranking: {e}")
+        warn(f"CrossEncoder import failed, will skip reranking: {e}")
 
 
 # ---------------------------------------------------------------------------
@@ -218,7 +219,7 @@ class CrossEncoderReranker:
             except Exception as e:
                 self._load_failed = True
                 if DEBUG_RAG:
-                    print(f"[HYBRID] CrossEncoder load failed, falling back to RRF order: {e}")
+                    warn(f"CrossEncoder load failed, falling back to RRF order: {e}")
 
     @property
     def ready(self) -> bool:
@@ -229,6 +230,8 @@ class CrossEncoderReranker:
         if not candidates:
             return []
         if not self.ready:
+            if DEBUG_RAG:
+                warn(f"Cross-encoder NOT ready — returning top-{top_k} by RRF order (graceful degradation)")
             return candidates[:top_k]
         pairs = [(query, c.get("content", "")) for c in candidates]
         scores = self._model.predict(pairs)
@@ -240,8 +243,21 @@ class CrossEncoderReranker:
             c["_evidence_score"] = float(s)  # cross-encoder relevance logit
             ranked.append(c)
         if DEBUG_RAG:
-            preview = [(c.get("metadata", {}).get("doc_id"), c["_evidence_score"]) for c in ranked[:10]]
-            print(f"[HYBRID] Reranker ranking (doc_id, score): {preview}")
+            _sep = "=" * 65
+            _line = "-" * 65
+            print(f"\n{_sep}\n  STEP 7 : Cross-Encoder Reranking\n{_sep}")
+            print(f"  Model           : {self._MODEL_NAME}")
+            print(f"  Candidates In   : {len(candidates)}")
+            print(f"  Candidates Out  : {len(ranked)}")
+            print(f"  Removed         : {len(candidates) - len(ranked)}")
+            print(_line)
+            print("  After Rerank (doc_id → ce_score):")
+            for i, c in enumerate(ranked[:10], 1):
+                doc   = str(c.get('metadata', {}).get('doc_id', '?'))[:28]
+                score = c.get('_evidence_score', 0.0)
+                prev  = (c.get('content', '') or '')[:100].replace('\n', ' ')
+                print(f"  [{i:02d}] ce={score:+.4f} | {doc} | {prev}…")
+            print("=" * 65)
         return ranked
 
 
@@ -319,7 +335,11 @@ class HybridRetriever:
             self._bm25_index = BM25Index(self._rag.index_to_doc_map)
             self._bm25_built_for_ntotal = current_ntotal
             if DEBUG_RAG:
-                print(f"[HYBRID] Built BM25 index over {len(self._rag.index_to_doc_map)} chunks")
+                _sep = "=" * 65
+                print(f"\n{_sep}\n  [HYBRID] BM25 Index Built\n{_sep}")
+                print(f"  Corpus Size  : {len(self._rag.index_to_doc_map)} chunks")
+                print(f"  FAISS ntotal : {current_ntotal}")
+                print(_sep)
 
     def get_hybrid_candidates(
         self,
@@ -364,15 +384,40 @@ class HybridRetriever:
             self._ensure_bm25()
             bm25_hits = self._bm25_index.search(query, top_k=top_k, category=category) if self._bm25_index else []
             if DEBUG_RAG:
-                preview = [(h["metadata"].get("doc_id"), round(h["score"], 4)) for h in bm25_hits[:top_k]]
-                print(f"[HYBRID] BM25 Top-K ({category}): {preview}")
+                _sep  = "=" * 65
+                _line = "-" * 65
+                print(f"\n{_sep}\n  STEP 5 : BM25 Retrieval\n{_sep}")
+                print(f"  Query    : {query[:80]}")
+                print(f"  Category : {category}")
+                print(f"  Results  : {len(bm25_hits)}")
+                if not bm25_hits:
+                    warn("BM25 returned zero results — no lexical overlap.")
+                print(_line)
+                for i, h in enumerate(bm25_hits[:10], 1):
+                    score = h.get('score', 0.0)
+                    prev  = (h.get('content', '') or '')[:150].replace('\n', ' ')
+                    print(f"  [{i:02d}] score={score:.4f} | {prev}…")
+                print(_sep)
 
         # RRF fusion.
         fused = reciprocal_rank_fusion([dense_hits, bm25_hits], k=rrf_k)
         fused_top_n = fused[:rrf_top_n]
         if DEBUG_RAG:
-            preview = [(it["metadata"].get("doc_id"), round(it["rrf_score"], 5)) for it in fused_top_n[:10]]
-            print(f"[HYBRID] RRF ranking (top10 of {len(fused_top_n)}): {preview}")
+            _sep  = "=" * 65
+            _line = "-" * 65
+            print(f"\n{_sep}\n  STEP 6 : Hybrid RRF Fusion\n{_sep}")
+            print(f"  Dense Input   : {len(dense_hits)}")
+            print(f"  BM25  Input   : {len(bm25_hits)}")
+            print(f"  RRF k         : {rrf_k}")
+            print(f"  Fused Total   : {len(fused_top_n)}")
+            print(_line)
+            print("  Combined Ranking (top 10):")
+            for i, it in enumerate(fused_top_n[:10], 1):
+                rrf  = it.get('rrf_score', 0.0)
+                doc  = str(it.get('metadata', {}).get('doc_id', '?'))[:28]
+                prev = (it.get('content', '') or '')[:100].replace('\n', ' ')
+                print(f"  [{i:02d}] rrf={rrf:.5f} | {doc} | {prev}…")
+            print(_sep)
 
         # Defense-in-depth duplicate removal (threaded_rag.py's dense path
         # and RRF's own key_fn already dedup; this guards the merged list).
