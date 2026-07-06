@@ -1,11 +1,20 @@
 {
   "name": "Yogesh Kumar",
-  "role": null,
-  "department": null,
+  "role": "Associate Professor",
+  "department": "School of Engineering and Sciences (SoES)",
   "location": null,
+  "qualification": [
+    "**Research Interests:** Software engineering and operation systems",
+    "**Experience:** 11 years of professional experience in academics and industry"
+  ],
   "education": [],
-  "research": [],
-  "experience": [],
+  "research": [
+    "Software engineering and operation systems",
+    "**Experience:** 11 years of professional experience in academics and industry"
+  ],
+  "experience": [
+    "11 years of professional experience in academics and industry"
+  ],
   "links": [],
   "sources": []
 }

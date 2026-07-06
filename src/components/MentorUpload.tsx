@@ -31,7 +31,7 @@ export default function MentorUpload() {
     const form = new FormData();
     form.append("file", file);
     try {
-      const res = await axios.post("http://localhost:9000/mentor-mentee", form, {
+      const res = await axios.post("http://10.10.135.52:9000/mentor-mentee", form, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setResult(res.data);

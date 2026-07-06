@@ -1,17 +1,14 @@
 {
   "name": "Dr. Shipra Kataria",
-  "role": null,
-  "department": null,
+  "role": "Associate Professor",
+  "department": "School of Engineering and Sciences",
   "location": null,
-  "education": [
-    "Doctorate in Machine Learning from GD Goenka University * **Research Interests**: Machine Learning and Computer Science * **Experience**: Over 14 years of teaching and research experience"
+  "qualification": [
+    "(Computer Science) College/University: Apeejay College of Engineering MDU Rohtak; YMCA University of Science and Technology, Faridabad; GD Goenka University, Gurugram"
   ],
-  "research": [
-    "Machine Learning and Computer Science * **Experience**: Over 14 years of teaching and research experience"
-  ],
-  "experience": [
-    "Over 14 years of teaching and research experience"
-  ],
+  "education": [],
+  "research": [],
+  "experience": [],
   "links": [],
   "sources": []
 }

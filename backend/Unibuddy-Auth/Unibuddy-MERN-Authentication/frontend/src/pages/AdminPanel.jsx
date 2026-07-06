@@ -59,7 +59,7 @@ export default function AdminPanel() {
   });
 
   // API Base URL
-  const API_URL = "http://localhost:5000/api/students";
+  const API_URL = "http://10.10.135.52:5000/api/students";
 
   // Fetch Students
   const fetchStudents = async () => {

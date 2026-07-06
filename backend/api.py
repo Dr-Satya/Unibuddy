@@ -20,6 +20,7 @@ app = FastAPI(title="UniBuddy API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+	"http://10.10.135.52:5173",
         "http://localhost:5173",
         "http://localhost:5174",
         "http://localhost:5000",

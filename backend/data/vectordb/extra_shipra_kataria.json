@@ -1,11 +1,23 @@
 {
   "name": "Shipra Kataria",
-  "role": null,
-  "department": null,
+  "role": "Associate Professor",
+  "department": "School of Engineering and Sciences",
   "location": null,
-  "education": [],
-  "research": [],
-  "experience": [],
+  "qualification": [],
+  "education": [
+    "Experience**",
+    "More than 14 years of teaching and research experience in universities of high repute such as MVN University, Manav Rachna International Institute of Research and Studies, and GD Goenka University."
+  ],
+  "research": [
+    "Machine Learning",
+    "Internet of Things",
+    "NEP",
+    "Outcome Based Education",
+    "**Experience**"
+  ],
+  "experience": [
+    "More than 14 years of teaching and research experience in universities of high repute such as MVN University, Manav Rachna International Institute of Research and Studies, and GD Goenka University."
+  ],
   "links": [],
   "sources": []
 }

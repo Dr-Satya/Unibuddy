@@ -1,11 +1,21 @@
 {
   "name": "Satya Prakash",
-  "role": null,
+  "role": "Accomplished professional",
   "department": null,
   "location": null,
+  "qualification": [
+    "Master’s degree in Computer Applications",
+    "**Research Interests**: Machine Learning, Computer Networks, Software Engineering",
+    "**Experience**: Extensive experience in Software Research & Development"
+  ],
   "education": [],
-  "research": [],
-  "experience": [],
+  "research": [
+    "Machine Learning, Computer Networks, Software Engineering",
+    "**Experience**: Extensive experience in Software Research & Development"
+  ],
+  "experience": [
+    "Extensive experience in Software Research & Development"
+  ],
   "links": [],
   "sources": []
 }

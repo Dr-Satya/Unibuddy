@@ -1,10 +1,15 @@
 {
   "name": "Bhagat Singh",
-  "role": null,
+  "role": "Assistant Professor",
   "department": null,
   "location": null,
+  "qualification": [
+    "**Research Interests**: Numerical Analysis, Finite Difference Methods, Scientific Computing & Partial Differential Equations"
+  ],
   "education": [],
-  "research": [],
+  "research": [
+    "Numerical Analysis, Finite Difference Methods, Scientific Computing & Partial Differential Equations"
+  ],
   "experience": [],
   "links": [],
   "sources": []

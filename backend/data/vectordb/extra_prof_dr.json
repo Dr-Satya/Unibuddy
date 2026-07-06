@@ -1,11 +1,18 @@
 {
   "name": "Prof Dr",
-  "role": null,
-  "department": null,
+  "role": "Dean",
+  "department": "School of Engineering and Sciences",
   "location": null,
+  "qualification": [
+    "**Experience**: Over two decades of experience in teaching"
+  ],
   "education": [],
-  "research": [],
-  "experience": [],
+  "research": [
+    "**Experience**: Over two decades of experience in teaching"
+  ],
+  "experience": [
+    "Over two decades of experience in teaching"
+  ],
   "links": [],
   "sources": []
 }

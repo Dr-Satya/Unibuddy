@@ -4,7 +4,7 @@ import { useAuthModal } from '../context/AuthModalContext';
 import iconImg from '../assets/5500_1_04.jpg';
 import { X, Send, Bot } from 'lucide-react';
 
-const API_URL = 'http://127.0.0.1:9000/chat';
+const API_URL = 'http://10.10.135.52:9000/chat';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -85,6 +85,7 @@ const Chatbot = () => {
   const [greeted, setGreeted] = useState(false);
   const sessionRef = useRef<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+ const inputRef = useRef<HTMLInputElement>(null);
 
   const { isAuthenticated, user } = useAuthStore();
   const { openModal } = useAuthModal();
@@ -167,8 +168,12 @@ const Chatbot = () => {
     } catch {
       setMessages(prev => [...prev, { role: 'assistant', html: '<div style="color:#f87171">Connection error. Please try again.</div>' }]);
     } finally {
-      setLoading(false);
-    }
+  setLoading(false);
+
+  setTimeout(() => {
+    inputRef.current?.focus();
+  }, 50);
+}
   };
 
   return (
@@ -303,11 +308,12 @@ const Chatbot = () => {
             alignItems: 'center',
           }}>
             <input
+	ref={inputRef}
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }}
               placeholder="Ask something..."
-              disabled={loading}
+              readOnly={loading}
               style={{
                 flex: 1, padding: '9px 13px',
                 borderRadius: 10,
