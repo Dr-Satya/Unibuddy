@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Upload, FileText, Download, X, Loader, ChevronDown, ChevronUp } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { timetableUploadUrl } from "../config/api";
 
 interface SlotEntry {
   slot: number;
@@ -45,7 +46,7 @@ export default function TimetableUpload() {
     const form = new FormData();
     form.append("file", file);
     try {
-      const res = await axios.post("http://localhost:9000/timetable", form, {
+      const res = await axios.post(timetableUploadUrl, form, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setResult(res.data);

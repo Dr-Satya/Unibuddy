@@ -5,7 +5,9 @@ export const ADMIN_WHITELIST = [
   '230160223057.saafin@gdgu.org',
   '230160203052.kiyosha@gdgu.org',
   'samkit@gdgu.org',
-  'kiyosha@gdgu.org'
+  'kiyosha@gdgu.org',
+  'satya.prakash@gdgu.org',
+  'saafinhasan27@gdgu.org'
   // Add more admin emails as needed
 ];
 

@@ -1,15 +1,17 @@
 {
   "name": "Faculty Member",
-  "role": null,
-  "department": null,
+  "role": "Academic administration experience",
+  "department": "School of Management",
   "location": null,
+  "qualification": [
+    "No information available",
+    "**Experience**: Over 15 years of experience, Managed several programs at international locations, Extensive experience working with various Indian and American universities of repute"
+  ],
   "education": [],
   "research": [],
-  "experience": [],
-  "links": [
-    "https://www.gdgoenkauniversity.com/school-of-engineering/faculty)"
+  "experience": [
+    "Over 15 years of experience, Managed several programs at international locations, Extensive experience working with various Indian and American universities of repute"
   ],
-  "sources": [
-    "https://www.gdgoenkauniversity.com/school-of-engineering/faculty)"
-  ]
+  "links": [],
+  "sources": []
 }

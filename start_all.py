@@ -57,6 +57,15 @@ def start_service(name, command, cwd=None):
 
 def main():
     """Main function"""
+    required = ["FRONTEND_URL", "AUTH_URL", "BACKEND_URL"]
+    missing = [name for name in required if not os.environ.get(name)]
+    if missing:
+        raise RuntimeError(f"Missing required environment variables: {', '.join(missing)}")
+
+    frontend_url = os.environ["FRONTEND_URL"].strip()
+    auth_url = os.environ["AUTH_URL"].strip()
+    chatbot_url = os.environ["BACKEND_URL"].strip()
+
     print_colored("Starting UniBuddy Services...", 'cyan')
     print()
     
@@ -96,9 +105,9 @@ def main():
     print_colored("All services started!", 'green')
     print()
     print_colored("Access Points:", 'yellow')
-    print("   Frontend:        http://localhost:5173")
-    print("   Auth Backend:    http://localhost:5000")
-    print("   Chatbot Backend: http://localhost:9000")
+    print(f"   Frontend:        {frontend_url}")
+    print(f"   Auth Backend:    {auth_url}")
+    print(f"   Chatbot Backend: {chatbot_url}")
     print()
     print_colored("Tip: Close all terminal windows to stop all services", 'cyan')
     print()

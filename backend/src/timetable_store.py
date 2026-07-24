@@ -359,23 +359,50 @@ def answer_timetable_query(user_message: str, session_id: str = None, history: l
     store = _load()
     state = _get_session(session_id) if session_id else {}
     step = state.get('step')
+    print(
+        "[TIMETABLE-TRACE] answer_timetable_query:enter | "
+        f"session_id={session_id or ''} | "
+        f"msg={msg[:120]} | "
+        f"state_keys={sorted(list(state.keys()))} | "
+        f"step={step or ''} | "
+        f"remembered_class={state.get('remembered_class') or ''} | "
+        f"store_count={len(store)}",
+        flush=True,
+    )
 
     # ── If class already remembered, answer directly ──────────────────────────
     remembered = state.get('remembered_class')
     if remembered and not step:
+        intent_match = is_timetable_intent(msg)
+        escape_match = is_timetable_escape(msg)
+        followup_words = {'name', 'list', 'when', 'where', 'what', 'which',
+                          'count', 'total', 'all', 'today', 'tomorrow', 'monday',
+                          'tuesday', 'wednesday', 'thursday', 'friday', 'labs', 'free'}
+        followup_match = msg.lower().strip() in followup_words
+        print(
+            "[TIMETABLE-TRACE] remembered_branch | "
+            f"remembered={remembered} | "
+            f"intent_match={intent_match} | "
+            f"escape_match={escape_match} | "
+            f"followup_match={followup_match}",
+            flush=True,
+        )
         # Farewell
         if re.match(r'^(bye|goodbye|quit|exit|see you|cya|later|thanks|thank you)[\s!.?]*$', msg):
+            print("[TIMETABLE-TRACE] remembered_branch:return | reason=farewell", flush=True)
             _clear_session(session_id)
             return "<div>👋 Goodbye! Feel free to ask anytime. Have a great day!</div>"
 
         # Clear session on greetings
         if re.match(r'^(hi|hello|hey|good\s*(morning|evening|afternoon)|howdy)[\s!.?]*$', msg):
+            print("[TIMETABLE-TRACE] remembered_branch:return | reason=greeting_clear_session", flush=True)
             _clear_session(session_id)
             return None
 
         # User correcting their class — restart guided flow
         if re.search(r'\b(no|wrong|actually|i am|i\'m)\b', msg, re.I) and \
            re.search(r'\b(1st|2nd|3rd|4th|5th|first|second|third|fourth|bca|btech|b\.tech|mca|cse|ece)\b', msg, re.I):
+            print("[TIMETABLE-TRACE] remembered_branch:return | reason=class_correction", flush=True)
             _clear_session(session_id)
             state = {'step': 'ask_year', 'original_query': user_message}
             _set_session(session_id, state)
@@ -387,6 +414,7 @@ def answer_timetable_query(user_message: str, session_id: str = None, history: l
 
         # "change timetable / switch class" — restart
         if re.search(r'\b(change|switch|different|another|other)\s+(class|timetable|section|year|branch)\b', msg, re.I):
+            print("[TIMETABLE-TRACE] remembered_branch:return | reason=change_switch", flush=True)
             _clear_session(session_id)
             state = {'step': 'ask_year', 'original_query': user_message}
             _set_session(session_id, state)
@@ -401,56 +429,96 @@ def answer_timetable_query(user_message: str, session_id: str = None, history: l
         FOLLOWUP_WORDS = {'name', 'list', 'when', 'where', 'what', 'which',
                           'count', 'total', 'all', 'today', 'tomorrow', 'monday',
                           'tuesday', 'wednesday', 'thursday', 'friday', 'labs', 'free'}
+        print(
+            "[TIMETABLE-TRACE] remembered_branch:route_check | "
+            f"is_escape={escape_match} | "
+            f"is_intent={intent_match} | "
+            f"is_followup={followup_match}",
+            flush=True,
+        )
         if not is_timetable_escape(msg) and (
             is_timetable_intent(msg) or msg.lower().strip() in FOLLOWUP_WORDS
         ):
+            print("[TIMETABLE-TRACE] remembered_branch:return | reason=answer_with_llm", flush=True)
             return _answer_with_llm(remembered, user_message, session_id, history=history)
         # Otherwise fall through to RAG (faculty, mentor, fees, etc.)
+        print("[TIMETABLE-TRACE] remembered_branch:return | reason=fallthrough_none", flush=True)
         return None
 
     # ── Active session: continue guided flow ──────────────────────────────────
     if step == 'ask_year':
+        print("[TIMETABLE-TRACE] active_session_branch | step=ask_year", flush=True)
         for y in ['1st', '2nd', '3rd', '4th', '5th', 'first', 'second', 'third', 'fourth']:
             if y in msg:
                 norm = {'first': '1st', 'second': '2nd', 'third': '3rd', 'fourth': '4th'}.get(y, y)
                 state['year'] = norm
                 break
         if 'year' not in state:
+            print("[TIMETABLE-TRACE] active_session_branch:return | reason=ask_year_prompt", flush=True)
             return "<div>Please reply with your year — e.g. <strong>1st</strong>, <strong>2nd</strong>, <strong>3rd</strong>.</div>"
         state['step'] = 'ask_branch'
         _set_session(session_id, state)
         matches = _filter_classes(year=state['year'])
+        print(
+            "[TIMETABLE-TRACE] active_session_branch:return | reason=ask_branch_prompt | "
+            f"matches={len(matches)}",
+            flush=True,
+        )
         return _ask_branch(_unique_branches(matches))
 
     if step == 'ask_branch':
+        print("[TIMETABLE-TRACE] active_session_branch | step=ask_branch", flush=True)
         matched = _match_branch_from_reply(msg, state.get('year'))
+        print(f"[TIMETABLE-TRACE] active_session_branch:match_branch | matched={matched or ''}", flush=True)
         if not matched:
             matches = _filter_classes(year=state.get('year'))
+            print(
+                "[TIMETABLE-TRACE] active_session_branch:return | reason=branch_prompt_again | "
+                f"matches={len(matches)}",
+                flush=True,
+            )
             return f"<div>Please choose from:<br><strong>{', '.join(_unique_branches(matches))}</strong></div>"
         state['branch'] = matched
         state['step'] = 'ask_section'
         _set_session(session_id, state)
         matches = _filter_classes(year=state.get('year'), branch=matched)
         if len(matches) == 1:
+            print("[TIMETABLE-TRACE] active_session_branch:return | reason=single_match_answer", flush=True)
             return _answer_with_llm(matches[0], state.get('original_query', user_message), session_id, history=history)
+        print(
+            "[TIMETABLE-TRACE] active_session_branch:return | reason=ask_section_prompt | "
+            f"matches={len(matches)}",
+            flush=True,
+        )
         return _ask_section(_unique_sections(matches))
 
     if step == 'ask_section':
+        print("[TIMETABLE-TRACE] active_session_branch | step=ask_section", flush=True)
         matches = _filter_classes(year=state.get('year'), branch=state.get('branch'))
         chosen = _match_section_from_reply(msg, matches)
+        print(f"[TIMETABLE-TRACE] active_session_branch:match_section | chosen={chosen or ''}", flush=True)
         if not chosen:
+            print(
+                "[TIMETABLE-TRACE] active_session_branch:return | reason=section_prompt_again | "
+                f"matches={len(matches)}",
+                flush=True,
+            )
             return f"<div>Please choose your section: <strong>{', '.join(_unique_sections(matches))}</strong></div>"
+        print("[TIMETABLE-TRACE] active_session_branch:return | reason=answer_with_llm", flush=True)
         return _answer_with_llm(chosen, state.get('original_query', user_message), session_id, history=history)
 
     # ── No active session — check intent ──────────────────────────────────────
     # Handle farewell even without active session
     if re.match(r'^(bye|goodbye|quit|exit|see you|cya|later)[\s!.?]*$', msg):
+        print("[TIMETABLE-TRACE] no_session_branch:return | reason=farewell", flush=True)
         return "<div>👋 Goodbye! Come back anytime. Have a great day!</div>"
 
     if not is_timetable_intent(msg):
+        print("[TIMETABLE-TRACE] no_session_branch:return | reason=no_timetable_intent", flush=True)
         return None
 
     if not store:
+        print("[TIMETABLE-TRACE] no_session_branch:return | reason=no_store", flush=True)
         return (
             "<div>No timetable uploaded yet. "
             "Ask an admin to upload via <strong>Admin Panel → Timetable</strong>.</div>"
@@ -458,23 +526,29 @@ def answer_timetable_query(user_message: str, session_id: str = None, history: l
 
     # Try inline filters first
     inline = _extract_inline_filters(user_message)
+    print(f"[TIMETABLE-TRACE] no_session_branch:inline_filters | inline={inline}", flush=True)
     if inline:
         matches = _filter_classes(**inline)
+        print(f"[TIMETABLE-TRACE] no_session_branch:inline_matches | matches={len(matches)}", flush=True)
         if len(matches) == 1:
+            print("[TIMETABLE-TRACE] no_session_branch:return | reason=inline_single_match", flush=True)
             return _answer_with_llm(matches[0], user_message, session_id)
         if len(matches) > 1:
             if 'year' in inline and 'branch' not in inline:
                 state = {'step': 'ask_branch', 'year': inline['year'], 'original_query': user_message}
                 _set_session(session_id, state)
+                print("[TIMETABLE-TRACE] no_session_branch:return | reason=inline_ask_branch", flush=True)
                 return _ask_branch(_unique_branches(matches))
             if 'year' in inline and 'branch' in inline:
                 state = {'step': 'ask_section', 'year': inline['year'], 'branch': inline['branch'], 'original_query': user_message}
                 _set_session(session_id, state)
+                print("[TIMETABLE-TRACE] no_session_branch:return | reason=inline_ask_section", flush=True)
                 return _ask_section(_unique_sections(matches))
 
     # Start guided flow
     state = {'step': 'ask_year', 'original_query': user_message}
     _set_session(session_id, state)
+    print("[TIMETABLE-TRACE] no_session_branch:return | reason=start_guided_flow", flush=True)
     return (
         "<div>I can help with your timetable! 📅<br><br>"
         "Which <strong>year</strong> are you in?<br>"

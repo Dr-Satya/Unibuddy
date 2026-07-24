@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>KB Cleanliness Audit Report</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+         margin: 0; background: #f5f6fa; color: #333; }
+  .header { background: #2c3e50; color: white; padding: 24px 32px; }
+  .header h1 { margin: 0 0 4px; font-size: 1.6em; }
+  .header p  { margin: 0; opacity: 0.7; font-size: 0.9em; }
+  .cards { display: flex; gap: 16px; padding: 24px 32px; flex-wrap: wrap; }
+  .card { background: white; border-radius: 8px; padding: 16px 24px;
+           box-shadow: 0 1px 4px rgba(0,0,0,.08); min-width: 140px; }
+  .card .val { font-size: 2em; font-weight: bold; color: #2c3e50; }
+  .card .lbl { font-size: 0.8em; color: #888; margin-top: 4px; }
+  section { padding: 0 32px 32px; }
+  h2 { font-size: 1.2em; border-bottom: 2px solid #ecf0f1; padding-bottom: 8px; color:#2c3e50; }
+  table { width: 100%; border-collapse: collapse; background: white;
+           border-radius: 8px; overflow: hidden;
+           box-shadow: 0 1px 4px rgba(0,0,0,.08); font-size:0.9em; }
+  th { background: #34495e; color: white; padding: 10px 12px; text-align:left; }
+  td { padding: 8px 12px; border-bottom: 1px solid #ecf0f1; vertical-align:top; }
+  tr:hover td { background: #fafafa; }
+  .old-table { max-width: 600px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Knowledge Base Cleanliness Audit</h1>
+  <p>Generated: 2026-07-13 15:27:37 &nbsp;|&nbsp;
+     New KB: 200 pages / 1880 chunks</p>
+</div>
+
+<div class="cards">
+  <div class="card">
+    <div class="val" style="color:#e67e22">64.6</div>
+    <div class="lbl">Avg Cleanliness Score</div>
+  </div>
+  <div class="card">
+    <div class="val">0</div>
+    <div class="lbl">Pages Below 50 (Poor)</div>
+  </div>
+  <div class="card">
+    <div class="val">1115</div>
+    <div class="lbl">Malformed URLs</div>
+  </div>
+  <div class="card">
+    <div class="val">0</div>
+    <div class="lbl">Duplicate Paragraphs</div>
+  </div>
+  <div class="card">
+    <div class="val">199</div>
+    <div class="lbl">Footer Leak Pages</div>
+  </div>
+  <div class="card">
+    <div class="val">0</div>
+    <div class="lbl">Nav-Heavy Pages</div>
+  </div>
+  <div class="card">
+    <div class="val">763</div>
+    <div class="lbl">Avg Chunk Size (chars)</div>
+  </div>
+  <div class="card">
+    <div class="val">1</div>
+    <div class="lbl">Excellent Pages (90+)</div>
+  </div>
+</div>
+
+<section>
+  <h2>Old KB vs New KB Comparison</h2>
+  <table class="old-table">
+    <tr><th>Metric</th><th>Old KB</th><th>New KB</th></tr>
+    <tr><td>Total chunks</td>
+        <td>864</td>
+        <td>1880</td></tr>
+    <tr><td>Unique source URLs</td>
+        <td>84</td>
+        <td>200</td></tr>
+    <tr><td>Avg chunk size</td>
+        <td>476 chars</td>
+        <td>763 chars</td></tr>
+    <tr><td>Content types</td>
+        <td>faculty_profile: 498<br>fee_structure: 165<br>courses: 110<br>faculty: 34<br>about: 32<br>facilities: 24<br>admission: 1</td>
+        <td>13 URL-derived categories</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Top 50 Worst Pages (by Cleanliness Score)</h2>
+  <table>
+    <tr>
+      <th>#</th><th>Score</th><th>Title</th>
+      <th>Chunks</th><th>Avg Chunk</th>
+      <th>Bad URLs</th><th>Nav%</th>
+      <th>Dup Paras</th><th>Top Issues</th>
+    </tr>
+    
+        <tr>
+            <td>1</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">55</span></td>
+            <td title="https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-group">About GD Goenka Group</td>
+            <td>15</td>
+            <td>679</td>
+            <td>13</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">MANY malformed URLs: 13<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 19</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">55</span></td>
+            <td title="https://www.gdgoenkauniversity.com/programmes/undergraduate">Programmes</td>
+            <td>13</td>
+            <td>810</td>
+            <td>52</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">MANY malformed URLs: 52<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">55</span></td>
+            <td title="https://www.gdgoenkauniversity.com/programmes/postgraduate">Programmes</td>
+            <td>14</td>
+            <td>701</td>
+            <td>47</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">MANY malformed URLs: 47<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">55</span></td>
+            <td title="https://www.gdgoenkauniversity.com/programmes/diploma">Programmes</td>
+            <td>5</td>
+            <td>684</td>
+            <td>11</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">MANY malformed URLs: 11<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">55</span></td>
+            <td title="https://www.gdgoenkauniversity.com/programmes/doctoral">Programmes</td>
+            <td>4</td>
+            <td>868</td>
+            <td>23</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">MANY malformed URLs: 23<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">55</span></td>
+            <td title="https://www.gdgoenkauniversity.com/examination">Examination</td>
+            <td>27</td>
+            <td>867</td>
+            <td>46</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">MANY malformed URLs: 46<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 47</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">55</span></td>
+            <td title="https://www.gdgoenkauniversity.com/research-and-development/funded-research-projects">Funded Research Projects</td>
+            <td>4</td>
+            <td>899</td>
+            <td>12</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">MANY malformed URLs: 12<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">55</span></td>
+            <td title="https://www.gdgoenkauniversity.com/admissions/fee-structure">Fee Structure</td>
+            <td>46</td>
+            <td>777</td>
+            <td>118</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">MANY malformed URLs: 118<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">60</span></td>
+            <td title="https://www.gdgoenkauniversity.com/corporate-resource-centre/placements/employability-skills">Employability Skills</td>
+            <td>20</td>
+            <td>791</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">60</span></td>
+            <td title="https://www.gdgoenkauniversity.com/corporate-resource-centre/placements/placement-process">Placement Process</td>
+            <td>11</td>
+            <td>694</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 12</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">60</span></td>
+            <td title="https://www.gdgoenkauniversity.com/corporate-resource-centre/crc/overview">Overview</td>
+            <td>18</td>
+            <td>653</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">60</span></td>
+            <td title="https://www.gdgoenkauniversity.com/facilities/campus/dining-food-outlets">Dining & Food Outlets</td>
+            <td>6</td>
+            <td>710</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>Cookie/privacy notice text present</td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">60</span></td>
+            <td title="https://www.gdgoenkauniversity.com/facilities/academic/libraries">Libraries</td>
+            <td>18</td>
+            <td>727</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>Cookie/privacy notice text present</td>
+        </tr>
+        <tr>
+            <td>14</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">60</span></td>
+            <td title="https://www.gdgoenkauniversity.com/research-and-development/phd-scholars">Ph.D Scholars</td>
+            <td>59</td>
+            <td>924</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>Cookie/privacy notice text present</td>
+        </tr>
+        <tr>
+            <td>15</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">60</span></td>
+            <td title="https://www.gdgoenkauniversity.com/campus-life/eat-on-campus">Eat on Campus</td>
+            <td>6</td>
+            <td>760</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>Cookie/privacy notice text present</td>
+        </tr>
+        <tr>
+            <td>16</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">60</span></td>
+            <td title="https://www.gdgoenkauniversity.com/course/ba-hons-in-culinary-arts">BA (Hons.) in Culinary Arts</td>
+            <td>11</td>
+            <td>650</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>17</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com">GD Goenka University</td>
+            <td>8</td>
+            <td>819</td>
+            <td>10</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 10<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 13</td>
+        </tr>
+        <tr>
+            <td>18</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-university">About GD Goenka University</td>
+            <td>11</td>
+            <td>664</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>19</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/about-us/message-from-chancellor">Message from Chancellor</td>
+            <td>7</td>
+            <td>773</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 12</td>
+        </tr>
+        <tr>
+            <td>20</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/about-us/accreditations-affiliations">Recognitions & Affiliations</td>
+            <td>8</td>
+            <td>681</td>
+            <td>5</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 5<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>21</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/about-us/message-from-vice-chancellor">Message from Vice Chancellor</td>
+            <td>5</td>
+            <td>801</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>22</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/about-us/rankings-awards">Rankings & Awards</td>
+            <td>8</td>
+            <td>954</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>23</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/about-us/deans-and-directors">Deans and Directors</td>
+            <td>1</td>
+            <td>865</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>24</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/about-us/core-values">Core Values</td>
+            <td>3</td>
+            <td>632</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>25</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/about-us/governance">Governance Team</td>
+            <td>12</td>
+            <td>725</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>26</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/about-us/regulatory-committee">Regulatory Committees</td>
+            <td>1</td>
+            <td>908</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>27</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/about-us/mandatory-disclosures">Mandatory Disclosures</td>
+            <td>1</td>
+            <td>994</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>28</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/about-us/organogram">Organogram</td>
+            <td>1</td>
+            <td>876</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>29</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/school/school-of-agricultural-sciences">School of Agricultural Sciences</td>
+            <td>8</td>
+            <td>622</td>
+            <td>5</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 5<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>30</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/school/school-of-engineering-sciences">School of Engineering & Sciences</td>
+            <td>27</td>
+            <td>788</td>
+            <td>5</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 5<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 12</td>
+        </tr>
+        <tr>
+            <td>31</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/school/school-of-liberal-arts">School of Liberal Arts</td>
+            <td>17</td>
+            <td>822</td>
+            <td>5</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 5<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 13</td>
+        </tr>
+        <tr>
+            <td>32</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/school/school-of-hospitality-tourism">School of Hospitality & Tourism</td>
+            <td>66</td>
+            <td>729</td>
+            <td>10</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 10<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>33</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/school/school-of-law">School of Law</td>
+            <td>20</td>
+            <td>798</td>
+            <td>5</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 5<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>34</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/school/school-of-management">School of Management</td>
+            <td>15</td>
+            <td>810</td>
+            <td>5</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 5<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>35</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/school/school-of-healthcare-and-allied-sciences">School of Healthcare and Allied Sciences</td>
+            <td>31</td>
+            <td>839</td>
+            <td>5</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 5<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>36</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/school/united-world-institute-of-design">UID-School of Design</td>
+            <td>12</td>
+            <td>720</td>
+            <td>5</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 5<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>37</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/school/centre-of-excellence-occupational-health-safety-fire-environment">Centre For Excellence in Occupational Health, Safe</td>
+            <td>9</td>
+            <td>702</td>
+            <td>5</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 5<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>38</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/school/summer-school-at-gdgu">Summer School @GDGU</td>
+            <td>5</td>
+            <td>738</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>39</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/corporate-resource-centre/placements/placement-highlights">Placement Highlights</td>
+            <td>7</td>
+            <td>693</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>40</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/corporate-resource-centre/placements/past-records-of-placements">Placements Past Record</td>
+            <td>3</td>
+            <td>797</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>41</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/corporate-resource-centre/placements/student-testimonials">Student Testimonials</td>
+            <td>1</td>
+            <td>980</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>42</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/corporate-resource-centre/placements/recruiter-testimonials">Recruiter Testimonials</td>
+            <td>1</td>
+            <td>763</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>43</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/corporate-resource-centre/placements/our-recruiters">Our Recruiters</td>
+            <td>3</td>
+            <td>913</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>44</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/corporate-resource-centre/crc/vision-mission">Vision and Mission</td>
+            <td>2</td>
+            <td>876</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>45</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/corporate-resource-centre/crc/committee">Placement Committee</td>
+            <td>2</td>
+            <td>588</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>46</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/corporate-resource-centre/crc/crc-team">Corporate Resource Centre Team</td>
+            <td>1</td>
+            <td>948</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>47</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/corporate-resource-centre/crc/soft-skills-industry">Soft Skills & Industry Sessions</td>
+            <td>4</td>
+            <td>800</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>48</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/corporate-resource-centre/crc/glimpse-of-capability-enhancement-and-development-schemes">Capability Enhancement and Development Schemes</td>
+            <td>16</td>
+            <td>769</td>
+            <td>5</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 5<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>49</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/facilities/campus/hostel-facilities">Hostel Facilities</td>
+            <td>4</td>
+            <td>819</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+        <tr>
+            <td>50</td>
+            <td><span style="background:#e67e22;color:white;padding:2px 8px;
+                border-radius:4px;font-weight:bold">65</span></td>
+            <td title="https://www.gdgoenkauniversity.com/facilities/campus/sports-facility">Sports Facility</td>
+            <td>8</td>
+            <td>834</td>
+            <td>4</td>
+            <td>0%</td>
+            <td>0</td>
+            <td style="font-size:0.85em;color:#555">SOME malformed URLs: 4<br>FOOTER boilerplate detected<br>IMAGE markdown tags present: 11</td>
+        </tr>
+  </table>
+</section>
+
+</body>
+</html>

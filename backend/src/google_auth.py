@@ -1,13 +1,14 @@
 from fastapi import APIRouter, Request, Depends, HTTPException
 from fastapi.responses import RedirectResponse
-import os
 from urllib.parse import urlencode
+
+from src.config import settings
 
 router = APIRouter()
 
-GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
-GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET')
-REDIRECT_URI = 'http://127.0.0.1:9000/auth/google/callback'
+GOOGLE_CLIENT_ID = getattr(settings, 'GOOGLE_CLIENT_ID', None)
+GOOGLE_CLIENT_SECRET = getattr(settings, 'GOOGLE_CLIENT_SECRET', None)
+REDIRECT_URI = settings.GOOGLE_REDIRECT_URI
 
 @router.get('/auth/google/login')
 def google_login():

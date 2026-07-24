@@ -1,0 +1,1191 @@
+{
+  "generated_at": "2026-07-13T12:55:51.762847",
+  "summary": {
+    "total_pages": 1286,
+    "pages_with_images": 86,
+    "pages_image_dominated": 11,
+    "pages_with_image_only_sections": 55,
+    "pages_heading_img_pattern": 66,
+    "total_images": 317,
+    "avg_images_per_page": 0.25,
+    "severity_distribution": {
+      "MEDIUM": 53,
+      "HIGH": 16,
+      "LOW": 17
+    },
+    "total_heading_img_pairs": 174,
+    "total_image_only_sections": 144,
+    "estimated_missing_knowledge_pct": 12.1,
+    "recommendation": "OCR recommended for selected pages",
+    "recommendation_reason": "11 image-dominated pages. Targeted OCR on HIGH-severity pages would recover meaningful content."
+  },
+  "category_stats": {
+    "other": {
+      "pages": 99,
+      "pages_with_images": 6,
+      "total_images": 13,
+      "dominated": 1,
+      "heading_img_pairs": 7
+    },
+    "about": {
+      "pages": 12,
+      "pages_with_images": 2,
+      "total_images": 9,
+      "dominated": 1,
+      "heading_img_pairs": 1
+    },
+    "courses": {
+      "pages": 158,
+      "pages_with_images": 0,
+      "total_images": 0,
+      "dominated": 0,
+      "heading_img_pairs": 0
+    },
+    "miscellaneous": {
+      "pages": 3,
+      "pages_with_images": 2,
+      "total_images": 65,
+      "dominated": 2,
+      "heading_img_pairs": 41
+    },
+    "faculty": {
+      "pages": 577,
+      "pages_with_images": 60,
+      "total_images": 166,
+      "dominated": 3,
+      "heading_img_pairs": 94
+    },
+    "placements": {
+      "pages": 46,
+      "pages_with_images": 3,
+      "total_images": 6,
+      "dominated": 0,
+      "heading_img_pairs": 6
+    },
+    "hostel": {
+      "pages": 2,
+      "pages_with_images": 0,
+      "total_images": 0,
+      "dominated": 0,
+      "heading_img_pairs": 0
+    },
+    "research": {
+      "pages": 27,
+      "pages_with_images": 4,
+      "total_images": 25,
+      "dominated": 2,
+      "heading_img_pairs": 13
+    },
+    "admissions": {
+      "pages": 9,
+      "pages_with_images": 1,
+      "total_images": 1,
+      "dominated": 1,
+      "heading_img_pairs": 2
+    },
+    "fees": {
+      "pages": 1,
+      "pages_with_images": 0,
+      "total_images": 0,
+      "dominated": 0,
+      "heading_img_pairs": 0
+    },
+    "happenings": {
+      "pages": 352,
+      "pages_with_images": 8,
+      "total_images": 32,
+      "dominated": 1,
+      "heading_img_pairs": 10
+    }
+  },
+  "top100_affected_pages": [
+    {
+      "url": "https://www.gdgoenkauniversity.com/examination",
+      "title": "Examination",
+      "category": "miscellaneous",
+      "image_count": 36,
+      "text_length": 21017,
+      "img_text_ratio": 1.7129,
+      "heading_img_pairs": 41,
+      "image_only_sections": 39,
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/research-and-development/ipr-cell",
+      "title": "IPR Cell",
+      "category": "research",
+      "image_count": 10,
+      "text_length": 4739,
+      "img_text_ratio": 2.1101,
+      "heading_img_pairs": 9,
+      "image_only_sections": 8,
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/centre-of-aerospace/placements",
+      "title": "Placement",
+      "category": "placements",
+      "image_count": 4,
+      "text_length": 3588,
+      "img_text_ratio": 1.1148,
+      "heading_img_pairs": 5,
+      "image_only_sections": 5,
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/school-of-hospitality-tourism/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 5,
+      "text_length": 2605,
+      "img_text_ratio": 1.9194,
+      "heading_img_pairs": 4,
+      "image_only_sections": 4,
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/school-of-liberal-arts/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 4,
+      "text_length": 2982,
+      "img_text_ratio": 1.3414,
+      "heading_img_pairs": 3,
+      "image_only_sections": 3,
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/department-of-psychology/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 4,
+      "text_length": 2918,
+      "img_text_ratio": 1.3708,
+      "heading_img_pairs": 3,
+      "image_only_sections": 3,
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/pharmacy-area",
+      "title": "Department of Pharmacy",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 6491,
+      "img_text_ratio": 0.4622,
+      "heading_img_pairs": 3,
+      "image_only_sections": 3,
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/optometry-area",
+      "title": "Department of Optometry",
+      "category": "faculty",
+      "image_count": 2,
+      "text_length": 4801,
+      "img_text_ratio": 0.4166,
+      "heading_img_pairs": 3,
+      "image_only_sections": 3,
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/happenings/event/report-on-scientific-writing-workshop",
+      "title": "Events",
+      "category": "happenings",
+      "image_count": 1,
+      "text_length": 2148,
+      "img_text_ratio": 0.4655,
+      "heading_img_pairs": 3,
+      "image_only_sections": 3,
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/happenings/event/ihe-expo",
+      "title": "Events",
+      "category": "happenings",
+      "image_count": 1,
+      "text_length": 1397,
+      "img_text_ratio": 0.7158,
+      "heading_img_pairs": 3,
+      "image_only_sections": 0,
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/research-and-development/central-facilities-",
+      "title": "Central Facilities",
+      "category": "research",
+      "image_count": 12,
+      "text_length": 2657,
+      "img_text_ratio": 4.5164,
+      "heading_img_pairs": 2,
+      "image_only_sections": 1,
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/facilities/campus/medical-facilities",
+      "title": "Medical Facilities",
+      "category": "other",
+      "image_count": 6,
+      "text_length": 2803,
+      "img_text_ratio": 2.1406,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/centre-of-aerospace/board-of-studies",
+      "title": "Home",
+      "category": "faculty",
+      "image_count": 4,
+      "text_length": 4967,
+      "img_text_ratio": 0.8053,
+      "heading_img_pairs": 2,
+      "image_only_sections": 1,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/centre-of-aerospace/dean-message",
+      "title": "Home",
+      "category": "faculty",
+      "image_count": 4,
+      "text_length": 4963,
+      "img_text_ratio": 0.806,
+      "heading_img_pairs": 2,
+      "image_only_sections": 1,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/centre-of-aerospace/facilities",
+      "title": "Home",
+      "category": "faculty",
+      "image_count": 4,
+      "text_length": 4961,
+      "img_text_ratio": 0.8063,
+      "heading_img_pairs": 2,
+      "image_only_sections": 1,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/centre-of-aerospace/department",
+      "title": "Home",
+      "category": "faculty",
+      "image_count": 4,
+      "text_length": 4961,
+      "img_text_ratio": 0.8063,
+      "heading_img_pairs": 2,
+      "image_only_sections": 1,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/centre-of-aerospace/overview",
+      "title": "Home",
+      "category": "faculty",
+      "image_count": 4,
+      "text_length": 4959,
+      "img_text_ratio": 0.8066,
+      "heading_img_pairs": 2,
+      "image_only_sections": 1,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/centre-of-aerospace",
+      "title": "Home",
+      "category": "faculty",
+      "image_count": 4,
+      "text_length": 4890,
+      "img_text_ratio": 0.818,
+      "heading_img_pairs": 2,
+      "image_only_sections": 1,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/department-of-electronics-and-communication-engineering/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2826,
+      "img_text_ratio": 1.0616,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/school-of-engineering-sciences/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2816,
+      "img_text_ratio": 1.0653,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/department-of-basic-and-applied-sciences/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2796,
+      "img_text_ratio": 1.073,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/department-of-mechanical-engineering/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2788,
+      "img_text_ratio": 1.076,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/department-of-aerospace-engineering/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2786,
+      "img_text_ratio": 1.0768,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/school-of-healthcare-and-allied-sciences/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2662,
+      "img_text_ratio": 1.127,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/physiotherapy-area/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2563,
+      "img_text_ratio": 1.1705,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/department-of-nursing/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2560,
+      "img_text_ratio": 1.1719,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/optometry-area/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2555,
+      "img_text_ratio": 1.1742,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/pharmacy-area/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2553,
+      "img_text_ratio": 1.1751,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/school-of-management/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2430,
+      "img_text_ratio": 1.2346,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/centre-for-corporate-law-policy-research-and-governance/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2408,
+      "img_text_ratio": 1.2458,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/operations-it-and-analytics-area/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2390,
+      "img_text_ratio": 1.2552,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/human-resource-management-area/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2379,
+      "img_text_ratio": 1.261,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/general-management-area/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2365,
+      "img_text_ratio": 1.2685,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/centre-for-women-and-child-rights/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2362,
+      "img_text_ratio": 1.2701,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/marketing-area/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2347,
+      "img_text_ratio": 1.2782,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/finance-area/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2343,
+      "img_text_ratio": 1.2804,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/school-of-agricultural-sciences/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 1776,
+      "img_text_ratio": 1.6892,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/united-world-institute-of-design/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 1763,
+      "img_text_ratio": 1.7016,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/centre-of-excellence-occupational-health-safety-fire-environment/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 1196,
+      "img_text_ratio": 2.5084,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/centre-for-environmental-law-and-sustainable-development/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 856,
+      "img_text_ratio": 3.5047,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/department-of-computer-science-and-engineering/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 838,
+      "img_text_ratio": 3.58,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/centre-for-constitutional-law-and-human-rights/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 836,
+      "img_text_ratio": 3.5885,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/publications",
+      "title": "Faculty Research",
+      "category": "research",
+      "image_count": 2,
+      "text_length": 14044,
+      "img_text_ratio": 0.1424,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/physiotherapy-area",
+      "title": "Department of Physiotherapy",
+      "category": "faculty",
+      "image_count": 2,
+      "text_length": 5651,
+      "img_text_ratio": 0.3539,
+      "heading_img_pairs": 2,
+      "image_only_sections": 2,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/faculty/dr-thammi-reddy-konala",
+      "title": "GD Goenka University",
+      "category": "faculty",
+      "image_count": 2,
+      "text_length": 4034,
+      "img_text_ratio": 0.4958,
+      "heading_img_pairs": 2,
+      "image_only_sections": 0,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com",
+      "title": "GD Goenka University",
+      "category": "other",
+      "image_count": 2,
+      "text_length": 3994,
+      "img_text_ratio": 0.5008,
+      "heading_img_pairs": 2,
+      "image_only_sections": 0,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/authors-guidelines",
+      "title": "GD Goenka University",
+      "category": "other",
+      "image_count": 2,
+      "text_length": 3994,
+      "img_text_ratio": 0.5008,
+      "heading_img_pairs": 2,
+      "image_only_sections": 0,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/school-of-engineering-sciences",
+      "title": "School of Engineering & Sciences",
+      "category": "faculty",
+      "image_count": 1,
+      "text_length": 19246,
+      "img_text_ratio": 0.052,
+      "heading_img_pairs": 2,
+      "image_only_sections": 0,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/happenings/news/vartah-counsellors-summit",
+      "title": "Vartah Counsellors Summit",
+      "category": "happenings",
+      "image_count": 1,
+      "text_length": 1119,
+      "img_text_ratio": 0.8937,
+      "heading_img_pairs": 2,
+      "image_only_sections": 0,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/happenings/news/vartah-counsellors-summit ",
+      "title": "Vartah Counsellors Summit ",
+      "category": "happenings",
+      "image_count": 1,
+      "text_length": 1119,
+      "img_text_ratio": 0.8937,
+      "heading_img_pairs": 2,
+      "image_only_sections": 0,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/admissions/phd-announcement",
+      "title": "Ph.D Announcement",
+      "category": "admissions",
+      "image_count": 1,
+      "text_length": 496,
+      "img_text_ratio": 2.0161,
+      "heading_img_pairs": 2,
+      "image_only_sections": 0,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-group",
+      "title": "About GD Goenka Group",
+      "category": "about",
+      "image_count": 8,
+      "text_length": 9214,
+      "img_text_ratio": 0.8682,
+      "heading_img_pairs": 1,
+      "image_only_sections": 1,
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/department-of-electronics-and-communication-engineering/facilities",
+      "title": "Classrooms",
+      "category": "faculty",
+      "image_count": 7,
+      "text_length": 1804,
+      "img_text_ratio": 3.8803,
+      "heading_img_pairs": 1,
+      "image_only_sections": 1,
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/school-of-healthcare-and-allied-sciences/overview",
+      "title": "Overview",
+      "category": "faculty",
+      "image_count": 4,
+      "text_length": 5729,
+      "img_text_ratio": 0.6982,
+      "heading_img_pairs": 1,
+      "image_only_sections": 1,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/department-of-computer-science/facilities",
+      "title": "Computer Labs",
+      "category": "faculty",
+      "image_count": 4,
+      "text_length": 3331,
+      "img_text_ratio": 1.2008,
+      "heading_img_pairs": 1,
+      "image_only_sections": 0,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/department-of-computer-science-and-engineering/facilities",
+      "title": "Classrooms",
+      "category": "faculty",
+      "image_count": 4,
+      "text_length": 2171,
+      "img_text_ratio": 1.8425,
+      "heading_img_pairs": 1,
+      "image_only_sections": 1,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/department-of-civil-engineering/facilities",
+      "title": "Well-equipped ICT-enabled classrooms and labs.",
+      "category": "faculty",
+      "image_count": 4,
+      "text_length": 1408,
+      "img_text_ratio": 2.8409,
+      "heading_img_pairs": 1,
+      "image_only_sections": 0,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/clinical-psychology",
+      "title": "Department of Clinical Psychology",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 6008,
+      "img_text_ratio": 0.4993,
+      "heading_img_pairs": 1,
+      "image_only_sections": 1,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/school-of-law/happenings",
+      "title": "Happenings",
+      "category": "faculty",
+      "image_count": 3,
+      "text_length": 2342,
+      "img_text_ratio": 1.281,
+      "heading_img_pairs": 1,
+      "image_only_sections": 1,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/department-of-computer-science",
+      "title": "Department of Computer Science",
+      "category": "faculty",
+      "image_count": 1,
+      "text_length": 5690,
+      "img_text_ratio": 0.1757,
+      "heading_img_pairs": 1,
+      "image_only_sections": 1,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/centre-of-aerospace/research",
+      "title": "Research",
+      "category": "faculty",
+      "image_count": 1,
+      "text_length": 2951,
+      "img_text_ratio": 0.3389,
+      "heading_img_pairs": 1,
+      "image_only_sections": 1,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/placements/committee/mr-akhilesh-chandra",
+      "title": "Placement Committee",
+      "category": "placements",
+      "image_count": 1,
+      "text_length": 2438,
+      "img_text_ratio": 0.4102,
+      "heading_img_pairs": 1,
+      "image_only_sections": 0,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/centre-of-aerospace/programmes",
+      "title": "Programs",
+      "category": "faculty",
+      "image_count": 1,
+      "text_length": 1850,
+      "img_text_ratio": 0.5405,
+      "heading_img_pairs": 1,
+      "image_only_sections": 1,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/times-b-school",
+      "title": "Times B School",
+      "category": "other",
+      "image_count": 1,
+      "text_length": 1603,
+      "img_text_ratio": 0.6238,
+      "heading_img_pairs": 1,
+      "image_only_sections": 1,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/department-of-mechanical-engineering/facilities",
+      "title": "Lab Facilities",
+      "category": "faculty",
+      "image_count": 1,
+      "text_length": 1276,
+      "img_text_ratio": 0.7837,
+      "heading_img_pairs": 1,
+      "image_only_sections": 1,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/centre-of-aerospace/faculty",
+      "title": "Faculty",
+      "category": "faculty",
+      "image_count": 1,
+      "text_length": 816,
+      "img_text_ratio": 1.2255,
+      "heading_img_pairs": 1,
+      "image_only_sections": 1,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/miscellaneous/notices",
+      "title": "Notices",
+      "category": "miscellaneous",
+      "image_count": 29,
+      "text_length": 24571,
+      "img_text_ratio": 1.1803,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/happenings/gallery",
+      "title": "Gallery",
+      "category": "happenings",
+      "image_count": 23,
+      "text_length": 2597,
+      "img_text_ratio": 8.8564,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/happenings/news",
+      "title": "News",
+      "category": "happenings",
+      "image_count": 3,
+      "text_length": 2770,
+      "img_text_ratio": 1.083,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/school/school-of-liberal-arts",
+      "title": "School of Liberal Arts",
+      "category": "faculty",
+      "image_count": 2,
+      "text_length": 12187,
+      "img_text_ratio": 0.1641,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "LOW"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/department-of-psychology",
+      "title": "Department of Psychology",
+      "category": "faculty",
+      "image_count": 2,
+      "text_length": 5291,
+      "img_text_ratio": 0.378,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "LOW"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/clinical-psychology/about",
+      "title": "About",
+      "category": "faculty",
+      "image_count": 2,
+      "text_length": 3702,
+      "img_text_ratio": 0.5402,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "LOW"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/research-and-development/phd-scholars",
+      "title": "Ph.D Scholars",
+      "category": "research",
+      "image_count": 1,
+      "text_length": 44587,
+      "img_text_ratio": 0.0224,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "LOW"
+    },
+    {
+      "url": "https://applications.gdgoenkauniversity.com",
+      "title": "30+ Years Legacy of Excellence",
+      "category": "other",
+      "image_count": 1,
+      "text_length": 15717,
+      "img_text_ratio": 0.0636,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "LOW"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/corporate-resource-centre/placements/placement-process",
+      "title": "Placement Process",
+      "category": "placements",
+      "image_count": 1,
+      "text_length": 6970,
+      "img_text_ratio": 0.1435,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "LOW"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/campus-life/events-celebrations",
+      "title": "Events & Celebrations",
+      "category": "other",
+      "image_count": 1,
+      "text_length": 6341,
+      "img_text_ratio": 0.1577,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "LOW"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/interior-and-furniture-design-area/about",
+      "title": "About",
+      "category": "faculty",
+      "image_count": 1,
+      "text_length": 5585,
+      "img_text_ratio": 0.1791,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "LOW"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/happenings/news/the-leela-palaces-hotels-and-resorts-launches-lcoe-in-partnership-with-gd-goenka-university-and-le-cordon-bleu",
+      "title": "The Leela Palaces Hotels And Resorts Launches Lcoe In Partnership With Gd Goenka University And Le Cordon Bleu",
+      "category": "happenings",
+      "image_count": 1,
+      "text_length": 4795,
+      "img_text_ratio": 0.2086,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "LOW"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/fashion-design-and-styling-area/about",
+      "title": "About",
+      "category": "faculty",
+      "image_count": 1,
+      "text_length": 4642,
+      "img_text_ratio": 0.2154,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "LOW"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/department-of-electronics-and-communication-engineering/about",
+      "title": "About",
+      "category": "faculty",
+      "image_count": 1,
+      "text_length": 4557,
+      "img_text_ratio": 0.2194,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "LOW"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/about-us/message-from-chancellor",
+      "title": "Message from Chancellor",
+      "category": "about",
+      "image_count": 1,
+      "text_length": 4000,
+      "img_text_ratio": 0.25,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "LOW"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/department-of-energy-/about",
+      "title": "About",
+      "category": "faculty",
+      "image_count": 1,
+      "text_length": 3614,
+      "img_text_ratio": 0.2767,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "LOW"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/visual-communication-area/about",
+      "title": "About",
+      "category": "faculty",
+      "image_count": 1,
+      "text_length": 3579,
+      "img_text_ratio": 0.2794,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "LOW"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/department-of-aerospace/about",
+      "title": "About",
+      "category": "faculty",
+      "image_count": 1,
+      "text_length": 2859,
+      "img_text_ratio": 0.3498,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "LOW"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/happenings/news/viii-gd-goenka-ciarb-india-international-commercial-arbitration-moot-competition-2026",
+      "title": "Viii Gd Goenka Ciarb India International Commercial Arbitration Moot Competition 2026",
+      "category": "happenings",
+      "image_count": 1,
+      "text_length": 2430,
+      "img_text_ratio": 0.4115,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "LOW"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/department/department-of-industrial-design/about",
+      "title": "About",
+      "category": "faculty",
+      "image_count": 1,
+      "text_length": 321,
+      "img_text_ratio": 3.1153,
+      "heading_img_pairs": 0,
+      "image_only_sections": 0,
+      "severity": "LOW"
+    }
+  ],
+  "sample_heading_image_snippets": [
+    {
+      "url": "https://www.gdgoenkauniversity.com",
+      "heading": "A Community of Possibilities",
+      "image_line": "Events & Celebrations ![read-icon](https://www.gdgoenkauniversity.com/siteassets/images/gd-goenka-img/read-icon.svg)",
+      "text_after": "* Campus Facilities [](https://www.gdgoenkauniversity.com/https://www.gdgoenkauniversity.com/facilities/campus/campus-ac",
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com",
+      "heading": "45 +",
+      "image_line": "Events & Celebrations ![read-icon](https://www.gdgoenkauniversity.com/siteassets/images/gd-goenka-img/read-icon.svg)",
+      "text_after": "* Campus Facilities [](https://www.gdgoenkauniversity.com/https://www.gdgoenkauniversity.com/facilities/campus/campus-ac",
+      "severity": "MEDIUM"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-group",
+      "heading": "Goenkan Gazette",
+      "image_line": "* Volume 5 ![icon](https://www.gdgoenkauniversity.com/siteassets/images/pdf_icon.png)[](https://www.gdgoenkauniversity.c",
+      "text_after": "",
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/examination",
+      "heading": "Date Sheet_SOAS_Ph.D Coursework Examination, January 2026",
+      "image_line": "![pdf](https://www.gdgoenkauniversity.com/siteassets/images/pdf-icon.webp) [](https://www.gdgoenkauniversity.com/https:/",
+      "text_after": "",
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/examination",
+      "heading": "Theory Date Sheet (SOHAS) for End Term Examination, December 2025",
+      "image_line": "![pdf](https://www.gdgoenkauniversity.com/siteassets/images/pdf-icon.webp) [](https://www.gdgoenkauniversity.com/https:/",
+      "text_after": "",
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/examination",
+      "heading": "Theory Date Sheet (SOAS) for End Term Examination, December 2025",
+      "image_line": "![pdf](https://www.gdgoenkauniversity.com/siteassets/images/pdf-icon.webp) [](https://www.gdgoenkauniversity.com/https:/",
+      "text_after": "",
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/examination",
+      "heading": "Practical Date Sheet of (SOM) for the ODD Semester Examination December 2025 (AY",
+      "image_line": "![pdf](https://www.gdgoenkauniversity.com/siteassets/images/pdf-icon.webp) [](https://www.gdgoenkauniversity.com/https:/",
+      "text_after": "",
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/examination",
+      "heading": "Theory Date Sheet (SOAS) for Summer Term, July 2025",
+      "image_line": "![pdf](https://www.gdgoenkauniversity.com/siteassets/images/pdf-icon.webp) [](https://www.gdgoenkauniversity.com/https:/",
+      "text_after": "",
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/examination",
+      "heading": "Theory Date Sheet (SOES) for Summer Term, July 2025",
+      "image_line": "![pdf](https://www.gdgoenkauniversity.com/siteassets/images/pdf-icon.webp) [](https://www.gdgoenkauniversity.com/https:/",
+      "text_after": "",
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/examination",
+      "heading": "Theory Date Sheet (SOLA) for Summer Term, July 2025",
+      "image_line": "![pdf](https://www.gdgoenkauniversity.com/siteassets/images/pdf-icon.webp) [](https://www.gdgoenkauniversity.com/https:/",
+      "text_after": "",
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/examination",
+      "heading": "Theory Date Sheet (SOAS) for End Term Examination, May 2025",
+      "image_line": "![pdf](https://www.gdgoenkauniversity.com/siteassets/images/pdf-icon.webp) [](https://www.gdgoenkauniversity.com/https:/",
+      "text_after": "",
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/examination",
+      "heading": "Theory Date Sheet (SOHAS) for End Term Examination, May 2025",
+      "image_line": "![pdf](https://www.gdgoenkauniversity.com/siteassets/images/pdf-icon.webp) [](https://www.gdgoenkauniversity.com/https:/",
+      "text_after": "",
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/examination",
+      "heading": "Theory Date Sheet (SOHT) for End Term Examination, May 2025",
+      "image_line": "![pdf](https://www.gdgoenkauniversity.com/siteassets/images/pdf-icon.webp) [](https://www.gdgoenkauniversity.com/https:/",
+      "text_after": "",
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/examination",
+      "heading": "Theory Date Sheet (SOL) for End Term Examination, May 2025",
+      "image_line": "![pdf](https://www.gdgoenkauniversity.com/siteassets/images/pdf-icon.webp) [](https://www.gdgoenkauniversity.com/https:/",
+      "text_after": "",
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/examination",
+      "heading": "Theory Date Sheet (SOM) for End Term Examination, May 2025",
+      "image_line": "![pdf](https://www.gdgoenkauniversity.com/siteassets/images/pdf-icon.webp) [](https://www.gdgoenkauniversity.com/https:/",
+      "text_after": "",
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/examination",
+      "heading": "Theory Date Sheet (SOM_Sunstone) for End Term Examination, May 2025",
+      "image_line": "![pdf](https://www.gdgoenkauniversity.com/siteassets/images/pdf-icon.webp) [](https://www.gdgoenkauniversity.com/https:/",
+      "text_after": "",
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/examination",
+      "heading": "Theory Date Sheet (SOES) for End Term Examination, May 2025",
+      "image_line": "![pdf](https://www.gdgoenkauniversity.com/siteassets/images/pdf-icon.webp) [](https://www.gdgoenkauniversity.com/https:/",
+      "text_after": "",
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/examination",
+      "heading": "Theory Date Sheet (UID) for End Term Examination, May 2025",
+      "image_line": "![pdf](https://www.gdgoenkauniversity.com/siteassets/images/pdf-icon.webp) [](https://www.gdgoenkauniversity.com/https:/",
+      "text_after": "",
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/examination",
+      "heading": "Theory Date Sheet (SOLA) for End Term Examination, May 2025",
+      "image_line": "![pdf](https://www.gdgoenkauniversity.com/siteassets/images/pdf-icon.webp) [](https://www.gdgoenkauniversity.com/https:/",
+      "text_after": "Practical Date Sheet for End Term Examination (Even Semester) May- 2025:",
+      "severity": "HIGH"
+    },
+    {
+      "url": "https://www.gdgoenkauniversity.com/examination",
+      "heading": "Practical Date Sheet (UID) for End Term Examination, May 2025",
+      "image_line": "![pdf](https://www.gdgoenkauniversity.com/siteassets/images/pdf-icon.webp) [](https://www.gdgoenkauniversity.com/https:/",
+      "text_after": "",
+      "severity": "HIGH"
+    }
+  ]
+}

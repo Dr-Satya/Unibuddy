@@ -1,0 +1,19 @@
+{
+  "generated_at": "2026-07-15T13:06:48.067666+00:00",
+  "old_source": "C:\\Users\\saafi\\OneDrive\\Desktop\\Unibuddy\\UniBuddy\\backend\\data\\processed\\gdgu_embeddings.json",
+  "new_source": "C:\\Users\\saafi\\OneDrive\\Desktop\\Unibuddy\\UniBuddy\\backend\\data\\processed\\gdgu_embeddings.json",
+  "summary": {
+    "total_old": 5662,
+    "total_new": 5662,
+    "unchanged": 0,
+    "modified": 0,
+    "deleted": 0,
+    "new": 5662,
+    "pct_changed": 100.0
+  },
+  "rebuild_type": "force_rebuild",
+  "new_chunks": [],
+  "modified_chunks": [],
+  "deleted_chunks": [],
+  "unchanged_chunks": []
+}

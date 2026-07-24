@@ -14,6 +14,7 @@ import Chatbot from "../components/Chatbot";
 import Navbar from "../components/Navbar";
 import TimetableUpload from "../components/TimetableUpload";
 import MentorUpload from "../components/MentorUpload";
+import { studentsBaseUrl } from "../config/api";
 
 interface StudentForm {
   name: string;
@@ -109,7 +110,7 @@ export default function AdminPanel() {
   });
 
   // API Base URL
-  const API_URL = "http://localhost:5000/api/students";
+  const API_URL = studentsBaseUrl;
 
   // Fetch Students
   const fetchStudents = async () => {

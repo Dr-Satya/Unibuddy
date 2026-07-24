@@ -1,0 +1,872 @@
+{
+  "generated_at": "2026-07-12T13:39:27.181783+00:00",
+  "faculty_urls": {
+    "total_urls_in_new_kb": 199,
+    "faculty_related_url_count": 17,
+    "faculty_url_list": [
+      "https://www.gdgoenkauniversity.com/about-us/deans-and-directors",
+      "https://www.gdgoenkauniversity.com/facilities/academic/auditorium",
+      "https://www.gdgoenkauniversity.com/facilities/academic/classrooms",
+      "https://www.gdgoenkauniversity.com/facilities/academic/laboratories",
+      "https://www.gdgoenkauniversity.com/facilities/academic/libraries",
+      "https://www.gdgoenkauniversity.com/internationalisation/faculty-exchange",
+      "https://www.gdgoenkauniversity.com/school/centre-of-excellence-occupational-health-safety-fire-environment",
+      "https://www.gdgoenkauniversity.com/school/school-of-agricultural-sciences",
+      "https://www.gdgoenkauniversity.com/school/school-of-engineering-sciences",
+      "https://www.gdgoenkauniversity.com/school/school-of-healthcare-and-allied-sciences",
+      "https://www.gdgoenkauniversity.com/school/school-of-hospitality-tourism",
+      "https://www.gdgoenkauniversity.com/school/school-of-law",
+      "https://www.gdgoenkauniversity.com/school/school-of-liberal-arts",
+      "https://www.gdgoenkauniversity.com/school/school-of-management",
+      "https://www.gdgoenkauniversity.com/school/summer-school-at-gdgu",
+      "https://www.gdgoenkauniversity.com/school/united-world-institute-of-design",
+      "https://www.gdgoenkauniversity.com/times-b-school"
+    ],
+    "school_wise_grouping": {
+      "School of Law": [
+        "https://www.gdgoenkauniversity.com/school/school-of-law"
+      ],
+      "School of Engineering & Sciences": [
+        "https://www.gdgoenkauniversity.com/school/school-of-engineering-sciences"
+      ],
+      "School of Hospitality & Tourism": [
+        "https://www.gdgoenkauniversity.com/school/school-of-hospitality-tourism"
+      ],
+      "Other / General": [
+        "https://www.gdgoenkauniversity.com/about-us/deans-and-directors",
+        "https://www.gdgoenkauniversity.com/facilities/academic/auditorium",
+        "https://www.gdgoenkauniversity.com/facilities/academic/classrooms",
+        "https://www.gdgoenkauniversity.com/facilities/academic/laboratories",
+        "https://www.gdgoenkauniversity.com/facilities/academic/libraries",
+        "https://www.gdgoenkauniversity.com/internationalisation/faculty-exchange",
+        "https://www.gdgoenkauniversity.com/school/summer-school-at-gdgu",
+        "https://www.gdgoenkauniversity.com/times-b-school"
+      ],
+      "School of Agricultural Sciences": [
+        "https://www.gdgoenkauniversity.com/school/school-of-agricultural-sciences"
+      ],
+      "Centre for Excellence (OHSFE)": [
+        "https://www.gdgoenkauniversity.com/school/centre-of-excellence-occupational-health-safety-fire-environment"
+      ],
+      "UID – School of Design": [
+        "https://www.gdgoenkauniversity.com/school/united-world-institute-of-design"
+      ],
+      "School of Healthcare & Allied Sci": [
+        "https://www.gdgoenkauniversity.com/school/school-of-healthcare-and-allied-sciences"
+      ],
+      "School of Management": [
+        "https://www.gdgoenkauniversity.com/school/school-of-management"
+      ],
+      "School of Liberal Arts": [
+        "https://www.gdgoenkauniversity.com/school/school-of-liberal-arts"
+      ]
+    }
+  },
+  "faculty_chunks": {
+    "total_chunks": 1880,
+    "chunks_with_faculty_keywords": 287,
+    "pct_of_total": 15.3,
+    "sample_chunk_urls": [
+      "https://www.gdgoenkauniversity.com/admissions/phd-announcement",
+      "https://www.gdgoenkauniversity.com/course/mtech-environmental-engineering-specialisation-esg-sustainability-engineering-full-time",
+      "https://www.gdgoenkauniversity.com/school/school-of-law",
+      "https://www.gdgoenkauniversity.com/school/school-of-engineering-sciences",
+      "https://www.gdgoenkauniversity.com/school/school-of-hospitality-tourism",
+      "https://www.gdgoenkauniversity.com/course/phd-sohas-part-time",
+      "https://www.gdgoenkauniversity.com/contact-us",
+      "https://www.gdgoenkauniversity.com/facilities/academic/classrooms",
+      "https://www.gdgoenkauniversity.com/course/b-design-hons-animation-and-film-making",
+      "https://www.gdgoenkauniversity.com/campus-life/clubs-societies/techno-cultural",
+      "https://www.gdgoenkauniversity.com/course/bsc-clinical-psychology-hons",
+      "https://www.gdgoenkauniversity.com/course/bba-hons-in-hospitality-management",
+      "https://www.gdgoenkauniversity.com/iiqa/feedback-analysis",
+      "https://www.gdgoenkauniversity.com/campus-life/events-celebrations",
+      "https://www.gdgoenkauniversity.com/course/b-tech-in-electronics-and-communication-engineering-with-specialization-in-vlsi-design-and-technology-in-association-with-bosch",
+      "https://www.gdgoenkauniversity.com/about-us/governance",
+      "https://www.gdgoenkauniversity.com/course/phd-sohas-full-time",
+      "https://www.gdgoenkauniversity.com/course/master-of-optometry-m-optom",
+      "https://www.gdgoenkauniversity.com/iqac/overview-vision-mission",
+      "https://www.gdgoenkauniversity.com/course/m-desing-interior-architecture-and-design"
+    ]
+  },
+  "faculty_names": {
+    "total_unique_names": 165,
+    "top_30_names": [
+      {
+        "name": "Dr. Apoorva Dixit",
+        "count": 7
+      },
+      {
+        "name": "Ms. Renu Goenka",
+        "count": 6
+      },
+      {
+        "name": "Prof. Saahil Arora",
+        "count": 3
+      },
+      {
+        "name": "Dr. Shashikant Gupta",
+        "count": 3
+      },
+      {
+        "name": "Mr. Pankaj Avasthi",
+        "count": 3
+      },
+      {
+        "name": "Dr. Ranveer Brar",
+        "count": 3
+      },
+      {
+        "name": "Ms. Mrudula Joshi",
+        "count": 3
+      },
+      {
+        "name": "Dr. Deepika Garg",
+        "count": 3
+      },
+      {
+        "name": "Dr. Dakshita Sangwan",
+        "count": 3
+      },
+      {
+        "name": "Mr. Abhinav Bindra",
+        "count": 3
+      },
+      {
+        "name": "Ms. Renu Goenka\nChancellor",
+        "count": 2
+      },
+      {
+        "name": "Dr. Ajit Singh",
+        "count": 2
+      },
+      {
+        "name": "Prof. Dinesh Shenoy",
+        "count": 2
+      },
+      {
+        "name": "Mr. Rohit Gujral",
+        "count": 2
+      },
+      {
+        "name": "Dr. Promil Pande",
+        "count": 2
+      },
+      {
+        "name": "Mr. Rakesh Maheshwari",
+        "count": 2
+      },
+      {
+        "name": "Dr. Anand Kumar Singh",
+        "count": 2
+      },
+      {
+        "name": "Dr. Vikas Chander Jhawat",
+        "count": 2
+      },
+      {
+        "name": "Dr. Dinkar Verma",
+        "count": 2
+      },
+      {
+        "name": "Dr. Arpita Sharma",
+        "count": 2
+      },
+      {
+        "name": "Dr. Ujjawal Kumar Singh",
+        "count": 2
+      },
+      {
+        "name": "Prof. Dr",
+        "count": 2
+      },
+      {
+        "name": "Dr. Perumalraja Rengaraju",
+        "count": 2
+      },
+      {
+        "name": "Dr. Rabins Porwal",
+        "count": 2
+      },
+      {
+        "name": "Dr. Maganti Venkatesh",
+        "count": 2
+      },
+      {
+        "name": "Ms. Unnati Singla",
+        "count": 2
+      },
+      {
+        "name": "Mr. Aman Deswal",
+        "count": 2
+      },
+      {
+        "name": "Dr. Bhavana Sharma",
+        "count": 2
+      },
+      {
+        "name": "Dr. Sumit Agarwala",
+        "count": 2
+      },
+      {
+        "name": "Dr. Sangita Sharma",
+        "count": 2
+      }
+    ],
+    "all_unique_names": [
+      "Dr Sulakshana",
+      "Dr. Abhishek Jha\nAdvances",
+      "Dr. Ajit Kaushal",
+      "Dr. Ajit Singh",
+      "Dr. Anamika Shukla",
+      "Dr. Anand Kumar Singh",
+      "Dr. Aneesha",
+      "Dr. Anindita Roy Chowdhury",
+      "Dr. Anjali Midha\nDean",
+      "Dr. Anjali Midha Sharan",
+      "Dr. Ankur Sharma",
+      "Dr. Apoorva Dixit",
+      "Dr. Arpita Sharma",
+      "Dr. Aruna Maheshwari\nAdvances",
+      "Dr. Aruna Maheshwari\nExploring",
+      "Dr. Ashish Sharma",
+      "Dr. Avtar Singh",
+      "Dr. Bharat Bhusan",
+      "Dr. Bhavana Sharma",
+      "Dr. Biwash Gurung",
+      "Dr. Chandra Shekhar",
+      "Dr. Dakshita Sangwan",
+      "Dr. Deependra Singh",
+      "Dr. Deepika Garg",
+      "Dr. Deepti Wadera",
+      "Dr. Dinesh Shenoy",
+      "Dr. Dinesh Shenoy\nVice",
+      "Dr. Dinkar Verma",
+      "Dr. Dipesh Popli",
+      "Dr. Hanif Qureshi",
+      "Dr. Harsh Kumar",
+      "Dr. Jitender Singh Shunty",
+      "Dr. Jugnu Khattar Bhatia",
+      "Dr. Jyoti",
+      "Dr. Kamran Ali",
+      "Dr. Kaushik",
+      "Dr. Kuldeep Singh",
+      "Dr. Kunal Adhikary",
+      "Dr. Lalit Bhasin",
+      "Dr. Lata Suresh",
+      "Dr. Leena Chhabra",
+      "Dr. Maganti Venkatesh",
+      "Dr. Manvi Arora",
+      "Dr. Nancy Rohilla",
+      "Dr. Naresh Sharma",
+      "Dr. Neetu",
+      "Dr. Neha Chandel",
+      "Dr. Parv Kalra",
+      "Dr. Parvesh Lata",
+      "Dr. Pawanjeet Kaur",
+      "Dr. Perumalraja Rengaraju",
+      "Dr. Pooja Sharma",
+      "Dr. Pranava Prakash",
+      "Dr. Promil Pande",
+      "Dr. Promil Pande\nDean",
+      "Dr. Rabins Porwal",
+      "Dr. Raghunath Bhattacharyya",
+      "Dr. Rahul Pratap Singh",
+      "Dr. Rajiv Ranjan",
+      "Dr. Ranveer Brar",
+      "Dr. Raunak Dhanker",
+      "Dr. Reena Tiwari Indian",
+      "Dr. Rekha Kaushal",
+      "Dr. Rimple Manchanda",
+      "Dr. Rubina",
+      "Dr. Sangita Sharma",
+      "Dr. Sapna Joshi",
+      "Dr. Savita Yadav",
+      "Dr. Shashikant Gupta",
+      "Dr. Sheetal Ma",
+      "Dr. Shilpika Pandey",
+      "Dr. Shipra Singh",
+      "Dr. Sumit Agarwala",
+      "Dr. Sunrita Chaudhary",
+      "Dr. Teena Parmar",
+      "Dr. Tinku",
+      "Dr. Ujjawal Kumar Singh",
+      "Dr. Valentina Volpe\nAssociate",
+      "Dr. Vijata",
+      "Dr. Vijata Arya",
+      "Dr. Vikas Chander Jhawat",
+      "Dr. Vikas Jhawat",
+      "Dr. Vishakha",
+      "Mr Gaurav Bhatia",
+      "Mr Hitesh Saini",
+      "Mr Hot Bistro",
+      "Mr. Abhinav Bindra",
+      "Mr. Ajay Kumar Pandey",
+      "Mr. Altaf Hussain",
+      "Mr. Aman Deswal",
+      "Mr. Amit Sharma",
+      "Mr. Amit Sharma\nGeneral",
+      "Mr. Amit Singh",
+      "Mr. Ashok Kumar Das",
+      "Mr. Badrinath Durvasula",
+      "Mr. Chandan Sir",
+      "Mr. Daksh Mehta",
+      "Mr. Deepak Chopra",
+      "Mr. Dev Kartik Agarwal",
+      "Mr. Dharmendra Kumar Singh",
+      "Mr. Dinesh Shenoy",
+      "Mr. Gaurav Singh",
+      "Mr. Harsh",
+      "Mr. Heeresh Girdhar",
+      "Mr. Himanshu Shankar",
+      "Mr. Hitesh Kumar Meena",
+      "Mr. Hot Bistro",
+      "Mr. Hot Bistro\nSet",
+      "Mr. Jimmy Mathur",
+      "Mr. Jitendar",
+      "Mr. Justice Dipak Misra",
+      "Mr. Kartik Malik",
+      "Mr. Lovekesh Nagpal",
+      "Mr. Manish Joshi",
+      "Mr. Manish Joshi\nSenior",
+      "Mr. Manjeet Hooda",
+      "Mr. Mohit Singhal",
+      "Mr. Narender Singh\nLibrary",
+      "Mr. Neeraj Sahani",
+      "Mr. Neeraj Sahani\nHead",
+      "Mr. Nikhil Saini",
+      "Mr. Nikunj Dutt",
+      "Mr. Nishant Aggarwal",
+      "Mr. Pankaj Avasthi",
+      "Mr. Parvinder Singh",
+      "Mr. Pradeep Hatgaonkar",
+      "Mr. Pranav Suri",
+      "Mr. Rakesh Maheshwari",
+      "Mr. Ram Jethmalani",
+      "Mr. Rishi Narang",
+      "Mr. Rohit Gujral",
+      "Mr. Saurabh Shekhar",
+      "Mr. Shankar",
+      "Mr. Singh",
+      "Mr. Vijay Kumar",
+      "Mrs. Jyoti Ma",
+      "Mrs. Kalyani Behera\nLibrary",
+      "Ms. Anshika",
+      "Ms. Atreyee Banerjee\nWeaving",
+      "Ms. Farishta Sapra",
+      "Ms. Gurpreet Sethi",
+      "Ms. Kirti Kumari",
+      "Ms. Megha Bhardwaj",
+      "Ms. Monica Datta",
+      "Ms. Mrudula Joshi",
+      "Ms. Pooja Verma",
+      "Ms. Pooja Verma\nManager",
+      "Ms. Rashmi Sharma",
+      "Ms. Reema Katriyar",
+      "Ms. Renu Goenka",
+      "Ms. Renu Goenka\n\nBoard",
+      "Ms. Renu Goenka\n\nGoverning",
+      "Ms. Renu Goenka\n\nWebsite",
+      "Ms. Renu Goenka\nChancellor",
+      "Ms. Ruby Verma",
+      "Ms. Sakshi Chauhan",
+      "Ms. Shreya Goswami\nHead",
+      "Ms. Sushma Singh",
+      "Ms. Unnati Singla",
+      "Prof. Dinesh Shenoy",
+      "Prof. Dr",
+      "Prof. Frikkie Herbst\nHead",
+      "Prof. Luminita Moraru\nProfessor",
+      "Prof. Rajiv Gulshan\nDean",
+      "Prof. Saahil Arora"
+    ]
+  },
+  "schools": {
+    "School of Engineering & Sciences": {
+      "chunk_count": 91,
+      "page_count": 30,
+      "faculty_names_found": [
+        "Dr. Ankur Sharma",
+        "Dr. Apoorva Dixit",
+        "Dr. Dakshita Sangwan",
+        "Dr. Maganti Venkatesh",
+        "Dr. Neetu",
+        "Dr. Perumalraja Rengaraju",
+        "Dr. Rabins Porwal",
+        "Dr. Savita Yadav",
+        "Dr. Teena Parmar",
+        "Mr. Aman Deswal",
+        "Mr. Dev Kartik Agarwal",
+        "Mr. Kartik Malik",
+        "Mr. Nikunj Dutt",
+        "Mr. Pranav Suri",
+        "Mr. Rohit Gujral",
+        "Mr. Vijay Kumar",
+        "Ms. Anshika",
+        "Ms. Megha Bhardwaj",
+        "Ms. Renu Goenka",
+        "Ms. Unnati Singla"
+      ],
+      "faculty_name_count": 22,
+      "sample_urls": [
+        "https://applications.gdgoenkauniversity.com",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-university",
+        "https://www.gdgoenkauniversity.com/about-us/governance",
+        "https://www.gdgoenkauniversity.com/admissions/fee-structure",
+        "https://www.gdgoenkauniversity.com/campus-life/clubs-societies/techno-cultural"
+      ]
+    },
+    "School of Management": {
+      "chunk_count": 333,
+      "page_count": 101,
+      "faculty_names_found": [
+        "Dr. Abhishek Jha\nAdvances",
+        "Dr. Ajit Singh",
+        "Dr. Ankur Sharma",
+        "Dr. Apoorva Dixit",
+        "Dr. Ashish Sharma",
+        "Dr. Biwash Gurung",
+        "Dr. Chandra Shekhar",
+        "Dr. Deepika Garg",
+        "Dr. Deepti Wadera",
+        "Dr. Maganti Venkatesh",
+        "Dr. Neha Chandel",
+        "Dr. Perumalraja Rengaraju",
+        "Dr. Rabins Porwal",
+        "Dr. Raghunath Bhattacharyya",
+        "Dr. Rahul Pratap Singh",
+        "Dr. Raunak Dhanker",
+        "Dr. Rekha Kaushal",
+        "Dr. Sapna Joshi",
+        "Dr. Savita Yadav",
+        "Dr. Shashikant Gupta"
+      ],
+      "faculty_name_count": 63,
+      "sample_urls": [
+        "https://applications.gdgoenkauniversity.com",
+        "https://www.gdgoenkauniversity.com",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-group",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-university",
+        "https://www.gdgoenkauniversity.com/about-us/governance"
+      ]
+    },
+    "School of Law": {
+      "chunk_count": 148,
+      "page_count": 52,
+      "faculty_names_found": [
+        "Dr. Anamika Shukla",
+        "Dr. Aneesha",
+        "Dr. Anindita Roy Chowdhury",
+        "Dr. Ankur Sharma",
+        "Dr. Apoorva Dixit",
+        "Dr. Dakshita Sangwan",
+        "Dr. Hanif Qureshi",
+        "Dr. Jitender Singh Shunty",
+        "Dr. Lalit Bhasin",
+        "Dr. Leena Chhabra",
+        "Dr. Neetu",
+        "Dr. Promil Pande",
+        "Dr. Savita Yadav",
+        "Dr. Shilpika Pandey",
+        "Dr. Teena Parmar",
+        "Dr. Valentina Volpe\nAssociate",
+        "Mr. Abhinav Bindra",
+        "Mr. Justice Dipak Misra",
+        "Mr. Nishant Aggarwal",
+        "Mr. Rakesh Maheshwari"
+      ],
+      "faculty_name_count": 24,
+      "sample_urls": [
+        "https://applications.gdgoenkauniversity.com",
+        "https://www.gdgoenkauniversity.com",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-group",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-university",
+        "https://www.gdgoenkauniversity.com/about-us/governance"
+      ]
+    },
+    "School of Liberal Arts": {
+      "chunk_count": 58,
+      "page_count": 24,
+      "faculty_names_found": [
+        "Dr. Anjali Midha\nDean",
+        "Dr. Aruna Maheshwari\nExploring",
+        "Dr. Bhavana Sharma",
+        "Dr. Sangita Sharma",
+        "Dr. Sumit Agarwala",
+        "Mr. Pankaj Avasthi",
+        "Mr. Rohit Gujral",
+        "Ms. Renu Goenka",
+        "Prof. Saahil Arora"
+      ],
+      "faculty_name_count": 9,
+      "sample_urls": [
+        "https://applications.gdgoenkauniversity.com",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-group",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-university",
+        "https://www.gdgoenkauniversity.com/about-us/governance",
+        "https://www.gdgoenkauniversity.com/about-us/message-from-vice-chancellor"
+      ]
+    },
+    "School of Healthcare & Allied Sci": {
+      "chunk_count": 410,
+      "page_count": 66,
+      "faculty_names_found": [
+        "Dr Sulakshana",
+        "Dr. Anamika Shukla",
+        "Dr. Anand Kumar Singh",
+        "Dr. Anindita Roy Chowdhury",
+        "Dr. Anjali Midha Sharan",
+        "Dr. Arpita Sharma",
+        "Dr. Aruna Maheshwari\nExploring",
+        "Dr. Avtar Singh",
+        "Dr. Bharat Bhusan",
+        "Dr. Bhavana Sharma",
+        "Dr. Dakshita Sangwan",
+        "Dr. Deependra Singh",
+        "Dr. Dinkar Verma",
+        "Dr. Hanif Qureshi",
+        "Dr. Jyoti",
+        "Dr. Leena Chhabra",
+        "Dr. Manvi Arora",
+        "Dr. Nancy Rohilla",
+        "Dr. Naresh Sharma",
+        "Dr. Neetu"
+      ],
+      "faculty_name_count": 42,
+      "sample_urls": [
+        "https://applications.gdgoenkauniversity.com",
+        "https://www.gdgoenkauniversity.com",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-group",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-university",
+        "https://www.gdgoenkauniversity.com/about-us/accreditations-affiliations"
+      ]
+    },
+    "School of Agricultural Sciences": {
+      "chunk_count": 144,
+      "page_count": 53,
+      "faculty_names_found": [
+        "Dr. Harsh Kumar",
+        "Dr. Jitender Singh Shunty",
+        "Dr. Lalit Bhasin",
+        "Dr. Lata Suresh",
+        "Dr. Ujjawal Kumar Singh",
+        "Mr Hitesh Saini",
+        "Mr. Abhinav Bindra",
+        "Mr. Dinesh Shenoy",
+        "Mr. Justice Dipak Misra",
+        "Mr. Ram Jethmalani",
+        "Mr. Rohit Gujral",
+        "Ms. Rashmi Sharma",
+        "Ms. Renu Goenka",
+        "Prof. Saahil Arora"
+      ],
+      "faculty_name_count": 14,
+      "sample_urls": [
+        "https://applications.gdgoenkauniversity.com",
+        "https://www.gdgoenkauniversity.com",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-group",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-university",
+        "https://www.gdgoenkauniversity.com/about-us/accreditations-affiliations"
+      ]
+    },
+    "School of Hospitality & Tourism": {
+      "chunk_count": 168,
+      "page_count": 36,
+      "faculty_names_found": [
+        "Dr. Ajit Kaushal",
+        "Dr. Apoorva Dixit",
+        "Dr. Deepika Garg",
+        "Dr. Kuldeep Singh",
+        "Dr. Rahul Pratap Singh",
+        "Dr. Ranveer Brar",
+        "Dr. Rimple Manchanda",
+        "Dr. Shilpika Pandey",
+        "Dr. Tinku",
+        "Mr. Nikhil Saini",
+        "Ms. Atreyee Banerjee\nWeaving",
+        "Prof. Rajiv Gulshan\nDean"
+      ],
+      "faculty_name_count": 12,
+      "sample_urls": [
+        "https://applications.gdgoenkauniversity.com",
+        "https://www.gdgoenkauniversity.com",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-group",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-university",
+        "https://www.gdgoenkauniversity.com/about-us/message-from-vice-chancellor"
+      ]
+    },
+    "UID – School of Design": {
+      "chunk_count": 584,
+      "page_count": 194,
+      "faculty_names_found": [
+        "Dr. Ajit Singh",
+        "Dr. Anand Kumar Singh",
+        "Dr. Anjali Midha\nDean",
+        "Dr. Apoorva Dixit",
+        "Dr. Bhavana Sharma",
+        "Dr. Chandra Shekhar",
+        "Dr. Deependra Singh",
+        "Dr. Dinesh Shenoy",
+        "Dr. Manvi Arora",
+        "Dr. Naresh Sharma",
+        "Dr. Promil Pande",
+        "Dr. Promil Pande\nDean",
+        "Dr. Raghunath Bhattacharyya",
+        "Dr. Ranveer Brar",
+        "Dr. Rekha Kaushal",
+        "Dr. Sangita Sharma",
+        "Dr. Sheetal Ma",
+        "Dr. Sumit Agarwala",
+        "Dr. Valentina Volpe\nAssociate",
+        "Dr. Vikas Chander Jhawat"
+      ],
+      "faculty_name_count": 49,
+      "sample_urls": [
+        "https://applications.gdgoenkauniversity.com",
+        "https://www.gdgoenkauniversity.com",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-group",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-university",
+        "https://www.gdgoenkauniversity.com/about-us/accreditations-affiliations"
+      ]
+    },
+    "Centre for Excellence (OHSFE)": {
+      "chunk_count": 157,
+      "page_count": 88,
+      "faculty_names_found": [
+        "Dr. Anindita Roy Chowdhury",
+        "Dr. Hanif Qureshi",
+        "Dr. Promil Pande",
+        "Mr. Mohit Singhal",
+        "Mr. Rakesh Maheshwari",
+        "Ms. Renu Goenka"
+      ],
+      "faculty_name_count": 6,
+      "sample_urls": [
+        "https://applications.gdgoenkauniversity.com",
+        "https://www.gdgoenkauniversity.com",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-group",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-university",
+        "https://www.gdgoenkauniversity.com/about-us/core-values"
+      ]
+    },
+    "Centre of Aerospace & Energy": {
+      "chunk_count": 156,
+      "page_count": 101,
+      "faculty_names_found": [
+        "Dr. Valentina Volpe\nAssociate",
+        "Ms. Reema Katriyar",
+        "Prof. Dr",
+        "Prof. Frikkie Herbst\nHead",
+        "Prof. Luminita Moraru\nProfessor"
+      ],
+      "faculty_name_count": 5,
+      "sample_urls": [
+        "https://applications.gdgoenkauniversity.com",
+        "https://www.gdgoenkauniversity.com",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-group",
+        "https://www.gdgoenkauniversity.com/about-us/about-gd-goenka-university",
+        "https://www.gdgoenkauniversity.com/about-us/core-values"
+      ]
+    },
+    "Research & Development": {
+      "chunk_count": 180,
+      "page_count": 43,
+      "faculty_names_found": [
+        "Dr Sulakshana",
+        "Dr. Abhishek Jha\nAdvances",
+        "Dr. Ajit Kaushal",
+        "Dr. Anamika Shukla",
+        "Dr. Anjali Midha\nDean",
+        "Dr. Anjali Midha Sharan",
+        "Dr. Apoorva Dixit",
+        "Dr. Aruna Maheshwari\nAdvances",
+        "Dr. Ashish Sharma",
+        "Dr. Bhavana Sharma",
+        "Dr. Biwash Gurung",
+        "Dr. Dakshita Sangwan",
+        "Dr. Deepika Garg",
+        "Dr. Deepti Wadera",
+        "Dr. Dinkar Verma",
+        "Dr. Dipesh Popli",
+        "Dr. Jugnu Khattar Bhatia",
+        "Dr. Kamran Ali",
+        "Dr. Kuldeep Singh",
+        "Dr. Leena Chhabra"
+      ],
+      "faculty_name_count": 43,
+      "sample_urls": [
+        "https://www.gdgoenkauniversity.com/campus-life/clubs-societies/techno-cultural",
+        "https://www.gdgoenkauniversity.com/course/b-design-hons-communication-design",
+        "https://www.gdgoenkauniversity.com/course/b-tech-in-electronics-and-communication-engineering",
+        "https://www.gdgoenkauniversity.com/course/b-tech-in-electronics-and-communication-engineering-with-specialization-biomedical-engineering-in-association-with-bosch",
+        "https://www.gdgoenkauniversity.com/course/b-tech-in-electronics-and-communication-engineering-with-specialization-in-vlsi-design-and-technology-in-association-with-bosch"
+      ]
+    }
+  },
+  "missing_schools": {
+    "zero_chunk_coverage": [],
+    "zero_named_faculty": []
+  },
+  "metadata_coverage": {
+    "faculty_keyword_in_page_title": 132,
+    "faculty_keyword_in_text": 287,
+    "faculty_keyword_in_url": 248,
+    "category_equals_faculty": 0,
+    "note": "New KB does not have a dedicated 'faculty' category. Faculty information is embedded inside 'course', 'about', and 'research' category chunks."
+  },
+  "old_kb_comparison": {
+    "old_faculty_profile_count": 498,
+    "old_faculty_count": 34,
+    "old_unique_named_persons": 71,
+    "new_unique_named_persons": 165,
+    "names_in_both": 7,
+    "names_only_in_old": 64,
+    "names_only_in_new": 158,
+    "sample_names_only_old": [
+      "aayush vats",
+      "dr. akhilesh latoria",
+      "dr. alok srivatava",
+      "dr. anil kumar",
+      "dr. anil kumar gupta",
+      "dr. anjali vyas",
+      "dr. apeksha mittal",
+      "dr. archana",
+      "dr. bhagat singh",
+      "dr. bhavneet singh soodan",
+      "dr. deepak bharadwaj",
+      "dr. hunny pahuja",
+      "dr. kamaljeet gangania",
+      "dr. kirti amresh gautam",
+      "dr. manish kumar",
+      "dr. manu banga",
+      "dr. megha gupta",
+      "dr. mir mohsin john",
+      "dr. nancy arya",
+      "dr. neeru singla"
+    ],
+    "sample_names_only_new": [
+      "dr sulakshana",
+      "dr. abhishek jha\nadvances",
+      "dr. ajit kaushal",
+      "dr. ajit singh",
+      "dr. anamika shukla",
+      "dr. anand kumar singh",
+      "dr. aneesha",
+      "dr. anjali midha\ndean",
+      "dr. anjali midha sharan",
+      "dr. ankur sharma",
+      "dr. apoorva dixit",
+      "dr. arpita sharma",
+      "dr. aruna maheshwari\nadvances",
+      "dr. aruna maheshwari\nexploring",
+      "dr. ashish sharma",
+      "dr. avtar singh",
+      "dr. bharat bhusan",
+      "dr. bhavana sharma",
+      "dr. biwash gurung",
+      "dr. chandra shekhar"
+    ],
+    "school_level_comparison": {
+      "School of Engineering & Sciences": {
+        "old_faculty_pages": 76,
+        "new_pages": 30,
+        "old_named_persons": 532,
+        "new_named_persons": 22,
+        "coverage_status": "partially_covered"
+      },
+      "School of Management": {
+        "old_faculty_pages": 0,
+        "new_pages": 101,
+        "old_named_persons": 0,
+        "new_named_persons": 63,
+        "coverage_status": "covered"
+      },
+      "School of Law": {
+        "old_faculty_pages": 0,
+        "new_pages": 52,
+        "old_named_persons": 0,
+        "new_named_persons": 24,
+        "coverage_status": "covered"
+      },
+      "School of Liberal Arts": {
+        "old_faculty_pages": 0,
+        "new_pages": 24,
+        "old_named_persons": 0,
+        "new_named_persons": 9,
+        "coverage_status": "covered"
+      },
+      "School of Healthcare & Allied Sci": {
+        "old_faculty_pages": 0,
+        "new_pages": 66,
+        "old_named_persons": 0,
+        "new_named_persons": 42,
+        "coverage_status": "covered"
+      },
+      "School of Agricultural Sciences": {
+        "old_faculty_pages": 0,
+        "new_pages": 53,
+        "old_named_persons": 0,
+        "new_named_persons": 14,
+        "coverage_status": "covered"
+      },
+      "School of Hospitality & Tourism": {
+        "old_faculty_pages": 0,
+        "new_pages": 36,
+        "old_named_persons": 0,
+        "new_named_persons": 12,
+        "coverage_status": "covered"
+      },
+      "UID – School of Design": {
+        "old_faculty_pages": 0,
+        "new_pages": 194,
+        "old_named_persons": 0,
+        "new_named_persons": 49,
+        "coverage_status": "covered"
+      },
+      "Centre for Excellence (OHSFE)": {
+        "old_faculty_pages": 0,
+        "new_pages": 88,
+        "old_named_persons": 0,
+        "new_named_persons": 6,
+        "coverage_status": "covered"
+      },
+      "Centre of Aerospace & Energy": {
+        "old_faculty_pages": 1,
+        "new_pages": 101,
+        "old_named_persons": 47,
+        "new_named_persons": 5,
+        "coverage_status": "partially_covered"
+      },
+      "Research & Development": {
+        "old_faculty_pages": 0,
+        "new_pages": 43,
+        "old_named_persons": 0,
+        "new_named_persons": 43,
+        "coverage_status": "covered"
+      }
+    }
+  },
+  "verdict": {
+    "verdict": "2. Faculty coverage mostly complete",
+    "schools_covered": [
+      "School of Management",
+      "School of Law",
+      "School of Liberal Arts",
+      "School of Healthcare & Allied Sci",
+      "School of Agricultural Sciences",
+      "School of Hospitality & Tourism",
+      "UID – School of Design",
+      "Centre for Excellence (OHSFE)",
+      "Research & Development"
+    ],
+    "schools_partially_covered": [
+      "School of Engineering & Sciences",
+      "Centre of Aerospace & Energy"
+    ],
+    "schools_not_in_new_kb": [],
+    "named_persons_recovered": "7/71 old names found in new KB",
+    "total_faculty_chunks_new": 287,
+    "total_faculty_chunks_old": 532,
+    "key_finding": "New KB has 287 chunks containing faculty keywords and 165 named persons. Old KB had 71 named persons explicitly tagged. New KB recovered 7 of those names inside chunk text. 0 schools have zero faculty coverage in new KB."
+  }
+}

@@ -1,11 +1,23 @@
 {
   "name": "Ugur Guven",
-  "role": null,
+  "role": "Chief Advisor to Phoenix Space UK and to Syena SPAC, USA",
   "department": null,
   "location": null,
+  "qualification": [
+    "Nuclear Engineer (MSc)",
+    "Aerospace Engineer (PhD)",
+    "**Research Interests**"
+  ],
   "education": [],
-  "research": [],
-  "experience": [],
+  "research": [
+    "Nuclear Rocket Propulsion",
+    "Interstellar Travel",
+    "**Experience**",
+    "28 years of career"
+  ],
+  "experience": [
+    "28 years of career"
+  ],
   "links": [],
   "sources": []
 }

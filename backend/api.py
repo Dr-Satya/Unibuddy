@@ -1,11 +1,14 @@
 from fastapi import FastAPI, HTTPException, UploadFile, File
+from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from pathlib import Path
 from typing import Optional
 import io
+import os
 import re
+import json
 import pdfplumber
 
 load_dotenv(dotenv_path=Path(__file__).parent / ".env")
@@ -13,21 +16,41 @@ load_dotenv(dotenv_path=Path(__file__).parent / ".env")
 from src.api_adapter import get_reply
 from src.timetable_store import save_timetable
 from src.mentor_store import save_mentor_data
+from src.config import settings
 
 app = FastAPI(title="UniBuddy API")
+
+allowed_origins = settings.CORS_ALLOWED_ORIGINS
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:5174",
-        "http://localhost:5000",
-        "http://127.0.0.1:5173",
-        "http://127.0.0.1:5174",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+def _print_config_summary():
+    print("========== CONFIG ==========")
+    print(f"Backend URL: {settings.BACKEND_URL}")
+    print(f"Client URL: {settings.CLIENT_URL}")
+    print(f"Auth URL: {settings.AUTH_URL}")
+    print(f"Google Redirect: {settings.GOOGLE_REDIRECT_URI}")
+    print(f"CORS: {', '.join(settings.CORS_ALLOWED_ORIGINS)}")
+    print("============================")
+
+
+@app.on_event("startup")
+async def _startup_config_summary():
+    _print_config_summary()
+
+
+def _chat_trace(stage: str, **fields):
+    parts = [f"[CHAT-TRACE] {stage}"]
+    for key, value in fields.items():
+        parts.append(f"{key}={value}")
+    print(" | ".join(parts), flush=True)
 
 class ChatRequest(BaseModel):
     message: str
@@ -263,6 +286,60 @@ async def chat(req: ChatRequest):
     return result
 
 
+# FEATURE 2: streaming chat endpoint. Purely additive -- /chat above is
+# completely unchanged, so existing clients/integrations keep working
+# exactly as before. This route streams the same get_reply() pipeline's
+# output token-by-token via Server-Sent Events instead of waiting for the
+# full response. Uses get_reply(..., _stream=True), which runs identical
+# retrieval/grounding/safety logic to the non-streaming path (see
+# api_adapter.py's _finish_reply docstring) and only differs in how the
+# LLM generation step is consumed.
+@app.post('/chat/stream')
+async def chat_stream(req: ChatRequest):
+    _chat_trace(
+        "chat_stream:enter",
+        message_chars=len(req.message or ""),
+        session_id=req.session_id or "",
+        has_profile=bool(req.user_profile),
+    )
+    _chat_trace("chat_stream:before_validation")
+    if not req.message or not req.message.strip():
+        _chat_trace("chat_stream:return", reason="empty_message")
+        raise HTTPException(status_code=400, detail='Empty message')
+
+    async def event_generator():
+        _chat_trace("chat_stream:event_generator:enter")
+        # get_reply(_stream=True) returns a synchronous generator yielding
+        # {'type': 'delta', 'text': ...} chunks followed by one final
+        # {'type': 'done', 'reply': ..., 'data': ..., 'sources': ...}.
+        # FastAPI's StreamingResponse can iterate a sync generator directly;
+        # each yielded SSE 'data:' line is one JSON-encoded event.
+        try:
+            _chat_trace("chat_stream:before_get_reply")
+            stream = get_reply(req.message, session_id=req.session_id,
+                               user_profile=req.user_profile, _stream=True)
+            _chat_trace("chat_stream:after_get_reply", returned_type=type(stream).__name__)
+            for event in stream:
+                _chat_trace("chat_stream:yield_event", event_type=event.get("type") if isinstance(event, dict) else type(event).__name__)
+                yield f"data: {json.dumps(event)}\n\n"
+        except Exception as exc:
+            _chat_trace("chat_stream:except", error=repr(exc))
+            raise
+        finally:
+            _chat_trace("chat_stream:event_generator:exit")
+
+    _chat_trace("chat_stream:return", reason="streaming_response")
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache, no-transform",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        },
+    )
+
+
 # ── Mentor-Mentee column aliases ──────────────────────────────────────────────
 _MENTOR_COL_MAP = {
     # ── registration / enrollment ──────────────────────────────────────────
@@ -409,4 +486,4 @@ async def upload_mentor_mentee(file: UploadFile = File(...)):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("api:app", host="0.0.0.0", port=9000, reload=False)
+    uvicorn.run("api:app", host=settings.BACKEND_HOST, port=settings.BACKEND_PORT, reload=False)

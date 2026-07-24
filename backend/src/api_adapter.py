@@ -1,18 +1,292 @@
-import re, json, os
+import re, json, os, hashlib, time
 from collections import deque, defaultdict
-from typing import Dict, Any, Optional
-from src.threaded_rag import ThreadedRAGSystem
+from typing import Dict, Any, Optional, List
+from src.threaded_rag import ThreadedRAGSystem, classify_query, _matches_category
 from src.threaded_models import ThreadedModelManager
+from src.hybrid_retriever import HybridRetriever
 from src.config import DEBUG_RAG, TOP_K_RESULTS
 from src.timetable_lookup import get_timetable_context
 from src.timetable_store import answer_timetable_query, is_timetable_intent, has_active_timetable_session, is_timetable_escape
 from src.mentor_store import answer_mentor_query, is_mentor_intent
 
 rag = ThreadedRAGSystem()
+# Phase-1 Hybrid RAG: wraps the existing `rag` instance (FAISS, category
+# filtering, exact-match boosting, threshold filtering, dedup all untouched).
+# `rag` itself is unmodified, so any other caller keeps identical behavior.
+hybrid = HybridRetriever(rag)
 models = ThreadedModelManager()
 session_histories: Dict[str, deque] = defaultdict(lambda: deque(maxlen=10))
 
-PROMPT_TEMPLATE = '''System: You are UniBuddy, the official intelligent assistant for GD Goenka University. Use ONLY the retrieved context and conversation history. Answer concisely (2–6 sentences) and include sources. If a field is missing, say "Not available in sources".
+NO_EVIDENCE_FALLBACK = "I couldn't find enough information in the university knowledge base."
+
+# FEATURE 5: strict university guardrail fallback message (exact text required).
+OUT_OF_SCOPE_FALLBACK = "I can only answer questions related to GD Goenka University and information available in the university knowledge base."
+
+
+def _trace_rag_lifecycle(stage: str, **fields):
+    parts = [f"[RAG-TRACE] {stage}"]
+    for key, value in fields.items():
+        parts.append(f"{key}={value}")
+    print(" | ".join(parts), flush=True)
+
+# -------------------------------------------------------------------------
+# FEATURE 4: lightweight small-talk / conversational-intent detection
+# -------------------------------------------------------------------------
+# Runs BEFORE any retrieval. A short, closed list of greeting/courtesy
+# patterns -- intentionally conservative (whole-message match after
+# trimming punctuation) so it never swallows a real university question
+# that happens to start with a greeting word ("hi, who is Dr. Singh" is
+# NOT treated as small talk because the full normalized message doesn't
+# match a pure-greeting pattern).
+_SMALL_TALK_RE = re.compile(
+    r"^(hi+|hello+|hey+)(\s+\w+)?[\s!.?]*$|"
+    r"^good\s*(morning|afternoon|evening|night)[\s!.?]*$|"
+    r"^how\s*(are\s*(you|u|going)|'?s\s*it\s*going|are\s*things)[\s!.?]*$|"
+    r"^what'?s\s*up[\s!.?]*$|^sup[\s!.?]*$|^yo[\s!.?]*$|"
+    r"^(thanks?(\s*you)?|thank\s*you|thx|ty)[\s!.?]*$|"
+    r"^(bye+|goodbye|see\s*you|see\s*ya|good\s*night|gn)[\s!.?]*$|"
+    r"^(ok(ay)?|cool|nice|great|awesome)[\s!.?]*$",
+    re.IGNORECASE,
+)
+
+_SMALL_TALK_RESPONSES = {
+    'greeting': "Hello! I'm UniBuddy, your GD Goenka University assistant. Ask me about faculty, fees, admissions, courses, or campus facilities.",
+    'how_are_you': "I'm doing well, thanks for asking! How can I help you with GD Goenka University today?",
+    'thanks': "You're welcome! Let me know if you have any other questions about GD Goenka University.",
+    'bye': "Goodbye! Feel free to come back anytime you have questions about GD Goenka University.",
+    'ack': "Got it! Is there anything else about GD Goenka University I can help with?",
+}
+
+
+def _classify_small_talk(user_message: str) -> Optional[str]:
+    """Returns a small-talk category if the FULL message (not a substring)
+    is pure conversational filler, else None. Conservative by design: a
+    real question that merely contains a greeting word is never matched,
+    because we anchor on ^...$ against the whole normalized message."""
+    normalized = (user_message or '').strip().lower()
+    if not normalized:
+        return None
+    if not _SMALL_TALK_RE.match(normalized):
+        return None
+    if re.match(r"^(thanks?(\s*you)?|thank\s*you|thx|ty)[\s!.?]*$", normalized, re.I):
+        return 'thanks'
+    if re.match(r"^(bye+|goodbye|see\s*you|see\s*ya|good\s*night|gn)[\s!.?]*$", normalized, re.I):
+        return 'bye'
+    if re.match(r"^how\s*(are\s*(you|u|going)|'?s\s*it\s*going|are\s*things)[\s!.?]*$", normalized, re.I):
+        return 'how_are_you'
+    if re.match(r"^(ok(ay)?|cool|nice|great|awesome)[\s!.?]*$", normalized, re.I):
+        return 'ack'
+    return 'greeting'
+
+
+# -------------------------------------------------------------------------
+# FEATURE 5: strict university-scope guardrail
+# -------------------------------------------------------------------------
+# Runs BEFORE retrieval/LLM for queries that are clearly about a
+# real-world, non-university topic. This is intentionally a small,
+# high-confidence blocklist of well-known off-topic entity/topic types
+# rather than a broad classifier, so it does not risk blocking legitimate
+# university questions. The evidence check (Step 10, already in place)
+# remains the primary safety net for queries this guardrail doesn't catch;
+# this feature targets the specific failure seen in the conversation audit
+# (general-knowledge questions like "Who is Iron Man" / "Who is Narendra
+# Modi" being answered from the LLM's own training data instead of being
+# refused).
+_OFF_TOPIC_RE = re.compile(
+    r"\b(iron\s*man|spider-?man|batman|superman|avengers|marvel|dc\s*comics|"
+    r"narendra\s*modi|prime\s*minister\s*of\s*india|president\s*of\s*(india|usa|america)|"
+    r"\bipl\b|world\s*cup|fifa|olympics|cricket\s*score|"
+    r"capital\s*of\s*(india|france|usa|america)|"
+    r"who\s*is\s*the\s*(ceo|founder)\s*of\s*(google|apple|microsoft|amazon|tesla|meta|facebook)|"
+    r"elon\s*musk|bill\s*gates|mark\s*zuckerberg|jeff\s*bezos)\b",
+    re.IGNORECASE,
+)
+
+# University-specific terms that should NEVER be treated as off-topic even
+# if they happen to co-occur near a generic word above (defense against
+# false positives -- e.g. a real GDGU question mentioning "president" of a
+# club/society should not be blocked).
+_UNIVERSITY_CONTEXT_RE = re.compile(
+    r"\b(gd\s*goenka|gdgu|university|faculty|professor|dr\.?\s|department|"
+    r"admission|fee|hostel|campus|course|btech|mba|bca|placement)\b",
+    re.IGNORECASE,
+)
+
+
+def _is_off_topic(user_message: str) -> bool:
+    """Conservative guardrail: only fires when the message matches a known
+    off-topic pattern AND does not also contain university-specific
+    context. This avoids blocking a legitimate question that happens to
+    mention, say, a company name in a university context (e.g. "does GD
+    Goenka have a placement tie-up with Amazon" is NOT blocked)."""
+    if not user_message:
+        return False
+    if _UNIVERSITY_CONTEXT_RE.search(user_message):
+        return False
+    return bool(_OFF_TOPIC_RE.search(user_message))
+
+
+# -------------------------------------------------------------------------
+# FEATURE 1: pipeline debug logging helper
+# -------------------------------------------------------------------------
+# Centralizes the "print a clearly-labeled debug section" pattern used
+# throughout get_reply() below, controlled entirely by the existing
+# DEBUG_RAG flag (imported above). If DEBUG_RAG is False, this is a no-op,
+# matching the existing project convention of guarding all [RAG]-prefixed
+# prints behind DEBUG_RAG.
+def _debug_section(step_num: int, title: str, *lines: str):
+    if not DEBUG_RAG:
+        return
+    print(f"\n{'='*65}\nSTEP {step_num}\n{title}\n{'='*65}")
+    for line in lines:
+        print(line)
+
+
+def _debug_candidate_line(cand: Dict[str, Any]) -> str:
+    meta = cand.get('metadata', {}) or {}
+    chunk_id = meta.get('chunk_id') or meta.get('doc_id') or meta.get('document_id') or '?'
+    title = (meta.get('title') or '')[:60]
+    source = (meta.get('source') or '')[:90]
+    score = cand.get('score', 0.0)
+    rrf_score = cand.get('rrf_score')
+    evidence_score = cand.get('_evidence_score')
+    exact_match = cand.get('exact_match', 0)
+    return (
+        f"[DEBUG]   {chunk_id} | score={score:.4f} | "
+        f"rrf={rrf_score if rrf_score is not None else '-'} | "
+        f"ce={evidence_score if evidence_score is not None else '-'} | "
+        f"exact={exact_match} | title={title} | source={source}"
+    )
+
+
+def _normalize_text(text: Any) -> str:
+    return re.sub(r"\s+", " ", str(text or '').lower()).strip()
+
+
+def _entity_key(metadata: Dict[str, Any]) -> str:
+    name = _normalize_text(metadata.get('name'))
+    if name:
+        return name
+    title = _normalize_text(metadata.get('title') or '')
+    if title:
+        # Normalize out generic page prefixes used in faculty profile titles.
+        title = re.sub(r'^(faculty profile\s*-\s*)', '', title)
+        title = re.sub(r'^(profile\s*-\s*)', '', title)
+        return title
+    # New KB uses chunk_id; old KB uses doc_id/document_id
+    chunk_id = (metadata.get('chunk_id') or
+                metadata.get('doc_id') or
+                metadata.get('document_id'))
+    if chunk_id:
+        return str(chunk_id)
+    source = _normalize_text(metadata.get('source'))
+    return source
+
+
+_ENTITY_QUERY_CUE_RE = re.compile(
+    r"\b("
+    r"tell me about|who is|what is|what are|where is|details of|key features of|"
+    r"information about|overview of|compare|describe|list|show me"
+    r")\b",
+    re.IGNORECASE,
+)
+
+_ENTITY_QUERY_TARGET_RE = re.compile(
+    r"\b("
+    r"faculty|professor|teacher|school|department|programme|program|course|"
+    r"hostel|placement cell|placement|avishkar|ipr cell|library|laboratory|"
+    r"lab|centre|center|club"
+    r")\b",
+    re.IGNORECASE,
+)
+
+
+def _should_apply_entity_isolation(user_query: str, category: str) -> bool:
+    """Return True only for clear entity-level queries that benefit from
+    same-entity preference. Broad university questions should skip entity
+    isolation entirely so they keep all strong evidence."""
+    if category == 'faculty':
+        return True
+    q = _normalize_text(user_query)
+    if not q:
+        return False
+    if _ENTITY_QUERY_CUE_RE.search(q) and _ENTITY_QUERY_TARGET_RE.search(q):
+        return True
+    return False
+
+
+def _is_menu_boilerplate(text: str) -> bool:
+    normalized = _normalize_text(text)
+    if not normalized:
+        return True
+
+    menu_signals = [
+        'menu', 'about us', 'about gd goenka university', 'about gd goenka',
+        'admissions', 'admission', 'fee structure', 'hostel & transport',
+        'online application form', 'scholarship 2025-2026', 'vision and mission',
+        'governance', 'message from the vice chancellor', 'organogram',
+        'mandatory disclosures', 'recognitions and affiliations', 'rankings and awards',
+        'regulatory committees', 'department of international partnerships',
+        'online application', 'ph.d', 'phd', 'school of engineering',
+    ]
+    profile_signals = [
+        'assistant professor', 'associate professor', 'professor', 'dr ',
+        'research', 'qualification', 'experience', 'publication', 'faculty',
+        'department', 'school', 'hod', 'head of department', 'postgraduate',
+        'undergraduate', 'teaching', 'ph.d', 'phd', 'guided', 'supervisor'
+    ]
+
+    menu_count = sum(1 for term in menu_signals if term in normalized)
+    profile_count = sum(1 for term in profile_signals if term in normalized)
+
+    # Remove chunks that are clearly navigation/menu boilerplate and not real profile content.
+    if menu_count >= 3 and profile_count == 0:
+        return True
+    if normalized.startswith('menu') and profile_count == 0:
+        return True
+    if 'about us' in normalized and profile_count == 0:
+        return True
+    if any(term in normalized for term in ['fee structure', 'online application form', 'scholarship 2025-2026']) and profile_count == 0:
+        return True
+    if len(normalized) < 300 and menu_count >= 2 and profile_count == 0:
+        return True
+
+    return False
+
+# FEATURE 3: category-aware prompt templates. Only 'faculty' queries use the
+# structured Role/Education/Research/Experience template; every other
+# category (admission, fee, course, university_info, general) gets a plain
+# conversational template with no headings, per the conversation audit
+# finding that non-faculty answers were incorrectly forced into the
+# faculty structured shape.
+#
+# FEATURE 10: both templates explicitly instruct the model to OMIT any
+# field it has no grounded information for, instead of writing
+# "Not available in sources" under an empty heading -- the rendering layer
+# (parse_structured_from_text / HTML building below) also independently
+# enforces this by only rendering a heading if non-empty text was parsed,
+# so empty headings are blocked at two layers, not just relying on the
+# model to follow instructions.
+#
+# FEATURE 8: {FOCUS_INSTRUCTION} is empty for a normal query, and is filled
+# in by get_reply() when a follow-up like "Research?" or "Qualification?"
+# resolves to a known person AND a known requested field, telling the
+# model to answer ONLY that field instead of the full profile.
+FACULTY_PROMPT_TEMPLATE = '''System: You are UniBuddy, the official intelligent assistant for GD Goenka University. Use ONLY the retrieved context and conversation history below -- never use outside/general knowledge. If specific information (e.g. a field, a fact, a number) is not present in the Retrieved Context, omit it entirely rather than guessing or writing "Not available in sources" -- do not invent or assume anything not explicitly present in the Retrieved Context.
+
+Retrieved Context:
+{RAG_CONTEXT}
+
+Conversation History:
+{HISTORY}
+
+Current Question:
+{USER_QUESTION}
+{FOCUS_INSTRUCTION}
+Provide a short factual summary (2-6 sentences) of the faculty member based only on the Retrieved Context, then a structured block using ONLY the headings for which you found real information: Role, Department, Qualification, Research Interests, Experience. Do NOT include a heading for any field you have no grounded information for -- skip it completely, do not write "Not available in sources" or similar. Do NOT include a Sources or Links section; sources are added separately by the system.
+'''
+
+GENERAL_PROMPT_TEMPLATE = '''System: You are UniBuddy, the official intelligent assistant for GD Goenka University. Use ONLY the retrieved context and conversation history below -- never use outside/general knowledge. If the answer is not present in the Retrieved Context, say so plainly rather than guessing.
 
 Retrieved Context:
 {RAG_CONTEXT}
@@ -23,30 +297,102 @@ Conversation History:
 Current Question:
 {USER_QUESTION}
 
-Provide a short factual summary (2–6 sentences), then a structured block with headings: Role, Location, Education (short), Research Interests (short), Experience (short). Do NOT include a Sources or Links section.
+Answer in plain, natural conversational prose (2-6 sentences). Do NOT use headings, bullet lists of "Role/Education/Experience", or any structured profile format -- that format is reserved for faculty questions only. Do NOT include a Sources or Links section; sources are added separately by the system.
 '''
 
-FOLLOWUP_RE = re.compile(r"\b(him|her|them|his|hers|more about|details|research|publications)\b", re.I)
+FOLLOWUP_RE = re.compile(
+    r"\b(?:he|she|they|him|her|them|his|hers|their|theirs|tell me more|more about|details|research|publications|profile|where is|what does|what are)\b",
+    re.I)
+
+_NAME_BLACKLIST = {
+    'university', 'campus', 'school', 'college', 'department', 'facility',
+    'facilities', 'admission', 'admissions', 'course', 'courses',
+    'program', 'programs', 'fee', 'fees', 'placement', 'hostel', 'library'
+}
+
+# FEATURE 8: map a short, focused follow-up question to the single profile
+# field it's asking about. Only fires for SHORT queries (a handful of
+# words) so a longer, genuinely new question that happens to contain the
+# word "research" isn't misread as a narrow follow-up.
+_FIELD_FOLLOWUP_PATTERNS = [
+    (re.compile(r"^(his|her|their)?\s*research(\s*interests?)?\??$", re.I), 'research'),
+    (re.compile(r"^(his|her|their)?\s*qualifications?\??$", re.I), 'qualification'),
+    (re.compile(r"^(his|her|their)?\s*experience\??$", re.I), 'experience'),
+    (re.compile(r"^(his|her|their)?\s*(department|dept)\??$", re.I), 'department'),
+    (re.compile(r"^(his|her|their)?\s*(designation|role|position)\??$", re.I), 'designation'),
+    (re.compile(r"^(his|her|their)?\s*(publications?)\??$", re.I), 'research'),
+]
+
+
+def _detect_focus_field(user_query: str) -> Optional[str]:
+    """Returns a field name ('research', 'qualification', 'experience',
+    'department', 'designation') if user_query is a short, single-field
+    follow-up question, else None. Deliberately strict (whole-message
+    match) so it never fires on a longer compound question."""
+    normalized = (user_query or '').strip().lower()
+    if not normalized or len(normalized.split()) > 4:
+        return None
+    for pattern, field in _FIELD_FOLLOWUP_PATTERNS:
+        if pattern.match(normalized):
+            return field
+    return None
+
+
+def _extract_person_name(text: str) -> Optional[str]:
+    if not text:
+        return None
+
+    # Prefer explicit academic titles or full names.
+    title_patterns = [
+        r"\b(Dr\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\b",
+        r"\b(Prof(?:essor)?\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\b",
+    ]
+    for pat in title_patterns:
+        m = re.search(pat, text)
+        if m:
+            return m.group(1).strip()
+
+    # Fallback to a generic capitalized name candidate.
+    candidates = re.findall(r"\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)\b", text)
+    for cand in reversed(candidates):
+        lower = cand.lower()
+        if not any(block in lower for block in _NAME_BLACKLIST):
+            return cand.strip()
+
+    return None
+
+
+def _find_previous_person(session_id: str) -> Optional[str]:
+    hist = session_histories.get(session_id)
+    if not hist:
+        return None
+
+    for entry in reversed(hist):
+        person = _extract_person_name(entry.get('user', '') or '')
+        if person:
+            return person
+        person = _extract_person_name(entry.get('assistant', '') or '')
+        if person:
+            return person
+
+    return None
 
 
 def _rewrite_followup_if_needed(session_id: str, user_query: str) -> str:
     if not session_id or not FOLLOWUP_RE.search(user_query):
         return user_query
-    hist = session_histories.get(session_id)
-    if not hist:
+
+    # If the query already includes a person name or title, do not rewrite.
+    if _extract_person_name(user_query):
         return user_query
-    person = None
-    for entry in reversed(hist):
-        u = entry.get('user') or ''
-        m = re.search(r"([A-Z][a-z]+\s+[A-Z][a-z]+)", u)
-        if m:
-            person = m.group(1)
-            break
+
+    person = _find_previous_person(session_id)
     if person:
         rewritten = f"{person} {user_query}"
         if DEBUG_RAG:
             print(f"[RAG] Rewrote follow-up: '{user_query}' -> '{rewritten}'")
         return rewritten
+
     return user_query
 
 
@@ -105,7 +451,9 @@ def summarize_text(text: str, max_sentences: int = 5) -> str:
 
 
 def parse_structured_from_text(text: str) -> Dict[str,Any]:
-    data = {'name':None,'role':None,'department':None,'location':None,'education':[],'research':[], 'experience':[], 'links':[], 'sources':[]}
+    data = {'name':None,'role':None,'department':None,'location':None,
+            'qualification':[], 'education':[],'research':[], 'experience':[],
+            'links':[], 'sources':[]}
     m = re.search(r"\*\*(Dr\.?\s*[^\*]+?)\*\*", text)
     if m:
         data['name'] = m.group(1).strip()
@@ -117,15 +465,41 @@ def parse_structured_from_text(text: str) -> Dict[str,Any]:
         if url not in data['links']:
             data['links'].append(url)
             data['sources'].append(url)
-    ed = re.search(r"Education[:\*\n\r]+([\s\S]{0,200})", text)
+    role = re.search(r"Role[:\*\n\r]+([^\n\r]{0,120})", text)
+    if role:
+        role_val = role.group(1).strip(' *:-')
+        if role_val and 'not available' not in role_val.lower():
+            data['role'] = role_val
+    dept = re.search(r"Department[:\*\n\r]+([^\n\r]{0,120})", text)
+    if dept:
+        dept_val = dept.group(1).strip(' *:-')
+        if dept_val and 'not available' not in dept_val.lower():
+            data['department'] = dept_val
+    # FEATURE 10 fix: all multi-line field captures stop at the next known
+    # field header (via lookahead) rather than a raw character count, so a
+    # field's content never bleeds into the next field's label+text (this
+    # was verified to happen with the old {0,200}-character-only patterns:
+    # "Qualification: PhD\nResearch Interests: X" parsed Qualification as
+    # ["PhD", "Research Interests: X"] instead of just ["PhD"]).
+    _NEXT_FIELD = r"(?=\n\s*(?:Role|Department|Qualification|Education|Research Interests?|Experience|Designation)\s*[:\*]|\Z)"
+    qual = re.search(r"Qualification[:\*\n\r]+([\s\S]{0,300}?)" + _NEXT_FIELD, text)
+    if qual:
+        data['qualification'] = [s.strip() for s in re.split(r'[\n\r\u2022\-]+', qual.group(1)) if s.strip()][:3]
+    ed = re.search(r"Education[:\*\n\r]+([\s\S]{0,300}?)" + _NEXT_FIELD, text)
     if ed:
         data['education'] = [s.strip() for s in re.split(r'[\n\r\u2022\-]+', ed.group(1)) if s.strip()][:3]
-    rs = re.search(r"Research Interests[:\*\n\r]+([\s\S]{0,200})", text)
+    rs = re.search(r"Research Interests?[:\*\n\r]+([\s\S]{0,300}?)" + _NEXT_FIELD, text)
     if rs:
         data['research'] = [s.strip() for s in re.split(r'[\n\r\u2022\-]+', rs.group(1)) if s.strip()][:5]
-    ex = re.search(r"Experience[:\*\n\r]+([\s\S]{0,200})", text)
+    ex = re.search(r"Experience[:\*\n\r]+([\s\S]{0,300}?)" + _NEXT_FIELD, text)
     if ex:
         data['experience'] = [s.strip() for s in re.split(r'[\n\r\u2022\-]+', ex.group(1)) if s.strip()][:5]
+    # FEATURE 10: never carry forward a "Not available in sources"-style
+    # placeholder value into a list field -- strip any such entries so an
+    # empty-looking heading never renders even if the model didn't fully
+    # follow the "omit empty fields" instruction.
+    for key in ('qualification', 'education', 'research', 'experience'):
+        data[key] = [v for v in data[key] if v and 'not available' not in v.lower()]
     return data
 
 
@@ -144,7 +518,171 @@ def _sanitize_visible_text(text: str) -> str:
     return text.strip()
 
 
-def get_reply(user_message: str, session_id: str = None, user_profile: Dict = None) -> Dict[str,Any]:
+def _source_display_label(source: str, fallback_index: int) -> str:
+    source = str(source or '').strip()
+    if not source:
+        return f"Source {fallback_index}"
+    m = re.match(r"https?://([^/]+)(/.*)?", source, re.I)
+    if m:
+        host = m.group(1)
+        path = (m.group(2) or '').rstrip('/')
+        return f"{host}{path}" if path else host
+    return source
+
+
+def _split_chunk_into_paragraphs(text: str) -> List[str]:
+    text = (text or '').replace('\x00', '')
+    text = text.replace('\r\n', '\n').replace('\r', '\n')
+    text = re.sub(r'[ \t]+\n', '\n', text)
+    text = re.sub(r'\n{3,}', '\n\n', text)
+    text = re.sub(r'[ \t]{2,}', ' ', text)
+    text = text.strip()
+    return [text] if text else []
+
+
+def _is_boilerplate_paragraph(paragraph: str) -> bool:
+    return not bool((paragraph or '').strip())
+
+
+def _clean_chunk_content(text: str) -> List[str]:
+    cleaned = (text or '').replace('\x00', '')
+    cleaned = cleaned.replace('\r\n', '\n').replace('\r', '\n')
+    cleaned = re.sub(r'[ \t]+\n', '\n', cleaned)
+    cleaned = re.sub(r'\n{3,}', '\n\n', cleaned)
+    cleaned = re.sub(r'[ \t]{2,}', ' ', cleaned)
+    cleaned = cleaned.strip()
+    return [cleaned] if cleaned else []
+
+
+def _finish_reply(raw_text: str, category: str, top_chunks: List[Dict],
+                   user_message: str, session_id: Optional[str],
+                    gen_time: Optional[float] = None, retrieval_time: Optional[float] = None) -> Dict[str, Any]:
+    """Shared post-processing pipeline used by BOTH the non-streaming and
+    streaming (FEATURE 2) paths in get_reply(), so this logic exists in
+    exactly one place. Takes the raw LLM output text plus the retrieval
+    context (category, top_chunks) already computed by the caller, and
+    returns the final {reply, data, sources} dict -- identical output shape
+    and content regardless of which path produced raw_text."""
+    text = raw_text
+    _debug_section(11, "Raw LLM Output", text)
+
+    # sanitize visible reply
+    text = _sanitize_visible_text(text)
+
+    # FEATURE 3/10 fix: parse structured fields (Role/Department/
+    # Qualification/Research/Experience) from the sanitized text BEFORE
+    # dedupe_sentences runs. dedupe_sentences splits on sentence punctuation
+    # and rejoins with single spaces, which collapses the newlines that
+    # separate "Role: X" from "Department: Y" in the model's structured
+    # block -- parsing after that collapse caused each field's regex to
+    # over-capture into the next field's text (verified directly: "Role: X
+    # Department: Y" parsed as Role="X Department: Y Qualification: Z...").
+    # The prose summary below still uses the deduped/summarized text, which
+    # is unaffected by this since summarize_text doesn't care about field
+    # boundaries.
+    structured = parse_structured_from_text(text)
+
+    text = dedupe_sentences(text)
+    short = summarize_text(text, max_sentences=5)
+
+    # FEATURE 7: extract real source URLs directly from the retrieved
+    # context's [Source: ...] tags (which trace back to metadata.json's
+    # `source` field via threaded_rag.py/hybrid_retriever.py), instead of
+    # relying on the LLM to echo a URL in its own generated text. This
+    # guarantees sources shown to the user were actually retrieved and
+    # used, never hallucinated, and shows ALL contributing sources (not
+    # just whichever one the LLM happened to mention).
+    context_source_urls = []
+    for c in top_chunks:
+        src = c['metadata'].get('source', '')
+        if isinstance(src, str) and src.startswith(('http://', 'https://')) and src not in context_source_urls:
+            context_source_urls.append(src)
+
+    # Build clean HTML — summary first, then (FEATURE 3) only render the
+    # structured faculty block when this is actually a faculty query;
+    # every other category gets plain prose only, no headings.
+    html_parts = []
+    if short:
+        short_clean = re.sub(r"^[\s\-\.:]+", '', short).strip()
+        short_clean = re.sub(r"(---\s*\.?\s*)+", "\n", short_clean)
+        # Strip any leftover "Retrieved Context:" lines from summary
+        short_clean = re.sub(r"Retrieved Context:[^\n<]*", "", short_clean).strip()
+        if short_clean:
+            html_parts.append(f"<div>{short_clean}</div>")
+
+    block = []
+    if category == 'faculty':
+        # FEATURE 10: each line below is only added if the corresponding
+        # field is non-empty, so a faculty profile with missing fields
+        # never shows an empty "Education: Not available" heading -- the
+        # heading simply doesn't appear at all.
+        if structured.get('role'):
+            block.append(f"<div><strong>Designation:</strong> {structured['role']}</div>")
+        if structured.get('department'):
+            block.append(f"<div><strong>Department:</strong> {structured['department']}</div>")
+        if structured.get('qualification'):
+            qs = ''.join(f"<li>{q}</li>" for q in structured['qualification'])
+            block.append(f"<div><strong>Qualification:</strong><ul style='margin:6px 0 0 18px'>{qs}</ul></div>")
+        if structured.get('education'):
+            eds = ''.join(f"<li>{e}</li>" for e in structured['education'])
+            block.append(f"<div><strong>Education:</strong><ul style='margin:6px 0 0 18px'>{eds}</ul></div>")
+        if structured.get('research'):
+            rrs = ''.join(f"<li>{r}</li>" for r in structured['research'])
+            block.append(f"<div><strong>Research Interests:</strong><ul style='margin:6px 0 0 18px'>{rrs}</ul></div>")
+        if structured.get('experience'):
+            exs = ''.join(f"<li>{e}</li>" for e in structured['experience'])
+            block.append(f"<div><strong>Experience:</strong><ul style='margin:6px 0 0 18px'>{exs}</ul></div>")
+    # For every category (faculty included), show grounded sources with
+    # a compact blue "Source" link label.
+    if context_source_urls:
+        srcs = ''.join(
+            f"<div style='margin-top:4px'><a href='{s}' target='_blank' style='color:#1a73e8;text-decoration:underline'>Source</a></div>"
+            for s in context_source_urls[:5]
+        )
+        block.append(f"<div><strong>Source{'s' if len(context_source_urls) > 1 else ''}:</strong>{srcs}</div>")
+
+    if block:
+        html_parts.append('<div style="margin-top:8px">' + ''.join(block) + '</div>')
+
+    html_reply = ''.join(html_parts) if html_parts else '<div>Not available in sources</div>'
+    
+    _debug_section(12, "Post Processing",
+                    f"Structured Parsing:\n{structured}",
+                    f"Final HTML:\n{html_reply[:1500]}")
+    _debug_section(13, "Sources", f"Extracted URLs:\n{context_source_urls}")
+
+
+    # save structured
+    if structured.get('name') and structured['name'] != 'Not available in sources':
+        _save_structured_to_vectordb(structured['name'], structured)
+    if session_id:
+        _store_session(session_id, user_message, short)
+    
+    if DEBUG_RAG:
+        total_time = (retrieval_time or 0) + (gen_time or 0)
+        _debug_section(14, "Total Timing",
+                        f"Dense+BM25+RRF+Rerank (combined): {retrieval_time:.3f}s" if retrieval_time is not None else "N/A",
+                        f"Generation                      : {gen_time:.3f}s" if gen_time is not None else "N/A",
+                        f"Total                            : {total_time:.3f}s")
+
+
+    _trace_rag_lifecycle(
+        "finish_reply:return",
+        reply_chars=len(html_reply),
+        source_count=len(context_source_urls),
+        structured_name=structured.get('name'),
+    )
+    return {'reply': html_reply, 'data': structured, 'sources': context_source_urls}
+
+
+def get_reply(user_message: str, session_id: str = None, user_profile: Dict = None, _stream: bool = False) -> Dict[str,Any]:
+    _trace_rag_lifecycle(
+        "get_reply:enter",
+        stream=_stream,
+        session_id=session_id or "",
+        message_chars=len(user_message or ""),
+        message_preview=(user_message or "")[:120].replace("\n", " "),
+    )
     # sanitize incoming user message (remove embedded debug fragments)
     if not user_message:
         user_message = ''
@@ -162,6 +700,7 @@ def get_reply(user_message: str, session_id: str = None, user_profile: Dict = No
     if has_active_timetable_session(session_id) and not is_timetable_escape(user_message):
         timetable_answer = answer_timetable_query(user_message, session_id=session_id, history=history)
         if timetable_answer:
+            _trace_rag_lifecycle("get_reply:return", reason="active_timetable_session", stream=_stream)
             if session_id:
                 _store_session(session_id, user_message, timetable_answer)
             return {'reply': timetable_answer, 'data': {}, 'sources': []}
@@ -170,6 +709,7 @@ def get_reply(user_message: str, session_id: str = None, user_profile: Dict = No
     if is_mentor_intent(user_message):
         mentor_answer = answer_mentor_query(user_message)
         if mentor_answer:
+            _trace_rag_lifecycle("get_reply:return", reason="mentor_fast_path", stream=_stream)
             if session_id:
                 _store_session(session_id, user_message, mentor_answer)
             return {'reply': mentor_answer, 'data': {}, 'sources': []}
@@ -177,10 +717,47 @@ def get_reply(user_message: str, session_id: str = None, user_profile: Dict = No
     # Timetable fast-path for fresh queries
     timetable_answer = answer_timetable_query(user_message, session_id=session_id, history=history)
     if timetable_answer:
+        _trace_rag_lifecycle("get_reply:return", reason="fresh_timetable_fast_path", stream=_stream)
         if session_id:
             _store_session(session_id, user_message, timetable_answer)
         return {'reply': timetable_answer, 'data': {}, 'sources': []}
     # -------------------------------------------------------------------------
+
+    _debug_section(1, "Intent Detection")
+    # FEATURE 4: small-talk / greeting detection, runs BEFORE any retrieval.
+    # Placed after timetable/mentor routing (so it never intercepts a
+    # mid-flow timetable/mentor conversation) but before RAG, so greetings
+    # like "hi", "how are going", "thanks", "bye" get a simple canned
+    # response instead of falling through to retrieval and surfacing an
+    # unrelated faculty chunk (the exact failure seen in the conversation
+    # audit for "how are going").
+    small_talk_kind = _classify_small_talk(user_message)
+    if small_talk_kind:
+        if DEBUG_RAG:
+            print(f"Detected:\nSmall Talk ({small_talk_kind})")
+        reply_text = _SMALL_TALK_RESPONSES.get(small_talk_kind, _SMALL_TALK_RESPONSES['greeting'])
+        _trace_rag_lifecycle("get_reply:return", reason="small_talk", kind=small_talk_kind, stream=_stream)
+        if session_id:
+            _store_session(session_id, user_message, reply_text)
+        return {'reply': f"<div>{reply_text}</div>", 'data': {}, 'sources': []}
+
+    # FEATURE 5: strict university-scope guardrail, runs BEFORE retrieval/LLM.
+    # Catches clearly off-topic general-knowledge questions (the conversation
+    # audit found "Who is Iron Man?" and "Who is Narendra Modi?" were both
+    # answered in full from the LLM's training data instead of being
+    # refused). The existing evidence check further downstream remains the
+    # safety net for anything this guardrail's conservative pattern list
+    # doesn't catch.
+    if _is_off_topic(user_message):
+        if DEBUG_RAG:
+            print(f"Detected:\nOff-topic / Out-of-scope query")
+        _trace_rag_lifecycle("get_reply:return", reason="off_topic", stream=_stream)
+        if session_id:
+            _store_session(session_id, user_message, OUT_OF_SCOPE_FALLBACK)
+        return {'reply': f"<div>{OUT_OF_SCOPE_FALLBACK}</div>", 'data': {}, 'sources': []}
+    
+    if DEBUG_RAG:
+        print("Detected:\nUniversity Knowledge Base Query")
 
     # Build student context block if profile provided
     student_context = ""
@@ -205,96 +782,500 @@ def get_reply(user_message: str, session_id: str = None, user_profile: Dict = No
             student_context += f"\n\n{timetable_context}"
 
     rewritten = _rewrite_followup_if_needed(session_id, user_message)
+
+    # FEATURE 8: detect whether this is a short, single-field follow-up
+    # (e.g. "Research?", "Qualification?") so the prompt can be told to
+    # answer ONLY that field instead of repeating the entire faculty
+    # profile, which is what happened for every such turn in the
+    # conversation audit ("Tell me more", "Research?", "Qualification?"
+    # all returned an identical full repeat).
+    focus_field = _detect_focus_field(user_message)
+    
+    _debug_section(2, "Follow-up Detection",
+                    f"Original Query:\n{user_message}",
+                    f"Rewritten Query:\n{rewritten}",
+                    f"Focus Field:\n{focus_field or '(none -- full answer)'}")
+
+    # -------------------------------------------------------------------------
+    # Category detection
+    # -------------------------------------------------------------------------
+    # Classify the original user message (before follow-up rewriting) so
+    # "his research" → rewritten "Dr X his research" doesn't change the
+    # detected category, which should already be 'faculty' from context.
+    category = classify_query(user_message)
+
+    # FEATURE 8 fix: classify_query alone does NOT recognize bare
+    # single-field follow-ups ("Research?", "Qualification?", "Experience?")
+    # as faculty category -- verified directly (classify_query('Research?')
+    # returns 'general', not 'faculty', since its faculty keyword list
+    # requires words like "who is"/"professor"/"dr." that a one-word
+    # follow-up doesn't contain). Since focus_field only fires for exactly
+    # this kind of short person-attribute follow-up, treat it as a reliable
+    # signal that the true category is faculty -- this fixes both the
+    # category-based retrieval filtering (_matches_category) and, further
+    # below, the structured-vs-prose prompt template selection.
+    if focus_field and category == 'general':
+        category = 'faculty'
+        if DEBUG_RAG:
+            print(f"[RAG] Category corrected to 'faculty' due to focus_field='{focus_field}'")
+
+    # FEATURE 9: detect aggregate/"list" style queries (e.g. "List all CSE
+    # faculty", "Tell me about CSE department"). These must be answered
+    # ONLY from freshly retrieved context, never from conversation history
+    # -- the conversation audit found the LLM was fabricating department
+    # rosters out of whatever faculty names happened to appear earlier in
+    # the same session. We don't change retrieval for this (Step 9 of the
+    # original spec said "answer only from retrieval", which the existing
+    # RAG pipeline already does); what we change is that the prompt's
+    # Conversation History section is suppressed for these queries, so the
+    # model has no session history to draw fabricated facts from -- it can
+    # only use the History to resolve a follow-up subject, never as a
+    # source of facts, which is the literal Feature 9 requirement.
+    _LIST_QUERY_RE = re.compile(
+        r"\b(list\s+all|all\s+(professors|faculty|teachers)|"
+        r"tell\s+me\s+about\s+\w+\s+department|"
+        r"\w+\s+department\b)",
+        re.IGNORECASE,
+    )
+    is_list_query = bool(_LIST_QUERY_RE.search(user_message))
+    
+    _debug_section(3, "Category Classification",
+                    f"Category:\n{category}",
+                    f"List/Aggregate Query:\n{is_list_query}")
+
+
+    # -------------------------------------------------------------------------
+    # Category-aware query expansion
+    # -------------------------------------------------------------------------
+    # For faculty queries:   add " profile" and " research" variants to
+    #                         broaden recall across bio + publications chunks.
+    # For fee queries:        add " annual fee structure" and " admission charges"
+    #                         to target fee table rows more precisely.
+    # For admission queries:  add " eligibility criteria" variant.
+    # For course queries:     add " curriculum" and " specialization" variants.
+    # For university_info:    add " GD Goenka" variant for general info pages.
+    # For general:            keep the original two generic variants.
+    if category == 'faculty':
+        # ' profile' and ' research' broaden recall across bio + pub chunks.
+        # ' assistant professor GD Goenka' pulls the name-prefixed bio chunks
+        # created by build_knowledge_base.py ("Dr. X, Assistant Professor\n\n...")
+        # which share 'assistant professor' with many partial-matching queries.
+        variant_suffixes = [' profile', ' research', ' assistant professor GD Goenka']
+    elif category == 'fee':
+        # Mirror the exact chunk format: "School of X — Fee Structure\nProgramme: Y"
+        # The third variant adds 'programme duration annual fee' which overlaps
+        # with the chunk's own text, lifting previously L2-filtered fee rows.
+        variant_suffixes = [' annual fee structure', ' admission charges security deposit',
+                            ' programme duration annual fee GD Goenka']
+    elif category == 'admission':
+        # 'eligibility criteria' and 'application process' cover the two main
+        # admission page sub-topics; 'GD Goenka admissions' anchors to the source.
+        variant_suffixes = [' eligibility criteria', ' application process GD Goenka admissions']
+    elif category == 'course':
+        # 'programme curriculum' + 'specialization duration' mirrors course chunks.
+        variant_suffixes = [' programme curriculum', ' specialization duration GD Goenka']
+    elif category == 'university_info':
+        # 'GD Goenka established Gurugram' hits the about-page "established 2013" chunk.
+        variant_suffixes = [' GD Goenka established Gurugram', ' campus facilities']
+    else:  # general
+        variant_suffixes = [' profile', ' research']
+
     queries = []
-    for q in (rewritten, f"{rewritten} profile", f"{rewritten} research"):
+    for q in ([rewritten] + [f"{rewritten}{s}" for s in variant_suffixes]):
         if q and q not in queries:
             queries.append(q)
-    # build contexts (deduped and sanitized)
-    contexts = []
-    seen = set()
-    topk = TOP_K_RESULTS
-    for q in queries:
-        ctx = rag.get_context_for_query(q, top_k=topk)
-        if not ctx:
-            continue
-        ctx = re.sub(r"(?i)(?:<current_tab_state>[\s\S]*?</current_tab_state>|\\u003ccurrent_tab_state\\u003e[\s\S]*?\\u003c\\/current_tab_state\\u003e)", "", ctx)
-        norm = re.sub(r"\s+"," ", ctx).strip()
-        if norm in seen:
-            continue
-        seen.add(norm)
-        contexts.append(ctx)
-        if len(contexts) >= 3:
-            break
-    full_context = '\n\n'.join(contexts)
-    full_context = re.sub(r"(\[Source:[^\]]+\])(?:\s*\1)+","\1", full_context)
 
-    history = _compose_history(session_id)
-    prompt = PROMPT_TEMPLATE.format(
-        STUDENT_CONTEXT=student_context,
+    # -------------------------------------------------------------------------
+    # Chunk-level retrieval across all query variants (Phase-1 Hybrid RAG)
+    # -------------------------------------------------------------------------
+    # Each variant now goes through HybridRetriever (dense FAISS + BM25 ->
+    # RRF -> cross-encoder rerank -> adjacent-chunk merge) instead of the
+    # dense-only rag.get_candidates() call. HybridRetriever returns
+    # candidates in the exact same dict shape (score/index/content/metadata/
+    # exact_match) that rag.get_candidates() already produced, so every
+    # downstream step below -- the merged_chunks dedup, faculty isolation,
+    # menu-boilerplate filtering, and context assembly -- is unchanged.
+    #
+    # FEATURE 1 (Steps 4-7 of the debug spec -- Dense Retrieval, BM25
+    # Retrieval, RRF Fusion, Cross-Encoder Reranking): these are already
+    # logged inside hybrid_retriever.py's existing [HYBRID]-prefixed
+    # DEBUG_RAG prints (Dense Top-K / BM25 Top-K / RRF ranking / Reranker
+    # ranking) -- not duplicated here to avoid two competing log formats
+    # for the same data. This block only adds timing around the call
+    # (Step 14) plus Step 8/9 (merge, evidence) which genuinely live here.
+    _retrieval_start = time.time() if DEBUG_RAG else None
+    topk = TOP_K_RESULTS
+    merged_chunks: Dict[str, Dict] = {}  # content_hash → best candidate dict
+    for q in queries:
+        # BM25 only runs on the original (un-suffixed) query -- see
+        # HybridRetriever.get_hybrid_candidates' docstring for why running
+        # it on the broadened " profile"/" research"-style variants too
+        # would let a single generic suffix word manufacture false
+        # relevance via literal term overlap. Dense retrieval still runs on
+        # every variant exactly as before.
+        for cand in hybrid.get_hybrid_candidates(q, top_k=topk, category=category, use_bm25=(q == rewritten)):
+            content_norm = ' '.join(cand['content'].split()).lower()
+            h = hashlib.md5(content_norm.encode('utf-8')).hexdigest()
+            if h not in merged_chunks or cand['score'] > merged_chunks[h]['score']:
+                merged_chunks[h] = cand
+    _retrieval_time = (time.time() - _retrieval_start) if DEBUG_RAG else None
+
+    merged_before_entity = list(merged_chunks.values())
+    if DEBUG_RAG:
+        _sep = "=" * 65
+        _line = "-" * 65
+        print(f"\n{_sep}\n  STEP 8A : MERGED CANDIDATES BEFORE ENTITY ISOLATION\n{_sep}")
+        print(f"  Category      : {category}")
+        print(f"  Rewritten Q   : {rewritten}")
+        print(f"  Variants      : {queries}")
+        print(f"  Merged Unique : {len(merged_before_entity)}")
+        print(_line)
+        for i, cand in enumerate(sorted(
+            merged_before_entity,
+            key=lambda x: (
+                x.get('_evidence_score', x.get('score', 0.0)),
+                x.get('rrf_score', 0.0),
+                x.get('score', 0.0),
+            ),
+            reverse=True,
+        ), 1):
+            print(f"  [{i:02d}] {_debug_candidate_line(cand)}")
+        print(_sep)
+
+    apply_entity_isolation = _should_apply_entity_isolation(user_message, category)
+    exact_entities = []
+    primary_entity = None
+    if apply_entity_isolation:
+        exact_entities = [
+            cand for cand in merged_chunks.values()
+            if cand.get('exact_match', 0) >= 2
+        ]
+        if exact_entities:
+            # Prefer the reranker's evidence score first, then exact-match
+            # strength, then the raw dense score.
+            primary = max(
+                exact_entities,
+                key=lambda cand: (
+                    cand.get('_evidence_score', cand.get('score', 0.0)),
+                    cand.get('exact_match', 0),
+                    cand.get('score', 0.0),
+                ),
+            )
+            primary_entity = _entity_key(primary['metadata'])
+            for cand in merged_chunks.values():
+                cand['_entity_boost'] = 1 if _entity_key(cand['metadata']) == primary_entity else 0
+        else:
+            for cand in merged_chunks.values():
+                cand['_entity_boost'] = 0
+    else:
+        for cand in merged_chunks.values():
+            cand['_entity_boost'] = 0
+
+    if DEBUG_RAG:
+        _sep = "=" * 65
+        _line = "-" * 65
+        print(f"\n{_sep}\n  STEP 8B : EXACT ENTITY CANDIDATE SELECTION\n{_sep}")
+        print(f"  Entity Isolation Enabled : {apply_entity_isolation}")
+        print(f"  Exact Entity Matches     : {len(exact_entities)}")
+        if not apply_entity_isolation:
+            print(f"  Skipped for non-entity query")
+        print(_line)
+        for i, cand in enumerate(sorted(
+            exact_entities,
+            key=lambda x: (
+                x.get('_evidence_score', x.get('score', 0.0)),
+                x.get('exact_match', 0),
+                x.get('score', 0.0),
+            ),
+            reverse=True,
+        ), 1):
+            print(f"  [{i:02d}] {_debug_candidate_line(cand)}")
+        print(_sep)
+
+    if DEBUG_RAG:
+        _sep = "=" * 65
+        _line = "-" * 65
+        print(f"\n{_sep}\n  STEP 8C : ENTITY BOOST\n{_sep}")
+        print(f"  Before Boost : {len(merged_before_entity)}")
+        print(f"  After Boost  : {len(merged_chunks)}")
+        if primary_entity:
+            print(f"  Boosted Entity Key : {primary_entity}")
+        elif apply_entity_isolation:
+            print(f"  Boosted Entity Key : (none — no exact entity candidate)")
+        else:
+            print(f"  Boosted Entity Key : (skipped — non-entity query)")
+        print(_line)
+        for i, cand in enumerate(sorted(
+            merged_chunks.values(),
+            key=lambda x: (
+                x.get('_entity_boost', 0),
+                x.get('_evidence_score', x.get('score', 0.0)),
+                x.get('rrf_score', 0.0),
+                x.get('score', 0.0),
+            ),
+            reverse=True,
+        ), 1):
+            print(f"  [{i:02d}] {_debug_candidate_line(cand)} | entity_boost={cand.get('_entity_boost', 0)}")
+        print(_sep)
+
+    # Drop menu/navigation/footer boilerplate chunks before final assembly.
+    _before_boilerplate = len(merged_chunks)
+    merged_chunks = {
+        h: cand for h, cand in merged_chunks.items()
+        if not _is_menu_boilerplate(cand.get('content', '') or '')
+    }
+    if DEBUG_RAG:
+        _sep = "=" * 65
+        _line = "-" * 65
+        print(f"\n{_sep}\n  STEP 8D : BOILERPLATE FILTER\n{_sep}")
+        print(f"  Before Boilerplate Filter : {_before_boilerplate}")
+        print(f"  After Boilerplate Filter  : {len(merged_chunks)}")
+        print(_line)
+        for i, cand in enumerate(sorted(
+            merged_chunks.values(),
+            key=lambda x: (
+                x.get('_evidence_score', x.get('score', 0.0)),
+                x.get('rrf_score', 0.0),
+                x.get('score', 0.0),
+            ),
+            reverse=True,
+        ), 1):
+            print(f"  [{i:02d}] {_debug_candidate_line(cand)}")
+        print(_sep)
+
+    # Sort merged unique chunks by best available rank signal (best first), take top_k
+    top_chunks = sorted(
+    merged_chunks.values(),
+    key=lambda x: (
+        x.get('_entity_boost', 0),
+        x['_evidence_score']
+        if '_evidence_score' in x
+        else x['rrf_score']
+        if 'rrf_score' in x
+        else x.get('score', 0)
+    ),
+    reverse=True,
+    )[:topk]
+
+    _debug_section(8, "Chunk Merge / Final Top-K",
+                    f"Merged Unique Candidates (pre-filters)         : {len(merged_before_entity)}",
+                    f"After Entity Isolation                         : {len(merged_chunks)}",
+                    f"Candidates After top_k cap                     : {len(top_chunks)}",
+                    "Final Ranked Context (chunk_id | score | rrf | ce | exact | title | source):",
+                    *[f"  {_debug_candidate_line(c)}" for c in top_chunks])
+    # -------------------------------------------------------------------------
+    # Evidence Check (Phase-1 Hybrid RAG, Step 10)
+    # -------------------------------------------------------------------------
+    # If hybrid retrieval found nothing relevant after all filtering above,
+    # return the grounded "not found" fallback instead of calling the LLM on
+    # thin/irrelevant context. Length-only check here; see
+    # hybrid.has_sufficient_evidence's docstring for why a numeric
+    # cross-encoder threshold isn't safely reusable when the model didn't
+    # load for a given candidate set built across multiple query variants.
+    evidence_ok = bool(top_chunks)
+    _debug_section(9, "Evidence Check",
+                    f"Evidence Score: {len(top_chunks)} grounded chunk(s)",
+                    f"Decision: {'Proceed' if evidence_ok else 'Fallback'}")
+    if not evidence_ok:
+        _trace_rag_lifecycle("get_reply:return", reason="no_evidence", stream=_stream)
+        if session_id:
+            _store_session(session_id, user_message, NO_EVIDENCE_FALLBACK)
+        return {'reply': f"<div>{NO_EVIDENCE_FALLBACK}</div>", 'data': {}, 'sources': []}
+
+    # Sanitize and assemble full_context with formatting-only cleanup.
+    parts = []
+    context_debug_rows = []
+    for c in top_chunks:
+        src   = c['metadata'].get('source', 'Unknown')
+        title = c['metadata'].get('title', '')
+        chunk_text = _clean_chunk_content(c['content'])
+        if not chunk_text:
+            continue
+        normalized = chunk_text[0]
+        parts.append(f"[Source: {title or src}]\n{normalized}")
+        if DEBUG_RAG:
+            context_debug_rows.append((c, normalized))
+
+    full_context = '\n\n---\n\n'.join(parts)
+
+    if DEBUG_RAG:
+        _sep = "=" * 65
+        _line = "-" * 65
+        print(f"\n{_sep}\n  STEP 9A : RETRIEVED CONTEXT ASSEMBLY\n{_sep}")
+        print(f"  Context Parts : {len(parts)}")
+        print(f"  Top Chunks    : {len(top_chunks)}")
+        print(_line)
+        for i, (cand, paragraph) in enumerate(context_debug_rows, 1):
+            meta = cand.get('metadata', {}) or {}
+            print(
+                f"  [{i:02d}] {meta.get('chunk_id') or meta.get('doc_id') or '?'} | "
+                f"title={(meta.get('title') or '')[:60]} | "
+                f"source={(meta.get('source') or '')[:90]}"
+            )
+            print(f"       {paragraph[:400]}{'...' if len(paragraph) > 400 else ''}")
+        print(_sep)
+
+   
+    # FEATURE 9: list/aggregate queries must answer ONLY from freshly
+    # retrieved context, never from conversation history (the conversation
+    # audit found department-roster answers were fabricated from whatever
+    # names had appeared earlier in the session). History is still composed
+    # normally for follow-up *subject* resolution (handled earlier by
+    # _rewrite_followup_if_needed, which already ran before this point) --
+    # what changes here is only whether the History block is included in
+    # the prompt the LLM actually sees, so it has nothing to draw
+    # fabricated "facts" from for this turn.
+    history = '' if is_list_query else _compose_history(session_id)
+
+    # FEATURE 8: build a focus instruction for the prompt when this is a
+    # short single-field follow-up ("Research?", "Qualification?"), so the
+    # model answers ONLY that field instead of repeating the whole profile.
+    focus_instruction = ''
+    if focus_field and category == 'faculty':
+        field_labels = {
+            'research': 'Research Interests',
+            'qualification': 'Qualification',
+            'experience': 'Experience',
+            'department': 'Department',
+            'designation': 'Designation (Role)',
+        }
+        label = field_labels.get(focus_field, focus_field)
+        focus_instruction = (
+            f"\nThe user is asking specifically about the {label} of the person "
+            f"already discussed in the conversation history. Answer ONLY with "
+            f"the {label} information found in the Retrieved Context -- do NOT "
+            f"repeat their full profile (no summary, no other headings).\n"
+        )
+
+    # FEATURE 3: category-aware template selection. Faculty queries get the
+    # structured profile template; everything else gets the plain
+    # conversational template (no headings).
+    template = FACULTY_PROMPT_TEMPLATE if category == 'faculty' else GENERAL_PROMPT_TEMPLATE
+    prompt_kwargs = dict(
         RAG_CONTEXT=full_context or 'No relevant context found',
         HISTORY=history,
-        USER_QUESTION=user_message
+        USER_QUESTION=user_message,
     )
+    if template is FACULTY_PROMPT_TEMPLATE:
+        prompt_kwargs['FOCUS_INSTRUCTION'] = focus_instruction
+    prompt = template.format(**prompt_kwargs)
+
+    # ── DEBUG: COMPLETE PROMPT SENT TO LLM ───────────────────────────────
+    _SEP = "=" * 70
+    print(f"\n{_SEP}")
+    print("[DEBUG] COMPLETE PROMPT SENT TO LLM")
+    print(_SEP)
+    print("[DEBUG] 1. SYSTEM PROMPT:")
+    print("-" * 70)
+    _sys_end = prompt.find("Retrieved Context:")
+    print(prompt[:_sys_end].strip() if _sys_end != -1 else "(could not isolate)")
+    print("\n[DEBUG] 2. RETRIEVED CONTEXT:")
+    print("-" * 70)
+    _ctx_start = _sys_end + len("Retrieved Context:") if _sys_end != -1 else 0
+    _ctx_end   = prompt.find("\nConversation History:") if "Conversation History:" in prompt else prompt.find("\nCurrent Question:")
+    print(prompt[_ctx_start:_ctx_end].strip() if _ctx_end != -1 else prompt[_ctx_start:].strip())
+    print("\n[DEBUG] 3. USER QUESTION:")
+    print("-" * 70)
+    print(user_message)
+    print("\n[DEBUG] 4. FULL COMBINED PROMPT:")
+    print("-" * 70)
+    print(prompt)
+    print(_SEP + "\n")
+    # ─────────────────────────────────────────────────────────────────────
+    
+    _debug_section(10, "Prompt", prompt[:2000] + ('...[truncated]' if len(prompt) > 2000 else ''))
+
+
+    # Model selection happens once, before both the streaming and
+    # non-streaming branches below, since both need it.
     model = models.models.get('groq-llama') or next(iter(models.models.values()))
+
+    # FEATURE 2: real token-by-token streaming. When _stream=True, every
+    # step above this line (retrieval, grounding/evidence-check, small-talk
+    # and guardrail gates, category detection, prompt building) has already
+    # run identically to the non-streaming path -- nothing about Module 1's
+    # retrieval or safety logic is duplicated or changed. From here, we
+    # switch to Groq's native stream=True generation (via the new
+    # generate_stream() method added to ThreadedGroqModel) and yield text
+    # deltas as they arrive, instead of blocking on the full completion.
+    #
+    # Streaming intentionally returns RAW incremental text, not the fully
+    # post-processed HTML (structured-field parsing, source-URL injection,
+    # menu-boilerplate stripping, etc. all require the COMPLETE response
+    # text to run correctly -- they can't operate on partial sentences).
+    # The streaming endpoint in api.py sends a final 'done' event carrying
+    # the same fully-processed {reply, data, sources} dict that the
+    # non-streaming path returns, once the full text has arrived, so
+    # nothing about response quality or grounding is sacrificed -- only the
+    # raw token deltas are unprocessed while they stream in.
+    if _stream:
+        def _stream_generator():
+            full_text_parts = []
+            _gen_start = time.time() if DEBUG_RAG else None
+            _trace_rag_lifecycle(
+                "stream_generator:enter",
+                session_id=session_id or "",
+                top_chunks=len(top_chunks),
+            )
+            try:
+                _trace_rag_lifecycle("stream_generator:before_model_generate_stream")
+                for delta in model.generate_stream(prompt, max_tokens=1200, temperature=0.1):
+                    full_text_parts.append(delta)
+                    _trace_rag_lifecycle("stream_generator:delta", delta_chars=len(delta or ""))
+                    yield {'type': 'delta', 'text': delta}
+            except Exception as e:
+                _trace_rag_lifecycle("stream_generator:except", error=repr(e))
+                yield {'type': 'delta', 'text': f"[stream error: {e}]"}
+            _gen_time = (time.time() - _gen_start) if DEBUG_RAG else None
+            full_raw_text = ''.join(full_text_parts)
+            # Same shared post-processing pipeline as the non-streaming
+            # path -- see _finish_reply, defined once above get_reply, used
+            # by both branches so this logic exists in exactly one place.
+            _trace_rag_lifecycle(
+                "stream_generator:before_finish_reply",
+                raw_chars=len(full_raw_text),
+            )
+            final = _finish_reply(
+                full_raw_text, category, top_chunks, user_message, session_id,
+                gen_time=_gen_time, retrieval_time=_retrieval_time,
+            )
+            _trace_rag_lifecycle(
+                "stream_generator:return_done",
+                reply_chars=len(final.get('reply', '') or ''),
+                source_count=len(final.get('sources', []) or []),
+            )
+            yield {'type': 'done', **final}
+            _trace_rag_lifecycle("stream_generator:exit")
+        _trace_rag_lifecycle("get_reply:return", reason="stream_generator", stream=True)
+        return _stream_generator()
+
+    # FEATURE 6: increase max_tokens so longer, multi-field faculty profiles
+    # or multi-part answers aren't cut off mid-sentence. 800 -> 1200 is a
+    # conservative bump (Groq's llama-3.1-8b-instant context window
+    # comfortably supports this) rather than a large jump that could
+    # encourage repetition; temperature is left unchanged at 0.1 since the
+    # cutoff issue was about length, not creativity.
+    _gen_start = time.time() if DEBUG_RAG else None
     try:
-        resp = model.generate(prompt, max_tokens=800, temperature=0.1)
+        _trace_rag_lifecycle("get_reply:before_model_generate", stream=False)
+        resp = model.generate(prompt, max_tokens=1200, temperature=0.1)
         text = getattr(resp, 'content', None) or getattr(resp, 'text', '') or ''
-    except Exception:
+    except Exception as e:
+        _trace_rag_lifecycle("get_reply:except", reason="model_generate_failed", error=repr(e), stream=False)
         text = full_context[:3000] or 'No response generated'
+    _gen_time = (time.time() - _gen_start) if DEBUG_RAG else None
 
-    # sanitize visible reply
-    text = _sanitize_visible_text(text)
-    text = dedupe_sentences(text)
-    short = summarize_text(text, max_sentences=5)
+     # ── DEBUG: raw LLM response ───────────────────────────────────────────
+    print(f"\n[DEBUG] ── STAGE 5: RAW LLM RESPONSE ───────────────────────────")
+    print(f"[DEBUG]  response_chars={len(text)}")
+    print(f"[DEBUG]  raw_text={text[:500]}{'...' if len(text)>500 else ''}")
+    print(f"[DEBUG] ─────────────────────────────────────────────────────────")
+    # ─────────────────────────────────────────────────────────────────────
 
-    structured = parse_structured_from_text(text)
-
-    # Build clean HTML — summary first, then only non-empty structured fields
-    html_parts = []
-    if short:
-        short_clean = re.sub(r"^[\s\-\.:]+", '', short).strip()
-        short_clean = re.sub(r"(---\s*\.?\s*)+", "\n", short_clean)
-        # Strip any leftover "Retrieved Context:" lines from summary
-        short_clean = re.sub(r"Retrieved Context:[^\n<]*", "", short_clean).strip()
-        if short_clean:
-            html_parts.append(f"<div>{short_clean}</div>")
-
-    block = []
-    if structured.get('role'):
-        block.append(f"<div><strong>Role:</strong> {structured['role']}</div>")
-    if structured.get('location'):
-        block.append(f"<div><strong>Location:</strong> {structured['location']}</div>")
-    if structured.get('education'):
-        eds = ''.join(f"<li>{e}</li>" for e in structured['education'])
-        block.append(f"<div><strong>Education:</strong><ul style='margin:6px 0 0 18px'>{eds}</ul></div>")
-    if structured.get('research'):
-        rrs = ''.join(f"<li>{r}</li>" for r in structured['research'])
-        block.append(f"<div><strong>Research Interests:</strong><ul style='margin:6px 0 0 18px'>{rrs}</ul></div>")
-    if structured.get('experience'):
-        exs = ''.join(f"<li>{e}</li>" for e in structured['experience'])
-        block.append(f"<div><strong>Experience:</strong><ul style='margin:6px 0 0 18px'>{exs}</ul></div>")
-    # Only show real URLs, not "Retrieved Context:" strings
-    real_links = [l for l in structured.get('links', []) if l.startswith('http')]
-    if real_links:
-        links = ''.join(f"<li><a href='{l}' target='_blank'>{l}</a></li>" for l in real_links[:3])
-        block.append(f"<div><strong>Links:</strong><ul style='margin:6px 0 0 18px'>{links}</ul></div>")
-    # Cap sources at 3 unique real URLs only
-    real_sources = list(dict.fromkeys(
-        s for s in structured.get('sources', []) if s.startswith('http')
-    ))[:3]
-    if real_sources:
-        srcs = ''.join(f"<li><a href='{s}' target='_blank'>{s}</a></li>" for s in real_sources)
-        block.append(f"<div><strong>Sources:</strong><ul style='margin:6px 0 0 18px'>{srcs}</ul></div>")
-
-    if block:
-        html_parts.append('<div style="margin-top:8px">' + ''.join(block) + '</div>')
-
-    html_reply = ''.join(html_parts) if html_parts else '<div>Not available in sources</div>'
-
-    # save structured
-    if structured.get('name') and structured['name'] != 'Not available in sources':
-        _save_structured_to_vectordb(structured['name'], structured)
-    if session_id:
-        _store_session(session_id, user_message, short)
-
-    return {'reply': html_reply, 'data': structured, 'sources': structured.get('sources', [])}
+    _trace_rag_lifecycle(
+        "get_reply:return",
+        reason="non_stream_finish_reply",
+        stream=False,
+    )
+    return _finish_reply(text, category, top_chunks, user_message, session_id,
+                         gen_time=_gen_time, retrieval_time=_retrieval_time)

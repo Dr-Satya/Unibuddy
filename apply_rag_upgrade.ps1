@@ -279,7 +279,7 @@ async def chat(req: ChatRequest):
 Write-File "src\components\Chatbot.tsx" @"
 import { useState, useEffect, useRef } from 'react';
 
-const API_URL = 'http://127.0.0.1:9000/chat';
+const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://127.0.0.1:9000';
 
 const RenderStructured = ({ data }) => {
   if (!data || !data.name || data.name === 'Not available in sources') {

@@ -48,13 +48,17 @@ class ThreadedChatService:
 2. Provide accurate and helpful information based on the university's official data
 3. Be polite, professional, and student-friendly
 4. If you don't have specific information, acknowledge this and suggest contacting the university directly
-5. Use the provided context from the university database to answer questions accurately
+5. Use only the provided context from the university database to answer questions
 
 Guidelines:
 - Always prioritize accuracy over assumptions
 - Cite sources when providing specific information like fees or admission requirements
+- Use only the information contained in the provided Relevant Information
+- Do not use any external knowledge, personal knowledge, or invented details
+- If the answer cannot be found in the provided Relevant Information, respond exactly with:
+  Information not available in university sources.
+- Do not add any text beyond the exact answer or the exact fallback phrase
 - Be helpful and encouraging to prospective students
-- If asked about personal or sensitive information, redirect appropriately
 - Keep responses concise but comprehensive
 
 You have access to the latest information from the GD Goenka University website and database."""
@@ -90,6 +94,31 @@ You have access to the latest information from the GD Goenka University website 
         
         return "\\n".join(prompt_parts)
     
+    def _validate_grounded_response(self, response: str, context: str) -> str:
+        fallback = "Information not available in university sources."
+        if not context or "No relevant information found" in context:
+            return fallback
+        if not response or not response.strip():
+            return fallback
+        normalized = response.strip()
+        lower = normalized.lower()
+        if fallback.lower() in lower:
+            return fallback
+        if any(phrase in lower for phrase in [
+            "i'm sorry",
+            "i am sorry",
+            "i don't know",
+            "i do not know",
+            "cannot find",
+            "not available",
+            "not found",
+            "no information",
+            "unable to answer",
+            "unable to provide"
+        ]):
+            return fallback
+        return normalized
+
     async def chat_async(self, query: str, user_id: Optional[str] = None, 
                         conversation_id: Optional[str] = None,
                         model_name: Optional[str] = None) -> ChatResponse:
@@ -117,27 +146,40 @@ You have access to the latest information from the GD Goenka University website 
             # Format the final prompt
             formatted_prompt = self._format_prompt_with_rag(query, rag_context, conversation_context)
             
-            # Generate response using threaded AI model
-            print(f"🧠 [Threading] Generating response with model: {model_name or 'default'}...")
-            model_response = await threaded_model_manager.generate_async(
-                formatted_prompt,
-                model_name=model_name
-            )
-            
-            response_time = time.time() - start_time
-            
-            # Extract sources from RAG results
-            rag_results = threaded_rag_system.search(query)
-            sources = [result.source for result in rag_results[:3]]  # Top 3 sources
+            fallback = "Information not available in university sources."
+            model_response = None
+            if not rag_context or "No relevant information found" in rag_context:
+                final_response = fallback
+                model_used = "fallback"
+                tokens_used = 0
+                sources = []
+                response_time = time.time() - start_time
+            else:
+                # Generate response using threaded AI model
+                print(f"🧠 [Threading] Generating response with model: {model_name or 'default'}...")
+                model_response = await threaded_model_manager.generate_async(
+                    formatted_prompt,
+                    model_name=model_name
+                )
+                response_time = time.time() - start_time
+                
+                # Extract sources from RAG results
+                rag_results = threaded_rag_system.search(query)
+                sources = [result.source for result in rag_results[:3]]  # Top 3 sources
+                
+                # Validate grounding and enforce fallback when context is insufficient
+                final_response = self._validate_grounded_response(model_response.content, rag_context)
+                model_used = model_response.model
+                tokens_used = model_response.tokens_used
             
             # Add messages to conversation history
             user_message = ChatMessage(content=query, role="user")
             assistant_message = ChatMessage(
-                content=model_response.content,
+                content=final_response,
                 role="assistant",
                 extra_metadata={
-                    "model": model_response.model,
-                    "tokens": model_response.tokens_used,
+                    "model": model_used,
+                    "tokens": tokens_used,
                     "sources": sources,
                     "threading": True
                 }
@@ -152,24 +194,24 @@ You have access to the latest information from the GD Goenka University website 
             # Store in database if user_id provided (in background thread)
             if user_id:
                 asyncio.create_task(self._store_conversation_async(
-                    user_message, assistant_message, conversation_id, user_id, 
-                    model_response, sources, response_time, rag_context
+                    user_message, assistant_message, conversation_id, user_id,
+                    model_used, tokens_used, sources, response_time, rag_context, final_response
                 ))
             
             print(f"✅ [Threading] Chat processing completed in {response_time:.2f} seconds")
             
             return ChatResponse(
-                message=model_response.content,
-                model_used=model_response.model,
+                message=final_response,
+                model_used=model_used,
                 response_time=response_time,
                 sources=sources,
-                tokens_used=model_response.tokens_used,
+                tokens_used=tokens_used,
                 extra_metadata={
                     "conversation_id": conversation_id,
                     "rag_context_length": len(rag_context) if rag_context else 0,
                     "num_sources": len(sources),
                     "threading_enabled": True,
-                    "model_thread_id": model_response.extra_metadata.get("thread_id") if model_response.extra_metadata else None
+                    "model_thread_id": model_response.extra_metadata.get("thread_id") if rag_context and model_used != "fallback" and model_response is not None and model_response.extra_metadata else None
                 }
             )
             
@@ -187,8 +229,9 @@ You have access to the latest information from the GD Goenka University website 
             )
     
     async def _store_conversation_async(self, user_message: ChatMessage, assistant_message: ChatMessage,
-                                      conversation_id: str, user_id: str, model_response: ModelResponse,
-                                      sources: List[str], response_time: float, rag_context: str):
+                                      conversation_id: str, user_id: str, model_used: str,
+                                      tokens_used: int, sources: List[str], response_time: float,
+                                      rag_context: str, final_response: str):
         """Store conversation in database asynchronously."""
         try:
             # Store user message
@@ -204,13 +247,13 @@ You have access to the latest information from the GD Goenka University website 
             
             # Store assistant message
             assistant_msg_data = {
-                "id": hashlib.sha256(f"{conversation_id}_{assistant_message.timestamp}_{model_response.content}".encode()).hexdigest(),
+                "id": hashlib.sha256(f"{conversation_id}_{assistant_message.timestamp}_{final_response}".encode()).hexdigest(),
                 "conversation_id": conversation_id,
                 "user_id": user_id,
-                "content": model_response.content,
+                "content": final_response,
                 "role": "assistant",
-                "model_used": model_response.model,
-                "tokens_used": model_response.tokens_used,
+                "model_used": model_used,
+                "tokens_used": tokens_used,
                 "response_time": response_time,
                 "created_at": assistant_message.timestamp,
                 "extra_metadata": {

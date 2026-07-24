@@ -1,0 +1,663 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<title>Retrieval Comparison</title><style>
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;margin:0;background:#f5f6fa;color:#333}
+.header{background:#2c3e50;color:white;padding:20px 32px}
+.header h1{margin:0 0 4px;font-size:1.5em}
+.query-block{background:white;margin:24px 32px;border-radius:8px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+h2{margin:0 0 16px;font-size:1.2em;color:#2c3e50}
+.cat{background:#3498db;color:white;font-size:.75em;padding:2px 8px;border-radius:10px;margin-left:8px;font-weight:normal}
+.summary-row,.chunks-row,.context-row{display:flex;gap:16px;margin-bottom:16px}
+.kb-card{flex:1;border-radius:6px;padding:12px 16px;border:2px solid #ecf0f1}
+.kb-card.old{border-color:#e74c3c22}
+.kb-card.new{border-color:#2ecc7122}
+.kb-label{font-weight:bold;font-size:.85em;color:#888;margin-bottom:4px}
+.verdict{font-weight:bold;font-size:.9em;margin-bottom:8px}
+.mini{width:100%;border-collapse:collapse;font-size:.85em}
+.mini th{background:#f8f9fa;padding:4px 8px;text-align:left}
+.mini td{padding:4px 8px;border-bottom:1px solid #f0f0f0}
+.chunk-table{flex:1;overflow-x:auto}
+h3{font-size:.95em;color:#555;margin:0 0 6px}
+h4{font-size:.85em;color:#666;margin:0 0 4px}
+table{width:100%;border-collapse:collapse;font-size:.82em}
+th{background:#34495e;color:white;padding:6px 8px;text-align:left}
+td{padding:5px 8px;border-bottom:1px solid #f0f0f0}
+.diff-block{background:#fff8e1;border-left:3px solid #f39c12;padding:8px 12px;margin-bottom:12px;font-size:.85em}
+.diff-block ul{margin:4px 0;padding-left:20px}
+.ctx-block{flex:1}
+pre{background:#f8f9fa;padding:12px;border-radius:4px;font-size:.78em;overflow-x:auto;white-space:pre-wrap;word-break:break-word;max-height:300px;overflow-y:auto}
+</style></head><body>
+<div class="header"><h1>Retrieval Comparison: OLD KB vs NEW KB</h1>
+<p style="margin:0;opacity:.7;font-size:.9em">Generated 2026-07-13 15:47:28 &nbsp;|&nbsp;
+OLD: IndexFlatL2 864 vectors &nbsp;|&nbsp; NEW: IndexFlatIP 1880 vectors</p></div>
+
+<div class="query-block">
+  <h2>"MBA fee" <span class="cat">fee</span></h2>
+  <div class="summary-row">
+    <div class="kb-card old">
+      <div class="kb-label">OLD KB</div>
+      <div class="verdict" style="color:#2ecc71">GOOD — 50 chunks, avg cosine 0.820 in OLD KB</div>
+      <table class="mini"><tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Chunks retrieved</td><td>50</td></tr>
+        <tr><td>Passed threshold</td><td>50</td></tr>
+        <tr><td>Passed category</td><td>50</td></tr>
+        <tr><td>Avg chunk size</td><td>274 chars</td></tr>
+        <tr><td>Total context</td><td>3472 chars</td></tr>
+      </table>
+    </div>
+    <div class="kb-card new">
+      <div class="kb-label">NEW KB</div>
+      <div class="verdict" style="color:#f39c12">FAIR — 10 chunks, avg cosine 0.502 in NEW KB</div>
+      <table class="mini"><tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Chunks retrieved</td><td>10</td></tr>
+        <tr><td>Passed threshold</td><td>50</td></tr>
+        <tr><td>Passed category</td><td>10</td></tr>
+        <tr><td>Avg chunk size</td><td>765 chars</td></tr>
+        <tr><td>Total context</td><td>5119 chars</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="chunks-row">
+    <div class="chunk-table">
+      <h3>OLD KB Top 10</h3>
+      <table><tr><th>#</th><th>Cosine</th><th>Type</th><th>Title</th><th>Source</th><th>Len</th></tr>
+        <tr><td>1</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.9046</span></td><td>fee_structure</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Annual Fee Structure 2025-26 | GD Goenka</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>180</td></tr><tr><td>2</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.8599</span></td><td>fee_structure</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Annual Fee Structure 2025-26 | GD Goenka</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>190</td></tr><tr><td>3</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.7893</span></td><td>fee_structure</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Annual Fee Structure for Academic Year 2</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>511</td></tr><tr><td>4</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.7826</span></td><td>fee_structure</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Annual Fee Structure 2025-26 | GD Goenka</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>180</td></tr><tr><td>5</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.7617</span></td><td>fee_structure</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Annual Fee Structure for Academic Year 2</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>512</td></tr><tr><td>6</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.7359</span></td><td>fee_structure</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Annual Fee Structure 2025-26 | GD Goenka</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>232</td></tr><tr><td>7</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.7288</span></td><td>fee_structure</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Annual Fee Structure 2025-26 | GD Goenka</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>241</td></tr><tr><td>8</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.6956</span></td><td>fee_structure</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Annual Fee Structure 2025-26 | GD Goenka</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>202</td></tr><tr><td>9</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.6939</span></td><td>fee_structure</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Annual Fee Structure 2025-26 | GD Goenka</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>248</td></tr><tr><td>10</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.6872</span></td><td>fee_structure</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Annual Fee Structure 2025-26 | GD Goenka</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>252</td></tr></table>
+    </div>
+    <div class="chunk-table">
+      <h3>NEW KB Top 10</h3>
+      <table><tr><th>#</th><th>Cosine</th><th>Type</th><th>Title</th><th>Source</th><th>Len</th></tr>
+        <tr><td>1</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.5597</span></td><td>fee</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Fee Structure</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>870</td></tr><tr><td>2</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.5167</span></td><td>fee</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Fee Structure</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>785</td></tr><tr><td>3</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4898</span></td><td>fee</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Fee Structure</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>942</td></tr><tr><td>4</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4867</span></td><td>fee</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Fee Structure</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>924</td></tr><tr><td>5</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4585</span></td><td>scholarship</td><td title='https://www.gdgoenkauniversity.com/admissions/scholarships'>Scholarships</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/scholarsh</td><td>575</td></tr><tr><td>6</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4574</span></td><td>fee</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Fee Structure</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>886</td></tr><tr><td>7</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4523</span></td><td>fee</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Fee Structure</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>411</td></tr><tr><td>8</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4507</span></td><td>fee</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Fee Structure</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>886</td></tr><tr><td>9</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4351</span></td><td>fee</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Fee Structure</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>973</td></tr><tr><td>10</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4261</span></td><td>fee</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Fee Structure</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>406</td></tr></table>
+    </div>
+  </div>
+  
+  <div class="diff-block"><strong>Sources added in NEW:</strong><ul><li><code>https://www.gdgoenkauniversity.com/admissions/scholarships</code></li></ul></div>
+  <div class="context-row">
+    <div class="ctx-block"><h4>OLD Context</h4><pre>[Source: Annual Fee Structure 2025-26 | GD Goenka University]
+School of Management — Fee Structure
+Programme: Master of Business Administration (MBA)
+Duration: 2 Years
+Annual Fee: ₹4,25,000
+Admission Charges: ₹25,000
+Security Deposit: ₹25,000
+
+---
+
+[Source: Annual Fee Structure 2025-26 | GD Goenka University]
+School of Agricultural Sciences — Fee Structure
+Programme: MBA in Agriculture Business Management
+Duration: 2 Years
+Annual Fee: ₹4,25,000
+Admission Charges: ₹25,000
+Security Deposit: ₹25,000
+
+---
+
+[Source: Annual Fee Structure for Academic Year 2025 - 2026 | GD Goenka University, Gurugram]
+Fee\nAdmission Charges\nSecurity Deposit\nBachelor of Business Administration Bachelor of Business Administration (Hons).\n3 Years 4 Years\n 2,80,000\n 25,000\n 25,000\nBachelor of Commerce Bachelor of Commerce (Hons.)\n3 Years 4 Years\n 1,65,000\n 25,000\n 25,000\nMaster of Business Administration (MBA)\n2 Years\n 4,25,000\n 25,000\n 25,000\nPh.D SOM Full Time\n3 Years\n 1,50,000\n 25,000\n 25,000\nPh.D SOM Part Time\n3 Years\n 1,50,000\n 25,000\n 25,000\nUID School of Design\nProgrammes\nDurat
+
+---
+
+[Source: Annual Fee Structure 2025-26 | GD Goenka University]
+School of Hospitality & Tourism — Fee Structure
+Programme: MBA in Hospitality & Tourism
+Duration: 2 Years
+Annual Fee: ₹4,00,000
+Admission Charges: ₹25,000
+Security Deposit: ₹25,000
+
+---
+
+[Source: Annual Fee Structure for Academic Year 2025 - 2026 | GD Goenka University, Gurugram]
+\nAnnual Fee\nAdmission Charges\nSecurity Deposi</pre></div>
+    <div class="ctx-block"><h4>NEW Context</h4><pre>[Source: Fee Structure]
+## School of Management
+Programme Name | Duration | Annual Fee | Admission Fee | Security Fee
+---|---|---|---|---
+[ Bachelor of Business Administration (BBA) ](https://www.gdgoenkauniversity.com/admissions/&lt;https:/www.gdgoenkauniversity.com/course/bachelor-of-business-administration-hons&gt;) | 3 Years / 4 Years | ₹2,85,000 | ₹25,000 | ₹25,000
+[ Bachelor of Commerce (B.com) ](https://www.gdgoenkauniversity.com/admissions/&lt;https:/www.gdgoenkauniversity.com/course/bcom-hons&gt;) | 4 Years | ₹1,70,000 | 
+
+---
+
+[Source: Fee Structure]
+## School of Engineering & Sciences
+
+[ MBA in Aviation Management ](https://www.gdgoenkauniversity.com/admissions/&lt;https:/www.gdgoenkauniversity.com/course/mba-in-aviation-management&gt;) | 4 Years | ₹3,50,000 | ₹25,000 | ₹25,000
+[ MBA in Energy Management ](https://www.gdgoenkauniversity.com/admissions/&lt;https:/www.gdgoenkauniversity.com/course/mba-in-energy-management&gt;) | 4 Years | ₹3,50,000 | ₹25,000 | ₹25,000
+[ Ph.D SoES Full Time ](https://www.gdgoenkauniversity.com/admissions/&lt;https:/www.gdgoe
+
+---
+
+[Source: Fee Structure]
+## School of Hospitality & Tourism
+Programme Name | Duration | Annual Fee | Admission Fee | Security Fee
+---|---|---|---|---
+[ BBA (Hons.) in Hospitality Management ](https://www.gdgoenkauniversity.com/admissions/&lt;https:/www.gdgoenkauniversity.com/course/bba-hons-in-hospitality-management&gt;) | 4 Years | ₹6,50,000 | ₹25,000 | ₹25,000
+[ BA (Hons.) in Culinary Arts ](https://www.gdgoenkauniversity.com/admissions/&lt;h</pre></div>
+  </div>
+</div>
+<div class="query-block">
+  <h2>"Placement" <span class="cat">university_info</span></h2>
+  <div class="summary-row">
+    <div class="kb-card old">
+      <div class="kb-label">OLD KB</div>
+      <div class="verdict" style="color:#e74c3c">BROKEN — zero chunks passed all filters in OLD KB</div>
+      <table class="mini"><tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Chunks retrieved</td><td>0</td></tr>
+        <tr><td>Passed threshold</td><td>1</td></tr>
+        <tr><td>Passed category</td><td>0</td></tr>
+        <tr><td>Avg chunk size</td><td>0 chars</td></tr>
+        <tr><td>Total context</td><td>0 chars</td></tr>
+      </table>
+    </div>
+    <div class="kb-card new">
+      <div class="kb-label">NEW KB</div>
+      <div class="verdict" style="color:#e74c3c">BROKEN — zero chunks passed all filters in NEW KB</div>
+      <table class="mini"><tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Chunks retrieved</td><td>0</td></tr>
+        <tr><td>Passed threshold</td><td>0</td></tr>
+        <tr><td>Passed category</td><td>0</td></tr>
+        <tr><td>Avg chunk size</td><td>0 chars</td></tr>
+        <tr><td>Total context</td><td>0 chars</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="chunks-row">
+    <div class="chunk-table">
+      <h3>OLD KB Top 10</h3>
+      <table><tr><th>#</th><th>Cosine</th><th>Type</th><th>Title</th><th>Source</th><th>Len</th></tr>
+        <tr><td colspan='6'>(no results)</td></tr></table>
+    </div>
+    <div class="chunk-table">
+      <h3>NEW KB Top 10</h3>
+      <table><tr><th>#</th><th>Cosine</th><th>Type</th><th>Title</th><th>Source</th><th>Len</th></tr>
+        <tr><td colspan='6'>(no results)</td></tr></table>
+    </div>
+  </div>
+  
+  
+  <div class="context-row">
+    <div class="ctx-block"><h4>OLD Context</h4><pre></pre></div>
+    <div class="ctx-block"><h4>NEW Context</h4><pre></pre></div>
+  </div>
+</div>
+<div class="query-block">
+  <h2>"Hostel" <span class="cat">university_info</span></h2>
+  <div class="summary-row">
+    <div class="kb-card old">
+      <div class="kb-label">OLD KB</div>
+      <div class="verdict" style="color:#e67e22">WEAK — only 1 chunk(s) passed in OLD KB</div>
+      <table class="mini"><tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Chunks retrieved</td><td>1</td></tr>
+        <tr><td>Passed threshold</td><td>1</td></tr>
+        <tr><td>Passed category</td><td>1</td></tr>
+        <tr><td>Avg chunk size</td><td>217 chars</td></tr>
+        <tr><td>Total context</td><td>274 chars</td></tr>
+      </table>
+    </div>
+    <div class="kb-card new">
+      <div class="kb-label">NEW KB</div>
+      <div class="verdict" style="color:#f39c12">FAIR — 8 chunks, avg cosine 0.452 in NEW KB</div>
+      <table class="mini"><tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Chunks retrieved</td><td>8</td></tr>
+        <tr><td>Passed threshold</td><td>9</td></tr>
+        <tr><td>Passed category</td><td>8</td></tr>
+        <tr><td>Avg chunk size</td><td>814 chars</td></tr>
+        <tr><td>Total context</td><td>4297 chars</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="chunks-row">
+    <div class="chunk-table">
+      <h3>OLD KB Top 10</h3>
+      <table><tr><th>#</th><th>Cosine</th><th>Type</th><th>Title</th><th>Source</th><th>Len</th></tr>
+        <tr><td>1</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4632</span></td><td>facilities</td><td title='https://www.gdgoenkauniversity.com/facilities/'>Campus Facilities: Campus Accommodation </td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/facilities/</td><td>217</td></tr></table>
+    </div>
+    <div class="chunk-table">
+      <h3>NEW KB Top 10</h3>
+      <table><tr><th>#</th><th>Cosine</th><th>Type</th><th>Title</th><th>Source</th><th>Len</th></tr>
+        <tr><td>1</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4838</span></td><td>facilities</td><td title='https://www.gdgoenkauniversity.com/admissions/hostel-transport-fee-structure'>Hostel & Transport Fee Structure</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/hostel-tr</td><td>753</td></tr><tr><td>2</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4827</span></td><td>campus</td><td title='https://www.gdgoenkauniversity.com/campus-life/stay-on-campus'>Stay on Campus</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/campus-life/stay-on-</td><td>875</td></tr><tr><td>3</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4545</span></td><td>facilities</td><td title='https://www.gdgoenkauniversity.com/facilities/campus/hostel-facilities'>Hostel Facilities</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/facilities/campus/ho</td><td>867</td></tr><tr><td>4</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4289</span></td><td>facilities</td><td title='https://www.gdgoenkauniversity.com/facilities/campus/hostel-facilities'>Hostel Facilities</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/facilities/campus/ho</td><td>921</td></tr><tr><td>5</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4114</span></td><td>facilities</td><td title='https://www.gdgoenkauniversity.com/facilities/campus/hostel-facilities'>Hostel Facilities</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/facilities/campus/ho</td><td>892</td></tr><tr><td>6</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4069</span></td><td>about</td><td title='https://www.gdgoenkauniversity.com/school/school-of-engineering-sciences'>School of Engineering & Sciences</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/school/school-of-eng</td><td>873</td></tr><tr><td>7</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4054</span></td><td>campus</td><td title='https://www.gdgoenkauniversity.com/campus-life/clubs-societies/techno-cultural'>Techno - Cultural</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/campus-life/clubs-so</td><td>534</td></tr><tr><td>8</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4048</span></td><td>campus</td><td title='https://www.gdgoenkauniversity.com/campus-life/stay-on-campus'>Stay on Campus</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/campus-life/stay-on-</td><td>797</td></tr></table>
+    </div>
+  </div>
+  <div class="diff-block"><strong>Sources missing in NEW:</strong><ul><li><code>https://www.gdgoenkauniversity.com/facilities/</code></li></ul></div>
+  <div class="diff-block"><strong>Sources added in NEW:</strong><ul><li><code>https://www.gdgoenkauniversity.com/admissions/hostel-transport-fee-structure</code></li><li><code>https://www.gdgoenkauniversity.com/campus-life/clubs-societies/techno-cultural</code></li><li><code>https://www.gdgoenkauniversity.com/campus-life/stay-on-campus</code></li><li><code>https://www.gdgoenkauniversity.com/facilities/campus/hostel-facilities</code></li><li><code>https://www.gdgoenkauniversity.com/school/school-of-engineering-sciences</code></li></ul></div>
+  <div class="context-row">
+    <div class="ctx-block"><h4>OLD Context</h4><pre>[Source: Campus Facilities: Campus Accommodation | GDGU]
+. From movie nights to festive gatherings, the hostels foster a lively and inclusive student community. Discover a blend of convenience, comfort, and connection at GD Goenka University s on-campus boarding facilities.</pre></div>
+    <div class="ctx-block"><h4>NEW Context</h4><pre>[Source: Hostel & Transport Fee Structure]
+### Hostel Facilities
+### Hostel At GD Goenka
+24X7 High Speed Wifi
+Fully Air Conditioned
+1st Grade Security Measures
+Nutritious Meals
+Bunk Beds
+Sharing Rooms
+Hostel Building
+Single Room
+Common Study Room
+Common Study Room
+Two Sharing
+Common Room
+Bunk Beds
+Sharing Rooms
+### Hostel Fees in INR
+Fully Air Conditioned Accommodation, Hygienically prepared veg and non-veg meals, state of the art laundry services, satellite television with Wi-fi connectivity, fitness club membership, access to the shoot
+
+---
+
+[Source: Stay on Campus]
+## Hostel Fees in INR
+Name of Official | Annual Fee in INR | Payble By annually
+---|---|---
+Single Bed | ₹3,70,000 | ₹1,85,000
+Two Sharing | ₹3,10,000 | ₹1,55,000
+Three Sharing | ₹2,95,000 | ₹1,47,500
+Four Sharing | ₹2,70,000 | ₹1,35,000
+Bunk Bed | ₹1,90,000 | ₹95,000
+Fully Air Conditioned Accommodation
+Hygienically prepared veg and non-veg meals
+State of the art laundry services
+Fitness club membership, access to the shooting range
+Fully Air Conditioned Accommodation
+Hygienically prepared veg a
+
+---
+
+[Source: Hostel Facilities]
+### [Centre of Aerospace and Energy Studies(SOES)](https://www.gdgoenkauniversity.com/facilities/campus/&lt;https:/aerospace.gdgoenka-university.com/programs/&gt;)
+### [Summer School @GDGU](https://www.gdgoenkauniversity.com/facilities/campus/&lt;https:/www.gdgoenkauniversity.com/school/summer-school-at-gdgu&gt;)
+
+##### Campus
+# Hostel Facilities
+ * ## 24x7
+High Speed Wifi
+Fully AirConditioned
+ * ##</pre></div>
+  </div>
+</div>
+<div class="query-block">
+  <h2>"Dean of School of Management" <span class="cat">faculty</span></h2>
+  <div class="summary-row">
+    <div class="kb-card old">
+      <div class="kb-label">OLD KB</div>
+      <div class="verdict" style="color:#f39c12">FAIR — 3 chunks, avg cosine 0.483 in OLD KB</div>
+      <table class="mini"><tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Chunks retrieved</td><td>3</td></tr>
+        <tr><td>Passed threshold</td><td>5</td></tr>
+        <tr><td>Passed category</td><td>3</td></tr>
+        <tr><td>Avg chunk size</td><td>589 chars</td></tr>
+        <tr><td>Total context</td><td>1570 chars</td></tr>
+      </table>
+    </div>
+    <div class="kb-card new">
+      <div class="kb-label">NEW KB</div>
+      <div class="verdict" style="color:#2ecc71">GOOD — 4 chunks, avg cosine 0.557 in NEW KB</div>
+      <table class="mini"><tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Chunks retrieved</td><td>4</td></tr>
+        <tr><td>Passed threshold</td><td>4</td></tr>
+        <tr><td>Passed category</td><td>4</td></tr>
+        <tr><td>Avg chunk size</td><td>782 chars</td></tr>
+        <tr><td>Total context</td><td>2123 chars</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="chunks-row">
+    <div class="chunk-table">
+      <h3>OLD KB Top 10</h3>
+      <table><tr><th>#</th><th>Cosine</th><th>Type</th><th>Title</th><th>Source</th><th>Len</th></tr>
+        <tr><td>1</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.5086</span></td><td>faculty_profile</td><td title='https://www.gdgoenkauniversity.com/school-of-engineering/dr-hunny-pahuja'>Faculty Profile — Dr. Hunny Pahuja</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/school-of-engineerin</td><td>366</td></tr><tr><td>2</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4782</span></td><td>faculty</td><td title='https://www.gdgoenkauniversity.com/school-of-engineering/faculty'>—</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/school-of-engineerin</td><td>512</td></tr><tr><td>3</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4620</span></td><td>faculty_profile</td><td title='https://www.gdgoenkauniversity.com/school-of-engineering/dr-anindita-roy-chowdhury'>Faculty Profile — Dr. Anindita Roy Chowd</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/school-of-engineerin</td><td>889</td></tr></table>
+    </div>
+    <div class="chunk-table">
+      <h3>NEW KB Top 10</h3>
+      <table><tr><th>#</th><th>Cosine</th><th>Type</th><th>Title</th><th>Source</th><th>Len</th></tr>
+        <tr><td>1</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.6963</span></td><td>about</td><td title='https://www.gdgoenkauniversity.com/school/school-of-management'>School of Management</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/school/school-of-man</td><td>585</td></tr><tr><td>2</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.5975</span></td><td>research</td><td title='https://www.gdgoenkauniversity.com/research-and-development/overview'>Overview</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/research-and-develop</td><td>538</td></tr><tr><td>3</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4845</span></td><td>about</td><td title='https://www.gdgoenkauniversity.com/about-us/governance'>Governance Team</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/about-us/governance</td><td>999</td></tr><tr><td>4</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4513</span></td><td>about</td><td title='https://www.gdgoenkauniversity.com/about-us/governance'>Governance Team</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/about-us/governance</td><td>1007</td></tr></table>
+    </div>
+  </div>
+  <div class="diff-block"><strong>Sources missing in NEW:</strong><ul><li><code>https://www.gdgoenkauniversity.com/school-of-engineering/dr-anindita-roy-chowdhury</code></li><li><code>https://www.gdgoenkauniversity.com/school-of-engineering/dr-hunny-pahuja</code></li><li><code>https://www.gdgoenkauniversity.com/school-of-engineering/faculty</code></li></ul></div>
+  <div class="diff-block"><strong>Sources added in NEW:</strong><ul><li><code>https://www.gdgoenkauniversity.com/about-us/governance</code></li><li><code>https://www.gdgoenkauniversity.com/research-and-development/overview</code></li><li><code>https://www.gdgoenkauniversity.com/school/school-of-management</code></li></ul></div>
+  <div class="context-row">
+    <div class="ctx-block"><h4>OLD Context</h4><pre>[Source: Faculty Profile — Dr. Hunny Pahuja]
+. Beyond teaching, he has undertaken various academic and administrative responsibilities, including serving as Head of the Department and Examination In-Charge, as well as contributing to institutional committees. He has also played a pivotal role in organizing and chairing numerous national and international events, including conferences, workshops, and seminars
+
+---
+
+[Source: https://www.gdgoenkauniversity.com/school-of-engineering/faculty]
+School of Engineering Sciences Quick Links Browse Programs All Schools Admission prev page Prof Dr. Thammi Reddy Konala Dean, School of Engineering and Sciences He is an accomplished academician and administrator with over two decades of experience in teaching, ... Read more Dr. Anindita Roy Chowdhury Professor Read more Dr. Ugur Guven Nuclear Aerospace Engineer Read more Dr. Naresh Sharma Professor and Head Read more Dr. Shashikant Gupta Professor Read more Dr. Deepika Garg Associate Professor 
+
+---
+
+[Source: Faculty Profile — Dr. Anindita Roy Chowdhury — Publications]
+. Throughout her tenure, Dr. Anindita has been instrumental in establishing Physics laboratories, designing comprehensive courses for diverse programs, facilitating curriculum development to meet evolving educational standards, and ensuring quality assurance through her work as an ISO coordinator and auditor, contributing to institutional development. Beyond her administrative and teaching responsibilities, Dr. Anindita has ma</pre></div>
+    <div class="ctx-block"><h4>NEW Context</h4><pre>[Source: School of Management]
+## The School of Management Aims To Prepare Students For Tomorrow
+## Empowering Management Professionals with Knowledge, Skills, and Global Vision
+ * Placement at SOM
+
+### Explore Our School of Management
+Message from Dean
+### In today’s dynamic and rapidly evolving business environment, it is more important to be nimble, to innovate, and move ahead of the speed of business.
+At the School of Management, we recognize the need to move with the pace of change and to accomplish a competitive edge.
+P
+
+---
+
+[Source: Overview]
+### Dean's Message
+
+Through her Academic administration experience of over 15 years, she has introduced several curriculum delivery and process innovations resulting in improved learning outcomes and student experience. She has also trained several people belonging to different Nationalities, has managed several Programs at International Locations. She has extensive experience working with various Indian and American Universities of repute, including UPES where her last assignment was leading th
+
+---
+
+[Source: Governance Team]
+#### Ms. Renu Goenka
+
+6 | **Maj. (Retd.) Karttikeya Sharma** Administrator, GDGU | Member
+7 | **Mr. Rohit Gujral** Educational Consultant | Member
+8 | **Prof. (Dr.) Anjali Midha Sharan** Dean, School of Liberal Arts, GDGUResearch & Development, GDGU | Member
+9 | **Prof. (Dr.) Shiv Singh Tomar** Dean, School of Agricultural Sciences, GDGU | Member
+10 | **Prof. Saahil Arora** Dean, School of Healthcare and Al</pre></div>
+  </div>
+</div>
+<div class="query-block">
+  <h2>"Contact" <span class="cat">general</span></h2>
+  <div class="summary-row">
+    <div class="kb-card old">
+      <div class="kb-label">OLD KB</div>
+      <div class="verdict" style="color:#e74c3c">BROKEN — zero chunks passed all filters in OLD KB</div>
+      <table class="mini"><tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Chunks retrieved</td><td>0</td></tr>
+        <tr><td>Passed threshold</td><td>0</td></tr>
+        <tr><td>Passed category</td><td>0</td></tr>
+        <tr><td>Avg chunk size</td><td>0 chars</td></tr>
+        <tr><td>Total context</td><td>0 chars</td></tr>
+      </table>
+    </div>
+    <div class="kb-card new">
+      <div class="kb-label">NEW KB</div>
+      <div class="verdict" style="color:#e74c3c">BROKEN — zero chunks passed all filters in NEW KB</div>
+      <table class="mini"><tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Chunks retrieved</td><td>0</td></tr>
+        <tr><td>Passed threshold</td><td>0</td></tr>
+        <tr><td>Passed category</td><td>0</td></tr>
+        <tr><td>Avg chunk size</td><td>0 chars</td></tr>
+        <tr><td>Total context</td><td>0 chars</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="chunks-row">
+    <div class="chunk-table">
+      <h3>OLD KB Top 10</h3>
+      <table><tr><th>#</th><th>Cosine</th><th>Type</th><th>Title</th><th>Source</th><th>Len</th></tr>
+        <tr><td colspan='6'>(no results)</td></tr></table>
+    </div>
+    <div class="chunk-table">
+      <h3>NEW KB Top 10</h3>
+      <table><tr><th>#</th><th>Cosine</th><th>Type</th><th>Title</th><th>Source</th><th>Len</th></tr>
+        <tr><td colspan='6'>(no results)</td></tr></table>
+    </div>
+  </div>
+  
+  
+  <div class="context-row">
+    <div class="ctx-block"><h4>OLD Context</h4><pre></pre></div>
+    <div class="ctx-block"><h4>NEW Context</h4><pre></pre></div>
+  </div>
+</div>
+<div class="query-block">
+  <h2>"B.Tech CSE" <span class="cat">course</span></h2>
+  <div class="summary-row">
+    <div class="kb-card old">
+      <div class="kb-label">OLD KB</div>
+      <div class="verdict" style="color:#2ecc71">GOOD — 32 chunks, avg cosine 0.697 in OLD KB</div>
+      <table class="mini"><tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Chunks retrieved</td><td>32</td></tr>
+        <tr><td>Passed threshold</td><td>50</td></tr>
+        <tr><td>Passed category</td><td>32</td></tr>
+        <tr><td>Avg chunk size</td><td>388 chars</td></tr>
+        <tr><td>Total context</td><td>4342 chars</td></tr>
+      </table>
+    </div>
+    <div class="kb-card new">
+      <div class="kb-label">NEW KB</div>
+      <div class="verdict" style="color:#2ecc71">GOOD — 34 chunks, avg cosine 0.574 in NEW KB</div>
+      <table class="mini"><tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Chunks retrieved</td><td>34</td></tr>
+        <tr><td>Passed threshold</td><td>50</td></tr>
+        <tr><td>Passed category</td><td>34</td></tr>
+        <tr><td>Avg chunk size</td><td>767 chars</td></tr>
+        <tr><td>Total context</td><td>5185 chars</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="chunks-row">
+    <div class="chunk-table">
+      <h3>OLD KB Top 10</h3>
+      <table><tr><th>#</th><th>Cosine</th><th>Type</th><th>Title</th><th>Source</th><th>Len</th></tr>
+        <tr><td>1</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.7653</span></td><td>courses</td><td title='https://www.gdgoenkauniversity.com/academics/'>GD Goenka University</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/academics/</td><td>512</td></tr><tr><td>2</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.7194</span></td><td>faculty_profile</td><td title='https://www.gdgoenkauniversity.com/course/school-of-engineering/btech-computer-science-and-engineering-with-specialization-in-aiml-in-association-with-ibm'>Faculty Profile - </td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/course/school-of-eng</td><td>456</td></tr><tr><td>3</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.6877</span></td><td>faculty_profile</td><td title='https://www.gdgoenkauniversity.com/course/school-of-engineering/btech-computer-science-and-engineering-with-specialization-in-aiml-in-association-with-ibm'>Faculty Profile - </td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/course/school-of-eng</td><td>427</td></tr><tr><td>4</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.6795</span></td><td>faculty_profile</td><td title='https://www.gdgoenkauniversity.com/course/school-of-engineering/btech-computer-science-and-engineering'>Faculty Profile - </td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/course/school-of-eng</td><td>155</td></tr><tr><td>5</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.6340</span></td><td>courses</td><td title='https://www.gdgoenkauniversity.com/academics/'>GD Goenka University</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/academics/</td><td>389</td></tr><tr><td>6</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.6326</span></td><td>faculty_profile</td><td title='https://www.gdgoenkauniversity.com/course/school-of-engineering/btech-computer-science-and-engineering-with-specialization-in-aiml-in-association-with-ibm'>Faculty Profile - </td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/course/school-of-eng</td><td>214</td></tr><tr><td>7</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.6317</span></td><td>courses</td><td title='https://www.gdgoenkauniversity.com/academics/'>Best University in Gurgaon, Top Colleges</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/academics/</td><td>416</td></tr><tr><td>8</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.6265</span></td><td>courses</td><td title='https://www.gdgoenkauniversity.com/courses/'>Programmes | GDGU</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/courses/</td><td>449</td></tr><tr><td>9</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.6044</span></td><td>courses</td><td title='https://www.gdgoenkauniversity.com/academics/'>Best University in Gurgaon, Top Colleges</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/academics/</td><td>371</td></tr><tr><td>10</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.5995</span></td><td>courses</td><td title='https://www.gdgoenkauniversity.com/courses/'>Programmes | GDGU</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/courses/</td><td>494</td></tr></table>
+    </div>
+    <div class="chunk-table">
+      <h3>NEW KB Top 10</h3>
+      <table><tr><th>#</th><th>Cosine</th><th>Type</th><th>Title</th><th>Source</th><th>Len</th></tr>
+        <tr><td>1</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.5806</span></td><td>course</td><td title='https://www.gdgoenkauniversity.com/programmes/undergraduate'>Programmes</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/programmes/undergrad</td><td>1031</td></tr><tr><td>2</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.5765</span></td><td>about</td><td title='https://www.gdgoenkauniversity.com/school/school-of-engineering-sciences'>School of Engineering & Sciences</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/school/school-of-eng</td><td>860</td></tr><tr><td>3</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.5755</span></td><td>about</td><td title='https://www.gdgoenkauniversity.com/school/school-of-engineering-sciences'>School of Engineering & Sciences</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/school/school-of-eng</td><td>801</td></tr><tr><td>4</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.5728</span></td><td>course</td><td title='https://www.gdgoenkauniversity.com/programmes/undergraduate'>Programmes</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/programmes/undergrad</td><td>932</td></tr><tr><td>5</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.5670</span></td><td>course</td><td title='https://www.gdgoenkauniversity.com/course/btech-computer-science-and-engineering'>B.Tech. in Computer Science and Engineer</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/course/btech-compute</td><td>339</td></tr><tr><td>6</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.5624</span></td><td>about</td><td title='https://www.gdgoenkauniversity.com/school/school-of-engineering-sciences'>School of Engineering & Sciences</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/school/school-of-eng</td><td>1024</td></tr><tr><td>7</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.5590</span></td><td>course</td><td title='https://www.gdgoenkauniversity.com/course/btech-in-cyber-security'>B.Tech. – CSE (Cyber Security) – with Cu</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/course/btech-in-cybe</td><td>338</td></tr><tr><td>8</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.5458</span></td><td>course</td><td title='https://www.gdgoenkauniversity.com/programmes/undergraduate'>Programmes</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/programmes/undergrad</td><td>908</td></tr><tr><td>9</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.5312</span></td><td>course</td><td title='https://www.gdgoenkauniversity.com/course/btech-in-ai-ml'>B.Tech. – CSE (Artificial Intelligence &</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/course/btech-in-ai-m</td><td>452</td></tr><tr><td>10</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.5259</span></td><td>course</td><td title='https://www.gdgoenkauniversity.com/programmes/undergraduate'>Programmes</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/programmes/undergrad</td><td>990</td></tr></table>
+    </div>
+  </div>
+  <div class="diff-block"><strong>Sources missing in NEW:</strong><ul><li><code>https://www.gdgoenkauniversity.com/academics/</code></li><li><code>https://www.gdgoenkauniversity.com/course/school-of-engineering/btech-computer-science-and-engineering</code></li><li><code>https://www.gdgoenkauniversity.com/course/school-of-engineering/btech-computer-science-and-engineering-with-specialization-in-aiml-in-association-with-ibm</code></li><li><code>https://www.gdgoenkauniversity.com/courses/</code></li></ul></div>
+  <div class="diff-block"><strong>Sources added in NEW:</strong><ul><li><code>https://www.gdgoenkauniversity.com/course/btech-computer-science-and-engineering</code></li><li><code>https://www.gdgoenkauniversity.com/course/btech-in-ai-ml</code></li><li><code>https://www.gdgoenkauniversity.com/course/btech-in-cyber-security</code></li><li><code>https://www.gdgoenkauniversity.com/programmes/undergraduate</code></li><li><code>https://www.gdgoenkauniversity.com/school/school-of-engineering-sciences</code></li></ul></div>
+  <div class="context-row">
+    <div class="ctx-block"><h4>OLD Context</h4><pre>[Source: GD Goenka University]
+Academics Programmes Admissions Call Menu B.Tech. in Civil Engineering - Smart Infrastructures in Association with L T B.Tech Computer Science and Engineering B. Tech. in Electronics and Communication Engineering with Specialization in Internet of Things in Association with BOSCH B.A. (Hons.) Psychology BA LL.B (Hons.) B.Sc. (Hons.) Agriculture M.Sc. Agriculture MBA in Agriculture Business Management Ph.D SoAS Full Time Ph.D SoAS Part Time M.Tech in Aerospace Engineering B.Sc. (Hons. ) Forensic 
+
+---
+
+[Source: Faculty Profile - ]
+. CSE specialization in AI&ML in association with IBM Admission, students must have passed the 10+2 examination with Physics and Mathematics as compulsory subjects and obtained an aggregate 50% marks in the compulsory subjects along with the selected technical subject taken together. Or to pursue B.Tech. in Artificial Intelligence and Machine Learning, students should have passed a minimum 3 years engineering diploma examination with at least 50% marks
+
+---
+
+[Source: Faculty Profile - ]
+emi Yearly Semester 1st Year ₹3,48,000 2nd Year ₹2,98,000 3rd Year ₹2,98,000 4th Year ₹2,98,000 1st Sem ₹1,99,000 2nd Sem ₹1,49,000 3rd Sem ₹1,49,000 4th Sem ₹1,49,000 5th Sem ₹1,49,000 6th Sem ₹1,49,000 7th Sem ₹1,49,000 8th Sem ₹1,49,000 +  Calculate emi Admissions Open Apply Now Program Contact admissions@gdgu.org Related Courses BCA / BCA (H) (with specialization in Machine Learning) in Association with Microsoft B.Tech
+
+---
+
+[Source</pre></div>
+    <div class="ctx-block"><h4>NEW Context</h4><pre>[Source: Programmes]
+#### School of Engineering & Sciences
+
+##### [ Bachelor of Computer Application - Data Science in Association with Microsoft CloudThat](https://www.gdgoenkauniversity.com/programmes/&lt;https:/www.gdgoenkauniversity.com/course/bca-data-analytics-in-association-with-microsoft&gt;)
+##### [ B.Tech. - (Bachelor of Technology) - Energy Engineering](https://www.gdgoenkauniversity.com/programmes/&lt;https:/www.gdgoenkauniversity.com/course/btech-bachelor-of-technology-energy-engineering&gt;)
+##### [ B.Tech. in Ele
+
+---
+
+[Source: School of Engineering & Sciences]
+## Are the programs aligned with the current industry needs?
+Yes. The School offers industry-aligned programs designed with leading organizations. These include B.Tech. in CSE with specializations in AI & ML, Data Science (aligned with NVIDIA DLI), Cyber Security (with CompTIA), Civil Engineering – Smart Infrastructure (with L&T), Mechanical Engineering – Electric Vehicles (with iCAT), Electronics & Communication Engineering with specializations in IoT, Biomedical, and VLSI Design (in collaborat
+
+---
+
+[Source: School of Engineering & Sciences]
+## Admission Process
+01
+Complete the Application
+02
+Appear for Entrance test and interview
+03
+Get shortlisted and Received the offer letter
+Programs @ SoES
+### EXPLORE DIVERSE ENGINEERING & SCIENCE PROGRAMS FOR INNOVATIVE, HANDS-ON LEARNING
+20+
+undergraduate, postgraduate, and Doctorate programs
+ * ##### B.Tech. in Civil Engineering ( B.Tech CE)
+Undergraduate , 4 Years
+ * ####</pre></div>
+  </div>
+</div>
+<div class="query-block">
+  <h2>"Scholarship" <span class="cat">fee</span></h2>
+  <div class="summary-row">
+    <div class="kb-card old">
+      <div class="kb-label">OLD KB</div>
+      <div class="verdict" style="color:#e74c3c">BROKEN — zero chunks passed all filters in OLD KB</div>
+      <table class="mini"><tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Chunks retrieved</td><td>0</td></tr>
+        <tr><td>Passed threshold</td><td>6</td></tr>
+        <tr><td>Passed category</td><td>0</td></tr>
+        <tr><td>Avg chunk size</td><td>0 chars</td></tr>
+        <tr><td>Total context</td><td>0 chars</td></tr>
+      </table>
+    </div>
+    <div class="kb-card new">
+      <div class="kb-label">NEW KB</div>
+      <div class="verdict" style="color:#2ecc71">GOOD — 22 chunks, avg cosine 0.552 in NEW KB</div>
+      <table class="mini"><tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Chunks retrieved</td><td>22</td></tr>
+        <tr><td>Passed threshold</td><td>50</td></tr>
+        <tr><td>Passed category</td><td>22</td></tr>
+        <tr><td>Avg chunk size</td><td>747 chars</td></tr>
+        <tr><td>Total context</td><td>4828 chars</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="chunks-row">
+    <div class="chunk-table">
+      <h3>OLD KB Top 10</h3>
+      <table><tr><th>#</th><th>Cosine</th><th>Type</th><th>Title</th><th>Source</th><th>Len</th></tr>
+        <tr><td colspan='6'>(no results)</td></tr></table>
+    </div>
+    <div class="chunk-table">
+      <h3>NEW KB Top 10</h3>
+      <table><tr><th>#</th><th>Cosine</th><th>Type</th><th>Title</th><th>Source</th><th>Len</th></tr>
+        <tr><td>1</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.5891</span></td><td>scholarship</td><td title='https://www.gdgoenkauniversity.com/admissions/scholarships'>Scholarships</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/scholarsh</td><td>831</td></tr><tr><td>2</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.5581</span></td><td>scholarship</td><td title='https://www.gdgoenkauniversity.com/admissions/scholarships'>Scholarships</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/scholarsh</td><td>968</td></tr><tr><td>3</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.5531</span></td><td>scholarship</td><td title='https://www.gdgoenkauniversity.com/admissions/scholarships'>Scholarships</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/scholarsh</td><td>854</td></tr><tr><td>4</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.5350</span></td><td>scholarship</td><td title='https://www.gdgoenkauniversity.com/admissions/scholarships'>Scholarships</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/scholarsh</td><td>155</td></tr><tr><td>5</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.5237</span></td><td>scholarship</td><td title='https://www.gdgoenkauniversity.com/admissions/scholarships'>Scholarships</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/scholarsh</td><td>761</td></tr><tr><td>6</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.5154</span></td><td>scholarship</td><td title='https://www.gdgoenkauniversity.com/admissions/scholarships'>Scholarships</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/scholarsh</td><td>1001</td></tr><tr><td>7</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.5128</span></td><td>scholarship</td><td title='https://www.gdgoenkauniversity.com/admissions/scholarships'>Scholarships</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/scholarsh</td><td>541</td></tr><tr><td>8</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4957</span></td><td>scholarship</td><td title='https://www.gdgoenkauniversity.com/admissions/scholarships'>Scholarships</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/scholarsh</td><td>1015</td></tr><tr><td>9</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4917</span></td><td>scholarship</td><td title='https://www.gdgoenkauniversity.com/admissions/scholarships'>Scholarships</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/scholarsh</td><td>974</td></tr><tr><td>10</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4792</span></td><td>fee</td><td title='https://www.gdgoenkauniversity.com/admissions/fee-structure'>Fee Structure</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/fee-struc</td><td>379</td></tr></table>
+    </div>
+  </div>
+  
+  <div class="diff-block"><strong>Sources added in NEW:</strong><ul><li><code>https://www.gdgoenkauniversity.com/admissions/fee-structure</code></li><li><code>https://www.gdgoenkauniversity.com/admissions/scholarships</code></li></ul></div>
+  <div class="context-row">
+    <div class="ctx-block"><h4>OLD Context</h4><pre></pre></div>
+    <div class="ctx-block"><h4>NEW Context</h4><pre>[Source: Scholarships]
+## Scholarship Benefits
+
+The sports scholarships to be awarded will be for the following games: Athletics, badminton, chess, cricket, golf, hockey, table tennis, snookers & billiards, Basketball, Volleyball, Archery, Boxing, Carom, Gymnastics, Kabaddi, Shooting, Swimming, and Wrestling etc.
+The Arts Scholarship
+For outstanding and gifted students in the field of ‘The Arts’ who have consistently produced an exceptional quality of work and shown outstanding merit and achievement at national and in
+
+---
+
+[Source: Scholarships]
+## Scholarship Benefits
+
+##### GD Goenka Scholarship Categories
+Scholarships are awarded to candidates based on their performance on any of the following categories
+##### Eligibility Qualification
+The scholarship will also be offered on the basis of Eligibility qualification.
+##### National Level Tests
+Certain National Level Tests (like JEE (Main), NEET, UCEED, CAT, MAT, GATE, GPAT etc.)
+##### GDGUA
+GDGUA: (GD Goenka National Entrance & Scholarship Test)
+##### Performance
+Performance in Sports, 
+
+---
+
+[Source: Scholarships]
+## Scholarship Benefits
+
+Eligibility Criteria | Scholarship
+---|---
+90% and above in LLB | 15% Scholarship in Academic Fee
+80% to 89.9% in LLB | 10% Scholarship in Academic Fee
+75% to 79.9% in LLB | 5% Scholarship in Academic Fee
+Merit based scholarship on CUET Entrance and Scholarship Test – 2025: (For Undergraduate Programs only)
+The University is recognizing the sports activities and in this context, University</pre></div>
+  </div>
+</div>
+<div class="query-block">
+  <h2>"Admission process" <span class="cat">admission</span></h2>
+  <div class="summary-row">
+    <div class="kb-card old">
+      <div class="kb-label">OLD KB</div>
+      <div class="verdict" style="color:#e74c3c">BROKEN — zero chunks passed all filters in OLD KB</div>
+      <table class="mini"><tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Chunks retrieved</td><td>0</td></tr>
+        <tr><td>Passed threshold</td><td>11</td></tr>
+        <tr><td>Passed category</td><td>0</td></tr>
+        <tr><td>Avg chunk size</td><td>0 chars</td></tr>
+        <tr><td>Total context</td><td>0 chars</td></tr>
+      </table>
+    </div>
+    <div class="kb-card new">
+      <div class="kb-label">NEW KB</div>
+      <div class="verdict" style="color:#2ecc71">GOOD — 29 chunks, avg cosine 0.558 in NEW KB</div>
+      <table class="mini"><tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Chunks retrieved</td><td>29</td></tr>
+        <tr><td>Passed threshold</td><td>50</td></tr>
+        <tr><td>Passed category</td><td>29</td></tr>
+        <tr><td>Avg chunk size</td><td>636 chars</td></tr>
+        <tr><td>Total context</td><td>4878 chars</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="chunks-row">
+    <div class="chunk-table">
+      <h3>OLD KB Top 10</h3>
+      <table><tr><th>#</th><th>Cosine</th><th>Type</th><th>Title</th><th>Source</th><th>Len</th></tr>
+        <tr><td colspan='6'>(no results)</td></tr></table>
+    </div>
+    <div class="chunk-table">
+      <h3>NEW KB Top 10</h3>
+      <table><tr><th>#</th><th>Cosine</th><th>Type</th><th>Title</th><th>Source</th><th>Len</th></tr>
+        <tr><td>1</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.6561</span></td><td>course</td><td title='https://www.gdgoenkauniversity.com/course/phd-sohas-full-time'>Ph.D SoHAS Full Time</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/course/phd-sohas-ful</td><td>407</td></tr><tr><td>2</td><td><span style='background:#2ecc71;color:white;padding:1px 6px;border-radius:3px'>0.5933</span></td><td>course</td><td title='https://www.gdgoenkauniversity.com/course/phd-som-full-time'>Ph.D SOM Full Time</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/course/phd-som-full-</td><td>199</td></tr><tr><td>3</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.5268</span></td><td>course</td><td title='https://www.gdgoenkauniversity.com/course/llb-hons'>LLB (Hons.)</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/course/llb-hons</td><td>370</td></tr><tr><td>4</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.5080</span></td><td>faq</td><td title='https://www.gdgoenkauniversity.com/admissions/faqs'>FAQs</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/faqs</td><td>1122</td></tr><tr><td>5</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.5072</span></td><td>course</td><td title='https://www.gdgoenkauniversity.com/course/bsc-clinical-psychology-hons'>B.Sc. (Hons.) Clinical Psychology</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/course/bsc-clinical-</td><td>880</td></tr><tr><td>6</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.5030</span></td><td>course</td><td title='https://www.gdgoenkauniversity.com/course/mba-in-hospitality-tourism'>MBA in Hospitality & Tourism *Offered by</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/course/mba-in-hospit</td><td>512</td></tr><tr><td>7</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.5013</span></td><td>faq</td><td title='https://www.gdgoenkauniversity.com/admissions/faqs'>FAQs</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/admissions/faqs</td><td>858</td></tr><tr><td>8</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4874</span></td><td>course</td><td title='https://www.gdgoenkauniversity.com/course/b-tech-in-electronics-and-communication-engineering'>B.Tech. in Electronics and Communication</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/course/b-tech-in-ele</td><td>799</td></tr><tr><td>9</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4857</span></td><td>course</td><td title='https://www.gdgoenkauniversity.com/course/bba-llb-hons'>BBA LL.B (Hons.)</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/course/bba-llb-hons</td><td>472</td></tr><tr><td>10</td><td><span style='background:#f39c12;color:white;padding:1px 6px;border-radius:3px'>0.4844</span></td><td>course</td><td title='https://www.gdgoenkauniversity.com/course/phd-sohas-full-time'>Ph.D SoHAS Full Time</td><td style='font-size:.8em'>https://www.gdgoenkauniversity.com/course/phd-sohas-ful</td><td>746</td></tr></table>
+    </div>
+  </div>
+  
+  <div class="diff-block"><strong>Sources added in NEW:</strong><ul><li><code>https://www.gdgoenkauniversity.com/admissions/faqs</code></li><li><code>https://www.gdgoenkauniversity.com/course/b-tech-in-electronics-and-communication-engineering</code></li><li><code>https://www.gdgoenkauniversity.com/course/bba-llb-hons</code></li><li><code>https://www.gdgoenkauniversity.com/course/bsc-clinical-psychology-hons</code></li><li><code>https://www.gdgoenkauniversity.com/course/llb-hons</code></li><li><code>https://www.gdgoenkauniversity.com/course/mba-in-hospitality-tourism</code></li><li><code>https://www.gdgoenkauniversity.com/course/phd-sohas-full-time</code></li><li><code>https://www.gdgoenkauniversity.com/course/phd-som-full-time</code></li></ul></div>
+  <div class="context-row">
+    <div class="ctx-block"><h4>OLD Context</h4><pre></pre></div>
+    <div class="ctx-block"><h4>NEW Context</h4><pre>[Source: Ph.D SoHAS Full Time]
+#### Admission Process:
+ 1. **Application:** Fill out the online application form.
+ 2. **Entrance Examination and Interview:** Sit for the entrance examination and interview.
+ 3. **Admission Offer:** Upon qualification, receive the admission offer and complete the coursework.
+ 4. **Research Guidance:** The university provides experienced guides and mentors to assist with research work and thesis writing.
+
+---
+
+[Source: Ph.D SOM Full Time]
+#### Admission Process
+01
+Complete the Application
+02
+Appear for Entrance test and interview
+03
+Get shortlisted and Received the offer letter
+04
+Complete coursework
+05
+Get your Guide
+06
+Submit Thesis
+
+---
+
+[Source: LLB (Hons.)]
+#### Admission Process
+01
+Complete the Application
+02
+Appear for Entrance test and interview
+03
+Get shortlisted and Received the offer letter
+#### LLB (Hons.) Admission Requirement
+Graduation in any field from a UGC recognized university. In addition, candidates will also have to successfully complete Goenka Aptitude Test for Admission (GATA) and a personal interview.
+
+---
+
+[Source: FAQs]
+### [Summer School @GDGU](https://www.gdgoenkauniversity.com/admissions/&lt;https:/www.gdgoenkauniversity.com/school/summer-school-at-gdgu&gt;)
+
+##### Admissions
+# FAQs
+What programmes are offered at GD Goenka University?
+GD Goenka University offers a wide range of undergraduate, postgraduate, and doctoral programmes across various disciplines, including Engineering, Law, Management, Design, Hospitality, Huma</pre></div>
+  </div>
+</div>
+</body></html>

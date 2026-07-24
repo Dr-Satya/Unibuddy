@@ -1,7 +1,8 @@
 import { create } from "zustand";
 import axios from "axios";
+import { authEndpointsBaseUrl } from "../config/api";
 
-const API_URL = "http://localhost:5000/api/auth";
+const API_URL = authEndpointsBaseUrl;
 
 axios.defaults.withCredentials = true;
 

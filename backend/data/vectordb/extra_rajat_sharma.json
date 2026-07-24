@@ -1,11 +1,21 @@
 {
   "name": "Rajat Sharma",
-  "role": null,
-  "department": null,
+  "role": "Assistant Professor",
+  "department": "Computer Science and Engineering",
   "location": null,
+  "qualification": [
+    "Ph.D. (Computer Science and Engineering) with specialization in Computational Neuroscience",
+    "**Research Interests**: Computational Neuroscience",
+    "**Experience**: Three years of academic experience after PhD"
+  ],
   "education": [],
-  "research": [],
-  "experience": [],
+  "research": [
+    "Computational Neuroscience",
+    "**Experience**: Three years of academic experience after PhD"
+  ],
+  "experience": [
+    "Three years of academic experience after PhD"
+  ],
   "links": [],
   "sources": []
 }

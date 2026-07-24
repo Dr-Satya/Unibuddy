@@ -1,0 +1,19 @@
+{
+  "name": "Shipra Kataria",
+  "role": "Associate Professor",
+  "department": "Computer Science and Engineering",
+  "location": null,
+  "qualification": [
+    "B.E. (Information Technology)",
+    "M.Tech (Computer Science)",
+    "Ph.D. (Computer Science and Engineering)"
+  ],
+  "education": [],
+  "research": [
+    "Machine Learning",
+    "Data sparseness alleviation in collaborative filtering framework of recommendation systems"
+  ],
+  "experience": [],
+  "links": [],
+  "sources": []
+}

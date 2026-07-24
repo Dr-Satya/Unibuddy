@@ -11,7 +11,10 @@ import { dirname, join } from 'path';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: join(__dirname, '..', '.env') });
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/unibuddy';
+const MONGO_URI = process.env.MONGO_URI?.trim();
+if (!MONGO_URI) {
+  throw new Error('Missing required environment variable: MONGO_URI');
+}
 
 // ── Schemas (inline to avoid import issues) ──────────────────────────────────
 const userSchema = new mongoose.Schema({

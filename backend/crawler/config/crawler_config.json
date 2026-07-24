@@ -1,0 +1,24 @@
+{
+  "root_url": "https://www.gdgoenkauniversity.com/",
+  "allowed_domain": "gdgoenkauniversity.com",
+  "output_file": "data/raw/gdgu_crawl.json",
+  "max_pages": 50000,
+  "max_concurrent": 5,
+  "page_timeout": 30000,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+  "ignore_extensions": [
+    ".pdf", ".jpg", ".jpeg", ".png", ".gif", ".svg", ".webp",
+    ".mp4", ".mp3", ".avi", ".mov", ".wmv",
+    ".css", ".js", ".woff", ".woff2", ".ttf", ".eot", ".ico",
+    ".zip", ".rar", ".tar", ".gz", ".exe", ".dmg"
+  ],
+  "ignore_url_patterns": [
+    "/login", "/logout", "/signin", "/signup", "/register",
+    "/cart", "/checkout", "/payment",
+    "/wp-admin", "/admin", "/dashboard",
+    "?print=", "?share=", "?replytocom=",
+    "#", "mailto:", "tel:", "javascript:"
+  ],
+  "headless": true,
+  "verbose": true
+}

@@ -1,0 +1,574 @@
+{
+  "generated_at": "2026-07-13T10:17:28.115672+00:00",
+  "old_index": {
+    "type": "IndexFlatL2",
+    "ntotal": 864
+  },
+  "new_index": {
+    "type": "IndexFlatIP",
+    "ntotal": 1880
+  },
+  "thresholds": {
+    "old_strict": 1.05,
+    "old_relaxed": 1.1,
+    "new_strict": 0.45,
+    "new_relaxed": 0.4
+  },
+  "queries": [
+    {
+      "query": "MBA fee",
+      "category": "fee",
+      "old_chunks": 50,
+      "new_chunks": 10,
+      "old_passed_threshold": 50,
+      "new_passed_threshold": 50,
+      "old_passed_category": 50,
+      "new_passed_category": 10,
+      "old_avg_chunk_size": 274,
+      "new_avg_chunk_size": 765,
+      "old_context_len": 3472,
+      "new_context_len": 5119,
+      "old_verdict": "GOOD — 50 chunks, avg cosine 0.820 in OLD KB",
+      "new_verdict": "FAIR — 10 chunks, avg cosine 0.502 in NEW KB",
+      "missing_in_new": [],
+      "added_in_new": [
+        "https://www.gdgoenkauniversity.com/admissions/scholarships"
+      ],
+      "old_top5": [
+        {
+          "rank": 1,
+          "cosine": 0.9046,
+          "type": "fee_structure",
+          "title": "Annual Fee Structure 2025-26 | GD Goenka University",
+          "source": "https://www.gdgoenkauniversity.com/admissions/fee-structure",
+          "len": 180
+        },
+        {
+          "rank": 2,
+          "cosine": 0.8599,
+          "type": "fee_structure",
+          "title": "Annual Fee Structure 2025-26 | GD Goenka University",
+          "source": "https://www.gdgoenkauniversity.com/admissions/fee-structure",
+          "len": 190
+        },
+        {
+          "rank": 3,
+          "cosine": 0.7893,
+          "type": "fee_structure",
+          "title": "Annual Fee Structure for Academic Year 2025 - 2026 | GD Goen",
+          "source": "https://www.gdgoenkauniversity.com/admissions/fee-structure",
+          "len": 511
+        },
+        {
+          "rank": 4,
+          "cosine": 0.7826,
+          "type": "fee_structure",
+          "title": "Annual Fee Structure 2025-26 | GD Goenka University",
+          "source": "https://www.gdgoenkauniversity.com/admissions/fee-structure",
+          "len": 180
+        },
+        {
+          "rank": 5,
+          "cosine": 0.7617,
+          "type": "fee_structure",
+          "title": "Annual Fee Structure for Academic Year 2025 - 2026 | GD Goen",
+          "source": "https://www.gdgoenkauniversity.com/admissions/fee-structure",
+          "len": 512
+        }
+      ],
+      "new_top5": [
+        {
+          "rank": 1,
+          "cosine": 0.5597,
+          "type": "fee",
+          "title": "Fee Structure",
+          "source": "https://www.gdgoenkauniversity.com/admissions/fee-structure",
+          "len": 870
+        },
+        {
+          "rank": 2,
+          "cosine": 0.5167,
+          "type": "fee",
+          "title": "Fee Structure",
+          "source": "https://www.gdgoenkauniversity.com/admissions/fee-structure",
+          "len": 785
+        },
+        {
+          "rank": 3,
+          "cosine": 0.4898,
+          "type": "fee",
+          "title": "Fee Structure",
+          "source": "https://www.gdgoenkauniversity.com/admissions/fee-structure",
+          "len": 942
+        },
+        {
+          "rank": 4,
+          "cosine": 0.4867,
+          "type": "fee",
+          "title": "Fee Structure",
+          "source": "https://www.gdgoenkauniversity.com/admissions/fee-structure",
+          "len": 924
+        },
+        {
+          "rank": 5,
+          "cosine": 0.4585,
+          "type": "scholarship",
+          "title": "Scholarships",
+          "source": "https://www.gdgoenkauniversity.com/admissions/scholarships",
+          "len": 575
+        }
+      ]
+    },
+    {
+      "query": "Placement",
+      "category": "university_info",
+      "old_chunks": 0,
+      "new_chunks": 0,
+      "old_passed_threshold": 1,
+      "new_passed_threshold": 0,
+      "old_passed_category": 0,
+      "new_passed_category": 0,
+      "old_avg_chunk_size": 0,
+      "new_avg_chunk_size": 0,
+      "old_context_len": 0,
+      "new_context_len": 0,
+      "old_verdict": "BROKEN — zero chunks passed all filters in OLD KB",
+      "new_verdict": "BROKEN — zero chunks passed all filters in NEW KB",
+      "missing_in_new": [],
+      "added_in_new": [],
+      "old_top5": [],
+      "new_top5": []
+    },
+    {
+      "query": "Hostel",
+      "category": "university_info",
+      "old_chunks": 1,
+      "new_chunks": 8,
+      "old_passed_threshold": 1,
+      "new_passed_threshold": 9,
+      "old_passed_category": 1,
+      "new_passed_category": 8,
+      "old_avg_chunk_size": 217,
+      "new_avg_chunk_size": 814,
+      "old_context_len": 274,
+      "new_context_len": 4297,
+      "old_verdict": "WEAK — only 1 chunk(s) passed in OLD KB",
+      "new_verdict": "FAIR — 8 chunks, avg cosine 0.452 in NEW KB",
+      "missing_in_new": [
+        "https://www.gdgoenkauniversity.com/facilities/"
+      ],
+      "added_in_new": [
+        "https://www.gdgoenkauniversity.com/admissions/hostel-transport-fee-structure",
+        "https://www.gdgoenkauniversity.com/campus-life/clubs-societies/techno-cultural",
+        "https://www.gdgoenkauniversity.com/campus-life/stay-on-campus",
+        "https://www.gdgoenkauniversity.com/facilities/campus/hostel-facilities",
+        "https://www.gdgoenkauniversity.com/school/school-of-engineering-sciences"
+      ],
+      "old_top5": [
+        {
+          "rank": 1,
+          "cosine": 0.4632,
+          "type": "facilities",
+          "title": "Campus Facilities: Campus Accommodation | GDGU",
+          "source": "https://www.gdgoenkauniversity.com/facilities/",
+          "len": 217
+        }
+      ],
+      "new_top5": [
+        {
+          "rank": 1,
+          "cosine": 0.4838,
+          "type": "facilities",
+          "title": "Hostel & Transport Fee Structure",
+          "source": "https://www.gdgoenkauniversity.com/admissions/hostel-transport-fee-structure",
+          "len": 753
+        },
+        {
+          "rank": 2,
+          "cosine": 0.4827,
+          "type": "campus",
+          "title": "Stay on Campus",
+          "source": "https://www.gdgoenkauniversity.com/campus-life/stay-on-campus",
+          "len": 875
+        },
+        {
+          "rank": 3,
+          "cosine": 0.4545,
+          "type": "facilities",
+          "title": "Hostel Facilities",
+          "source": "https://www.gdgoenkauniversity.com/facilities/campus/hostel-facilities",
+          "len": 867
+        },
+        {
+          "rank": 4,
+          "cosine": 0.4289,
+          "type": "facilities",
+          "title": "Hostel Facilities",
+          "source": "https://www.gdgoenkauniversity.com/facilities/campus/hostel-facilities",
+          "len": 921
+        },
+        {
+          "rank": 5,
+          "cosine": 0.4114,
+          "type": "facilities",
+          "title": "Hostel Facilities",
+          "source": "https://www.gdgoenkauniversity.com/facilities/campus/hostel-facilities",
+          "len": 892
+        }
+      ]
+    },
+    {
+      "query": "Dean of School of Management",
+      "category": "faculty",
+      "old_chunks": 3,
+      "new_chunks": 4,
+      "old_passed_threshold": 5,
+      "new_passed_threshold": 4,
+      "old_passed_category": 3,
+      "new_passed_category": 4,
+      "old_avg_chunk_size": 589,
+      "new_avg_chunk_size": 782,
+      "old_context_len": 1570,
+      "new_context_len": 2123,
+      "old_verdict": "FAIR — 3 chunks, avg cosine 0.483 in OLD KB",
+      "new_verdict": "GOOD — 4 chunks, avg cosine 0.557 in NEW KB",
+      "missing_in_new": [
+        "https://www.gdgoenkauniversity.com/school-of-engineering/dr-anindita-roy-chowdhury",
+        "https://www.gdgoenkauniversity.com/school-of-engineering/dr-hunny-pahuja",
+        "https://www.gdgoenkauniversity.com/school-of-engineering/faculty"
+      ],
+      "added_in_new": [
+        "https://www.gdgoenkauniversity.com/about-us/governance",
+        "https://www.gdgoenkauniversity.com/research-and-development/overview",
+        "https://www.gdgoenkauniversity.com/school/school-of-management"
+      ],
+      "old_top5": [
+        {
+          "rank": 1,
+          "cosine": 0.5086,
+          "type": "faculty_profile",
+          "title": "Faculty Profile — Dr. Hunny Pahuja",
+          "source": "https://www.gdgoenkauniversity.com/school-of-engineering/dr-hunny-pahuja",
+          "len": 366
+        },
+        {
+          "rank": 2,
+          "cosine": 0.4782,
+          "type": "faculty",
+          "title": "",
+          "source": "https://www.gdgoenkauniversity.com/school-of-engineering/faculty",
+          "len": 512
+        },
+        {
+          "rank": 3,
+          "cosine": 0.462,
+          "type": "faculty_profile",
+          "title": "Faculty Profile — Dr. Anindita Roy Chowdhury — Publications",
+          "source": "https://www.gdgoenkauniversity.com/school-of-engineering/dr-anindita-roy-chowdhury",
+          "len": 889
+        }
+      ],
+      "new_top5": [
+        {
+          "rank": 1,
+          "cosine": 0.6963,
+          "type": "about",
+          "title": "School of Management",
+          "source": "https://www.gdgoenkauniversity.com/school/school-of-management",
+          "len": 585
+        },
+        {
+          "rank": 2,
+          "cosine": 0.5975,
+          "type": "research",
+          "title": "Overview",
+          "source": "https://www.gdgoenkauniversity.com/research-and-development/overview",
+          "len": 538
+        },
+        {
+          "rank": 3,
+          "cosine": 0.4845,
+          "type": "about",
+          "title": "Governance Team",
+          "source": "https://www.gdgoenkauniversity.com/about-us/governance",
+          "len": 999
+        },
+        {
+          "rank": 4,
+          "cosine": 0.4513,
+          "type": "about",
+          "title": "Governance Team",
+          "source": "https://www.gdgoenkauniversity.com/about-us/governance",
+          "len": 1007
+        }
+      ]
+    },
+    {
+      "query": "Contact",
+      "category": "general",
+      "old_chunks": 0,
+      "new_chunks": 0,
+      "old_passed_threshold": 0,
+      "new_passed_threshold": 0,
+      "old_passed_category": 0,
+      "new_passed_category": 0,
+      "old_avg_chunk_size": 0,
+      "new_avg_chunk_size": 0,
+      "old_context_len": 0,
+      "new_context_len": 0,
+      "old_verdict": "BROKEN — zero chunks passed all filters in OLD KB",
+      "new_verdict": "BROKEN — zero chunks passed all filters in NEW KB",
+      "missing_in_new": [],
+      "added_in_new": [],
+      "old_top5": [],
+      "new_top5": []
+    },
+    {
+      "query": "B.Tech CSE",
+      "category": "course",
+      "old_chunks": 32,
+      "new_chunks": 34,
+      "old_passed_threshold": 50,
+      "new_passed_threshold": 50,
+      "old_passed_category": 32,
+      "new_passed_category": 34,
+      "old_avg_chunk_size": 388,
+      "new_avg_chunk_size": 767,
+      "old_context_len": 4342,
+      "new_context_len": 5185,
+      "old_verdict": "GOOD — 32 chunks, avg cosine 0.697 in OLD KB",
+      "new_verdict": "GOOD — 34 chunks, avg cosine 0.574 in NEW KB",
+      "missing_in_new": [
+        "https://www.gdgoenkauniversity.com/academics/",
+        "https://www.gdgoenkauniversity.com/course/school-of-engineering/btech-computer-science-and-engineering",
+        "https://www.gdgoenkauniversity.com/course/school-of-engineering/btech-computer-science-and-engineering-with-specialization-in-aiml-in-association-with-ibm",
+        "https://www.gdgoenkauniversity.com/courses/"
+      ],
+      "added_in_new": [
+        "https://www.gdgoenkauniversity.com/course/btech-computer-science-and-engineering",
+        "https://www.gdgoenkauniversity.com/course/btech-in-ai-ml",
+        "https://www.gdgoenkauniversity.com/course/btech-in-cyber-security",
+        "https://www.gdgoenkauniversity.com/programmes/undergraduate",
+        "https://www.gdgoenkauniversity.com/school/school-of-engineering-sciences"
+      ],
+      "old_top5": [
+        {
+          "rank": 1,
+          "cosine": 0.7653,
+          "type": "courses",
+          "title": "GD Goenka University",
+          "source": "https://www.gdgoenkauniversity.com/academics/",
+          "len": 512
+        },
+        {
+          "rank": 2,
+          "cosine": 0.7194,
+          "type": "faculty_profile",
+          "title": "Faculty Profile - ",
+          "source": "https://www.gdgoenkauniversity.com/course/school-of-engineering/btech-computer-science-and-engineering-with-specialization-in-aiml-in-association-with-ibm",
+          "len": 456
+        },
+        {
+          "rank": 3,
+          "cosine": 0.6877,
+          "type": "faculty_profile",
+          "title": "Faculty Profile - ",
+          "source": "https://www.gdgoenkauniversity.com/course/school-of-engineering/btech-computer-science-and-engineering-with-specialization-in-aiml-in-association-with-ibm",
+          "len": 427
+        },
+        {
+          "rank": 4,
+          "cosine": 0.6795,
+          "type": "faculty_profile",
+          "title": "Faculty Profile - ",
+          "source": "https://www.gdgoenkauniversity.com/course/school-of-engineering/btech-computer-science-and-engineering",
+          "len": 155
+        },
+        {
+          "rank": 5,
+          "cosine": 0.634,
+          "type": "courses",
+          "title": "GD Goenka University",
+          "source": "https://www.gdgoenkauniversity.com/academics/",
+          "len": 389
+        }
+      ],
+      "new_top5": [
+        {
+          "rank": 1,
+          "cosine": 0.5806,
+          "type": "course",
+          "title": "Programmes",
+          "source": "https://www.gdgoenkauniversity.com/programmes/undergraduate",
+          "len": 1031
+        },
+        {
+          "rank": 2,
+          "cosine": 0.5765,
+          "type": "about",
+          "title": "School of Engineering & Sciences",
+          "source": "https://www.gdgoenkauniversity.com/school/school-of-engineering-sciences",
+          "len": 860
+        },
+        {
+          "rank": 3,
+          "cosine": 0.5755,
+          "type": "about",
+          "title": "School of Engineering & Sciences",
+          "source": "https://www.gdgoenkauniversity.com/school/school-of-engineering-sciences",
+          "len": 801
+        },
+        {
+          "rank": 4,
+          "cosine": 0.5728,
+          "type": "course",
+          "title": "Programmes",
+          "source": "https://www.gdgoenkauniversity.com/programmes/undergraduate",
+          "len": 932
+        },
+        {
+          "rank": 5,
+          "cosine": 0.567,
+          "type": "course",
+          "title": "B.Tech. in Computer Science and Engineering( B.Tech CSE)",
+          "source": "https://www.gdgoenkauniversity.com/course/btech-computer-science-and-engineering",
+          "len": 339
+        }
+      ]
+    },
+    {
+      "query": "Scholarship",
+      "category": "fee",
+      "old_chunks": 0,
+      "new_chunks": 22,
+      "old_passed_threshold": 6,
+      "new_passed_threshold": 50,
+      "old_passed_category": 0,
+      "new_passed_category": 22,
+      "old_avg_chunk_size": 0,
+      "new_avg_chunk_size": 747,
+      "old_context_len": 0,
+      "new_context_len": 4828,
+      "old_verdict": "BROKEN — zero chunks passed all filters in OLD KB",
+      "new_verdict": "GOOD — 22 chunks, avg cosine 0.552 in NEW KB",
+      "missing_in_new": [],
+      "added_in_new": [
+        "https://www.gdgoenkauniversity.com/admissions/fee-structure",
+        "https://www.gdgoenkauniversity.com/admissions/scholarships"
+      ],
+      "old_top5": [],
+      "new_top5": [
+        {
+          "rank": 1,
+          "cosine": 0.5891,
+          "type": "scholarship",
+          "title": "Scholarships",
+          "source": "https://www.gdgoenkauniversity.com/admissions/scholarships",
+          "len": 831
+        },
+        {
+          "rank": 2,
+          "cosine": 0.5581,
+          "type": "scholarship",
+          "title": "Scholarships",
+          "source": "https://www.gdgoenkauniversity.com/admissions/scholarships",
+          "len": 968
+        },
+        {
+          "rank": 3,
+          "cosine": 0.5531,
+          "type": "scholarship",
+          "title": "Scholarships",
+          "source": "https://www.gdgoenkauniversity.com/admissions/scholarships",
+          "len": 854
+        },
+        {
+          "rank": 4,
+          "cosine": 0.535,
+          "type": "scholarship",
+          "title": "Scholarships",
+          "source": "https://www.gdgoenkauniversity.com/admissions/scholarships",
+          "len": 155
+        },
+        {
+          "rank": 5,
+          "cosine": 0.5237,
+          "type": "scholarship",
+          "title": "Scholarships",
+          "source": "https://www.gdgoenkauniversity.com/admissions/scholarships",
+          "len": 761
+        }
+      ]
+    },
+    {
+      "query": "Admission process",
+      "category": "admission",
+      "old_chunks": 0,
+      "new_chunks": 29,
+      "old_passed_threshold": 11,
+      "new_passed_threshold": 50,
+      "old_passed_category": 0,
+      "new_passed_category": 29,
+      "old_avg_chunk_size": 0,
+      "new_avg_chunk_size": 636,
+      "old_context_len": 0,
+      "new_context_len": 4878,
+      "old_verdict": "BROKEN — zero chunks passed all filters in OLD KB",
+      "new_verdict": "GOOD — 29 chunks, avg cosine 0.558 in NEW KB",
+      "missing_in_new": [],
+      "added_in_new": [
+        "https://www.gdgoenkauniversity.com/admissions/faqs",
+        "https://www.gdgoenkauniversity.com/course/b-tech-in-electronics-and-communication-engineering",
+        "https://www.gdgoenkauniversity.com/course/bba-llb-hons",
+        "https://www.gdgoenkauniversity.com/course/bsc-clinical-psychology-hons",
+        "https://www.gdgoenkauniversity.com/course/llb-hons",
+        "https://www.gdgoenkauniversity.com/course/mba-in-hospitality-tourism",
+        "https://www.gdgoenkauniversity.com/course/phd-sohas-full-time",
+        "https://www.gdgoenkauniversity.com/course/phd-som-full-time"
+      ],
+      "old_top5": [],
+      "new_top5": [
+        {
+          "rank": 1,
+          "cosine": 0.6561,
+          "type": "course",
+          "title": "Ph.D SoHAS Full Time",
+          "source": "https://www.gdgoenkauniversity.com/course/phd-sohas-full-time",
+          "len": 407
+        },
+        {
+          "rank": 2,
+          "cosine": 0.5933,
+          "type": "course",
+          "title": "Ph.D SOM Full Time",
+          "source": "https://www.gdgoenkauniversity.com/course/phd-som-full-time",
+          "len": 199
+        },
+        {
+          "rank": 3,
+          "cosine": 0.5268,
+          "type": "course",
+          "title": "LLB (Hons.)",
+          "source": "https://www.gdgoenkauniversity.com/course/llb-hons",
+          "len": 370
+        },
+        {
+          "rank": 4,
+          "cosine": 0.508,
+          "type": "faq",
+          "title": "FAQs",
+          "source": "https://www.gdgoenkauniversity.com/admissions/faqs",
+          "len": 1122
+        },
+        {
+          "rank": 5,
+          "cosine": 0.5072,
+          "type": "course",
+          "title": "B.Sc. (Hons.) Clinical Psychology",
+          "source": "https://www.gdgoenkauniversity.com/course/bsc-clinical-psychology-hons",
+          "len": 880
+        }
+      ]
+    }
+  ]
+}

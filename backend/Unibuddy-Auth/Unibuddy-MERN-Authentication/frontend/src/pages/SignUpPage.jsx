@@ -6,8 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
 import { useAuthStore } from "../store/authStore";
 import { useAuthModal } from "../context/AuthModalContext";
-
-const CHATBOT_API = "http://127.0.0.1:9000";
+import { sectionsUrl } from "../config/api";
 
 const SignUpPage = ({ isModal = false }) => {
   const [formData, setFormData] = useState({
@@ -36,7 +35,7 @@ const SignUpPage = ({ isModal = false }) => {
 
   // Load section options from chatbot backend
   useEffect(() => {
-    fetch(`${CHATBOT_API}/sections`)
+    fetch(sectionsUrl)
       .then(r => r.json())
       .then(d => setSectionOptions(d.sections || []))
       .catch(() => setSectionOptions([]));

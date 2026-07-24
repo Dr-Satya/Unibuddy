@@ -10,6 +10,7 @@ import {
 import { useAuthStore } from "../store/authStore";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { studentsApiBaseUrl } from "../config/api";
 
 export default function AdminPanel() {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ export default function AdminPanel() {
   });
 
   // API Base URL
-  const API_URL = "http://localhost:5000/api/students";
+  const API_URL = studentsApiBaseUrl;
 
   // Fetch Students
   const fetchStudents = async () => {

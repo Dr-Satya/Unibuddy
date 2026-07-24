@@ -359,6 +359,44 @@ class ThreadedGroqModel(BaseThreadedModel):
         except:
             return False
 
+    def generate_stream(self, prompt: str, max_tokens: Optional[int] = None,
+                         temperature: Optional[float] = None):
+        """FEATURE 2 (streaming): generator that yields response text chunks
+        as they arrive from Groq, instead of waiting for the full
+        completion. Purely additive -- generate() above is untouched, so
+        any existing caller of generate() keeps working exactly as before.
+        Uses the Groq SDK's native stream=True support, the standard
+        OpenAI-compatible streaming interface Groq's API exposes.
+
+        Yields plain text deltas (str). On error, yields a single error
+        message string and stops, mirroring generate()'s existing
+        error-as-content behavior so callers don't need new exception
+        handling beyond what they'd already need for generate()."""
+        self._initialize()
+
+        if not self._initialized:
+            yield f"Groq client for {self.model_name} not initialized"
+            return
+
+        max_tokens = max_tokens or getattr(settings, 'MAX_TOKENS', 512)
+        temperature = temperature or getattr(settings, 'TEMPERATURE', 0.2)
+
+        try:
+            messages = [{"role": "user", "content": prompt}]
+            stream = self.client.chat.completions.create(
+                messages=messages,
+                model=self.model_name,
+                max_tokens=max_tokens,
+                temperature=temperature,
+                stream=True,
+            )
+            for chunk in stream:
+                delta = chunk.choices[0].delta.content if chunk.choices else None
+                if delta:
+                    yield delta
+        except Exception as e:
+            yield f"Groq API Error: {str(e)}. Please try again."
+
 class ThreadedModelManager:
     """Enhanced multi-threaded model manager with concurrent processing capabilities."""
     

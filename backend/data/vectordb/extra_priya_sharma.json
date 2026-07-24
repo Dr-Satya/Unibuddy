@@ -1,0 +1,21 @@
+{
+  "name": "Priya Sharma",
+  "role": "Professor",
+  "department": "Department of Computer Science and Engineering",
+  "location": null,
+  "qualification": [
+    "Ph.D. in Computer Science",
+    "Research Interests: Deep Learning, Neural Networks, Computer Vision",
+    "Experience: 20+ years in academia and industry"
+  ],
+  "education": [],
+  "research": [
+    "Deep Learning, Neural Networks, Computer Vision",
+    "Experience: 20+ years in academia and industry"
+  ],
+  "experience": [
+    "20+ years in academia and industry"
+  ],
+  "links": [],
+  "sources": []
+}

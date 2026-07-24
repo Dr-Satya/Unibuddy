@@ -1,8 +1,11 @@
 {
   "name": "Yogesh Kumar",
-  "role": null,
-  "department": null,
+  "role": "Associate Professor",
+  "department": "School of Engineering and Sciences (SoES)",
   "location": null,
+  "qualification": [
+    "Ph.D. from Veer Madho Singh Bhandari Uttarakhand Technical University, Dehradun, Uttrakhand India"
+  ],
   "education": [],
   "research": [],
   "experience": [],

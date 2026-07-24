@@ -4,6 +4,13 @@
 Write-Host "Starting UniBuddy Services..." -ForegroundColor Cyan
 Write-Host ""
 
+$frontendUrl = $env:FRONTEND_URL
+$authUrl = $env:AUTH_URL
+$chatbotUrl = $env:BACKEND_URL
+if (-not $frontendUrl -or -not $authUrl -or -not $chatbotUrl) {
+    throw "Missing required environment variables: FRONTEND_URL, AUTH_URL, BACKEND_URL"
+}
+
 # Check if running in the correct directory
 if (-not (Test-Path "package.json")) {
     Write-Host "Error: Please run this script from the UniBuddy root directory" -ForegroundColor Red
@@ -51,9 +58,9 @@ Write-Host ""
 Write-Host "All services started!" -ForegroundColor Green
 Write-Host ""
 Write-Host "Access Points:" -ForegroundColor Yellow
-Write-Host "   Frontend:        http://localhost:5173" -ForegroundColor White
-Write-Host "   Auth Backend:    http://localhost:5000" -ForegroundColor White
-Write-Host "   Chatbot Backend: http://localhost:9000" -ForegroundColor White
+Write-Host "   Frontend:        $frontendUrl" -ForegroundColor White
+Write-Host "   Auth Backend:    $authUrl" -ForegroundColor White
+Write-Host "   Chatbot Backend: $chatbotUrl" -ForegroundColor White
 Write-Host ""
 Write-Host "Tip: Close all PowerShell windows to stop all services" -ForegroundColor Cyan
 Write-Host ""
