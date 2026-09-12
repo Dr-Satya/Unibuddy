@@ -117,7 +117,7 @@ class HuggingFaceModel(BaseModel):
 class GroqModel(BaseModel):
     """Groq API integration."""
     
-    def __init__(self, model_name: str = "llama-3.1-8b-instant"):
+    def __init__(self, model_name: str = "openai/gpt-oss-20b"):
         self.model_name = model_name
         self.client = None
         self._initialized = False
@@ -198,11 +198,13 @@ class ModelManager:
     def _initialize_models(self):
         """Initialize available models."""
         # Initialize Groq models only for reliability
+        # Note: As of June 2026, Llama 3.1/3.3 models are deprecated
+        # Use openai/gpt-oss models instead
         groq_models = [
-            ("groq-llama", "llama-3.1-8b-instant"),
-            ("groq-llama-70b", "llama-3.1-70b-versatile"),
-            ("groq-gemma", "gemma2-9b-it"),
-            ("groq-mixtral", "mixtral-8x7b-32768"),
+            ("groq-llama", "openai/gpt-oss-20b"),
+            ("groq-llama-70b", "openai/gpt-oss-120b"),
+            ("groq-gemma", "qwen/qwen3.6-27b"),
+            ("groq-mixtral", "openai/gpt-oss-120b"),
         ]
         
         for name, model_name in groq_models:

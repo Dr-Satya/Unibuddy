@@ -32,6 +32,10 @@ CHUNK_OVERLAP = int(os.environ.get('CHUNK_OVERLAP', 100))
 DEBUG_RAG = os.environ.get('DEBUG_RAG', 'true').lower() in ('1','true','yes')
 VECTOR_DB_PATH = os.environ.get('VECTOR_DB_PATH', './data/vectordb/')
 
+# Groq LLM settings
+# As of June 2026, recommended models: openai/gpt-oss-120b (best quality), openai/gpt-oss-20b (fastest)
+GROQ_MODEL = os.environ.get('GROQ_MODEL', 'openai/gpt-oss-20b')
+
 # Common app settings (backward-compatible names expected by older code)
 DATABASE_URL = os.environ.get('DATABASE_URL', 'sqlite:///./data/unibuddy.db')
 SECRET_KEY = os.environ.get('SECRET_KEY', 'unibuddy_dev_secret')
@@ -52,6 +56,7 @@ class Settings:
     CHUNK_OVERLAP: int = CHUNK_OVERLAP
     DEBUG_RAG: bool = DEBUG_RAG
     VECTOR_DB_PATH: str = VECTOR_DB_PATH
+    GROQ_MODEL: str = GROQ_MODEL
     DATABASE_URL: str = DATABASE_URL
     SECRET_KEY: str = SECRET_KEY
     DEBUG: bool = DEBUG

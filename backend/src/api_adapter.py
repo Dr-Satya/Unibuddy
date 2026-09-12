@@ -29,6 +29,30 @@ def _trace_rag_lifecycle(stage: str, **fields):
         parts.append(f"{key}={value}")
     print(" | ".join(parts), flush=True)
 
+
+def _wrap_stream_reply(reply: str, data: Dict = None, sources: List = None):
+    """
+    Wrap a fast-path response as a streaming generator.
+    
+    When _stream=False, fast-paths return a dict directly.
+    When _stream=True, this converts the dict into a streaming generator
+    that emits a single 'done' event matching the format of the RAG streaming pipeline.
+    
+    Args:
+        reply: HTML reply text
+        data: Structured data (default {})
+        sources: Source URLs (default [])
+    
+    Yields:
+        dict: Single event with type='done' and response fields
+    """
+    if data is None:
+        data = {}
+    if sources is None:
+        sources = []
+    
+    yield {'type': 'done', 'reply': reply, 'data': data, 'sources': sources}
+
 # -------------------------------------------------------------------------
 # FEATURE 4: lightweight small-talk / conversational-intent detection
 # -------------------------------------------------------------------------
@@ -481,17 +505,19 @@ def parse_structured_from_text(text: str) -> Dict[str,Any]:
     # was verified to happen with the old {0,200}-character-only patterns:
     # "Qualification: PhD\nResearch Interests: X" parsed Qualification as
     # ["PhD", "Research Interests: X"] instead of just ["PhD"]).
-    _NEXT_FIELD = r"(?=\n\s*(?:Role|Department|Qualification|Education|Research Interests?|Experience|Designation)\s*[:\*]|\Z)"
-    qual = re.search(r"Qualification[:\*\n\r]+([\s\S]{0,300}?)" + _NEXT_FIELD, text)
+    # Also match bullet-format headers like "* **Experience**" for models
+    # that format structured blocks with bullets.
+    _NEXT_FIELD = r"(?=\n\s*(?:\*\s*)?(?:\*\*)?(?:Role|Department|Qualification|Education|Research Interests?|Experience|Designation)(?:\*\*)?(?:\s*[:\*]|$)|\Z)"
+    qual = re.search(r"Qualification[:\*\n\r]+([\s\S]{0,1000}?)" + _NEXT_FIELD, text)
     if qual:
         data['qualification'] = [s.strip() for s in re.split(r'[\n\r\u2022\-]+', qual.group(1)) if s.strip()][:3]
-    ed = re.search(r"Education[:\*\n\r]+([\s\S]{0,300}?)" + _NEXT_FIELD, text)
+    ed = re.search(r"Education[:\*\n\r]+([\s\S]{0,1000}?)" + _NEXT_FIELD, text)
     if ed:
         data['education'] = [s.strip() for s in re.split(r'[\n\r\u2022\-]+', ed.group(1)) if s.strip()][:3]
-    rs = re.search(r"Research Interests?[:\*\n\r]+([\s\S]{0,300}?)" + _NEXT_FIELD, text)
+    rs = re.search(r"Research Interests?[:\*\n\r]+([\s\S]{0,1000}?)" + _NEXT_FIELD, text)
     if rs:
         data['research'] = [s.strip() for s in re.split(r'[\n\r\u2022\-]+', rs.group(1)) if s.strip()][:5]
-    ex = re.search(r"Experience[:\*\n\r]+([\s\S]{0,300}?)" + _NEXT_FIELD, text)
+    ex = re.search(r"Experience[:\*\n\r]+([\s\S]{0,1000}?)" + _NEXT_FIELD, text)
     if ex:
         data['experience'] = [s.strip() for s in re.split(r'[\n\r\u2022\-]+', ex.group(1)) if s.strip()][:5]
     # FEATURE 10: never carry forward a "Not available in sources"-style
@@ -583,7 +609,7 @@ def _finish_reply(raw_text: str, category: str, top_chunks: List[Dict],
     structured = parse_structured_from_text(text)
 
     text = dedupe_sentences(text)
-    short = summarize_text(text, max_sentences=5)
+    short = summarize_text(text, max_sentences=10)
 
     # FEATURE 7: extract real source URLs directly from the retrieved
     # context's [Source: ...] tags (which trace back to metadata.json's
@@ -703,6 +729,8 @@ def get_reply(user_message: str, session_id: str = None, user_profile: Dict = No
             _trace_rag_lifecycle("get_reply:return", reason="active_timetable_session", stream=_stream)
             if session_id:
                 _store_session(session_id, user_message, timetable_answer)
+            if _stream:
+                return _wrap_stream_reply(timetable_answer)
             return {'reply': timetable_answer, 'data': {}, 'sources': []}
 
     # Mentor-Mentee fast-path (before timetable to avoid 'how many'/'faculty' clashes)
@@ -712,6 +740,8 @@ def get_reply(user_message: str, session_id: str = None, user_profile: Dict = No
             _trace_rag_lifecycle("get_reply:return", reason="mentor_fast_path", stream=_stream)
             if session_id:
                 _store_session(session_id, user_message, mentor_answer)
+            if _stream:
+                return _wrap_stream_reply(mentor_answer)
             return {'reply': mentor_answer, 'data': {}, 'sources': []}
 
     # Timetable fast-path for fresh queries
@@ -720,6 +750,8 @@ def get_reply(user_message: str, session_id: str = None, user_profile: Dict = No
         _trace_rag_lifecycle("get_reply:return", reason="fresh_timetable_fast_path", stream=_stream)
         if session_id:
             _store_session(session_id, user_message, timetable_answer)
+        if _stream:
+            return _wrap_stream_reply(timetable_answer)
         return {'reply': timetable_answer, 'data': {}, 'sources': []}
     # -------------------------------------------------------------------------
 
@@ -1251,8 +1283,7 @@ def get_reply(user_message: str, session_id: str = None, user_profile: Dict = No
 
     # FEATURE 6: increase max_tokens so longer, multi-field faculty profiles
     # or multi-part answers aren't cut off mid-sentence. 800 -> 1200 is a
-    # conservative bump (Groq's llama-3.1-8b-instant context window
-    # comfortably supports this) rather than a large jump that could
+    # conservative bump (Groq's context window comfortably supports this) rather than a large jump that could
     # encourage repetition; temperature is left unchanged at 0.1 since the
     # cutoff issue was about length, not creativity.
     _gen_start = time.time() if DEBUG_RAG else None

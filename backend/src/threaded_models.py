@@ -266,7 +266,7 @@ class ThreadedHuggingFaceModel(BaseThreadedModel):
 class ThreadedGroqModel(BaseThreadedModel):
     """Multi-threaded Groq API integration."""
     
-    def __init__(self, model_name: str = "llama-3.1-8b-instant", max_workers: int = 4):
+    def __init__(self, model_name: str = "openai/gpt-oss-20b", max_workers: int = 4):
         super().__init__()
         self.model_name = model_name
         self.max_workers = max_workers
@@ -424,11 +424,11 @@ class ThreadedModelManager:
             except Exception as e:
                 print(f"⚠️ Failed to initialize {name}: {e}")
         
-        # Initialize Groq models
+        # Initialize Groq models (updated for June 2026 deprecations)
         groq_models = [
-            ("groq-llama", "llama-3.1-8b-instant"),
-            ("groq-llama-70b", "llama-3.1-70b-versatile"),
-            ("groq-gemma", "gemma2-9b-it"),
+            ("groq-llama", "openai/gpt-oss-20b"),
+            ("groq-llama-70b", "openai/gpt-oss-120b"),
+            ("groq-gemma", "qwen/qwen3.6-27b"),
         ]
         
         for name, model_name in groq_models:

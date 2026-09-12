@@ -149,7 +149,7 @@ def parse_intent(user_message: str) -> dict:
                     {"role": "system", "content": SYSTEM_PROMPT},
                     {"role": "user", "content": user_prompt},
                 ],
-                model="llama-3.1-8b-instant",
+                model=getattr(settings, 'GROQ_MODEL', 'openai/gpt-oss-20b'),
                 max_tokens=150,
                 temperature=0.0,
             )
