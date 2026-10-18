@@ -109,8 +109,21 @@ You have access to the latest information from the GD Goenka University website 
             
             # Get RAG context using threaded system
             print("🔍 [Threading] Retrieving relevant context...")
-            rag_context = threaded_rag_system.get_context_for_query(query, max_context_length=1500)
-            
+            # rag_context = threaded_rag_system.get_context_for_query(query, max_context_length=1500)
+
+
+            # change to accomodate research module (by Parth Malik)-
+            # checks if the query is a research query, if yes, the context is provided by the research module.
+            # if no, then the flow continues as usual.
+            # -------------------------------------------------------------------
+            from src.research_module import research_module
+            is_research = research_module.is_research_query(query)
+            if is_research:
+                rag_context = research_module.get_context(query)
+            else:
+                rag_context = threaded_rag_system.get_context_for_query(query, max_context_length=1500)
+            # ----------------------------------------------------------------------
+
             # Build conversation context
             conversation_context = self._build_conversation_context(conversation_id)
             

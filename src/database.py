@@ -1,5 +1,7 @@
+import os  # added by Parth Malik: needed by DatabaseManager.__init__ to create the data folder
 from datetime import datetime
 from typing import Optional, List
+from sqlalchemy.engine import make_url  # added by Parth Malik: used to read the file path out of DATABASE_URL
 from sqlalchemy import create_engine, Column, String, Text, DateTime, Boolean, Integer, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
@@ -90,6 +92,23 @@ class DatabaseManager:
     """Manages database connections and operations."""
     
     def __init__(self):
+        # ---------------------------------------------------------------------
+        # change by Parth Malik:
+        # Problem: the default DATABASE_URL is "sqlite:///./data/uni_assistant.db".
+        #   SQLite creates the .db FILE for us but not the FOLDER it lives in, so on a
+        #   fresh checkout (no "data/" folder yet) the app crashed at startup with
+        #   "sqlite3.OperationalError: unable to open database file".
+        # Fix: if the database is a SQLite file, create its parent folder first.
+        #   - make_url() parses the URL, so this also works if DATABASE_URL is overridden
+        #     in .env with a different path.
+        #   - non-SQLite databases (e.g. postgres) and in-memory SQLite are left alone.
+        #   - exist_ok=True makes this a no-op when the folder already exists.
+        # ---------------------------------------------------------------------
+        db_url = make_url(settings.DATABASE_URL)
+        if db_url.get_backend_name() == "sqlite" and db_url.database not in (None, "", ":memory:"):
+            os.makedirs(os.path.dirname(os.path.abspath(db_url.database)), exist_ok=True)
+        # ------------------------- end of change by Parth Malik ---------------
+
         self.engine = create_engine(
             settings.DATABASE_URL,
             pool_pre_ping=True,

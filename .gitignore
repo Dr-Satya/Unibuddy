@@ -19,3 +19,9 @@ build/
 Thumbs.db
 .idea/
 .vscode/
+
+# data/ ignored - change by Parth Malik.
+# Reason: the app creates ./data/ at runtime (SQLite database with user accounts, the FAISS
+# vector indexes, and the research module's saved index). It is generated, can be rebuilt,
+# and must not be committed.
+data/

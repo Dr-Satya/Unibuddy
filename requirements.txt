@@ -12,8 +12,21 @@ transformers
 groq
 faiss-cpu
 sentence-transformers
-langchain
+# langchain pinned below 0.4 - change by Parth Malik.
+# Reason: unpinned "langchain" installs 1.x, which no longer has langchain.text_splitter
+# and langchain.docstore.document (imported in src/main.py and src/threaded_rag.py), so a
+# fresh `pip install -r requirements.txt` made the app crash on startup with
+# "ModuleNotFoundError: No module named 'langchain.text_splitter'". 0.3.x still has them.
+langchain<0.4
 numpy
 click
 rich
 colorama
+# psutil added - change by Parth Malik.
+# Reason: src/performance_monitor.py imports psutil but it was never listed here, so the
+# knowledge-base update (which uses the performance monitor) failed on a clean install.
+psutil
+# openpyxl - change by Parth Malik. Required by the research module (src/research_module.py)
+# to read the .xlsx files in reserch_data/.
+openpyxl  # required by the research module
+
